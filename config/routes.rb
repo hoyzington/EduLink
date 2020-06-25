@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'home', to: 'pages#home'
 
   get 'teachers/signup', to: 'teachers#new'
-  resources :teachers, do
+  resources :teachers do
     get 'classes/new', to: 'klasses#new'
     get 'classes/:id/edit', to: 'klasses#edit'
     get 'classes', to: 'klasses#index'
