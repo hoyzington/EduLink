@@ -3,6 +3,7 @@ class CreateTeachers < ActiveRecord::Migration[6.0]
     create_table :teachers do |t|
       t.string :first_name
       t.string :last_name
+      t.integer :id_number
       t.string :email
       t.string :password_digest
 

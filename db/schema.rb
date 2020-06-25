@@ -37,7 +37,9 @@ ActiveRecord::Schema.define(version: 2020_06_25_181509) do
   end
 
   create_table "student_statuses", force: :cascade do |t|
-    t.integer "student_number"
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "id_number"
     t.integer "exams"
     t.integer "quizes"
     t.integer "projects"
@@ -53,7 +55,7 @@ ActiveRecord::Schema.define(version: 2020_06_25_181509) do
   create_table "students", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.integer "student_number"
+    t.integer "id_number"
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
@@ -63,6 +65,7 @@ ActiveRecord::Schema.define(version: 2020_06_25_181509) do
   create_table "teachers", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
+    t.integer "id_number"
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
