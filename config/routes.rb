@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :student_statuses
+  resources :homeworks
   resources :klasses
   resources :teachers
   resources :students
