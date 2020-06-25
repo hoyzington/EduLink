@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
-  get '/', to: 'pages#home'
+  root 'pages#home'
   get 'home', to: 'pages#home'
+
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
 
   get 'teachers/signup', to: 'teachers#new'
   resources :teachers do
