@@ -1,5 +1,7 @@
 class TeachersController < ApplicationController
+
   def new
+    @object = Teacher.new
   end
 
   def create
@@ -16,4 +18,5 @@ class TeachersController < ApplicationController
 
   def destroy
   end
+
 end

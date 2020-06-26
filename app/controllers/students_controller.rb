@@ -1,5 +1,6 @@
 class StudentsController < ApplicationController
   def new
+    @object = Student.new
   end
 
   def create
