@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
 
-  get 'teachers/signup', to: 'teachers#new'
   resources :teachers do
     get 'classes/new', to: 'klasses#new'
     get 'classes/:id/edit', to: 'klasses#edit'
