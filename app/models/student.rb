@@ -5,4 +5,6 @@ class Student < ApplicationRecord
   has_many :homeworks
   has_many :klasses, through: :homeworks
 
+  has_secure_password
+
 end
