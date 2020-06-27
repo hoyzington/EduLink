@@ -1,2 +1,9 @@
-<h1>Teachers#show</h1>
-<p>Find me in app/views/teachers/show.html.erb</p>
+<h1><%= @user.full_name %></h1>
+<% if user_is_admin? %>
+  <%= link_to "Delete Profile", teacher_path, method: :delete, data: {confirm: "Are you sure?"} %>
+<% end %>
+<h2>Department: </h2>
+<h2>Classes</h2>
+<% @user.klasses.each do |klass| %>
+  <h3><%= klass.name %>, <%= klass.period %></h3>
+<% end %>
