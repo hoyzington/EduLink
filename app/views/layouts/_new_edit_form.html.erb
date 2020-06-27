@@ -1,5 +1,5 @@
-<%= form_with model: @object, class: "" do |f| %>
-  <%= f.label :id_number, "#{@object.class} ID" %>
+<%= form_with model: @user, class: "" do |f| %>
+  <%= f.label :id_number, "#{@user.class} ID" %>
   <%= f.number_field :id_number %>
   <%= f.label :first_name, "First Name" %>
   <%= f.text_field :first_name %>

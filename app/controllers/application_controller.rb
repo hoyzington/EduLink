@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def admin_or_same_user
-    if current_user != @object && !current_user.admin?
+    if current_user != @user && !current_user.admin?
       flash[:alert] = 'Unauthorized Action'
       redirect_to user_path(current_user)
     end

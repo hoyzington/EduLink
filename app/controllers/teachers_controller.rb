@@ -1,9 +1,9 @@
 class TeachersController < ApplicationController
 
-  before_action :set_object, only:[:show, :edit, :update, :destroy]
+  before_action :set_user, only:[:show, :edit, :update, :destroy]
 
   def new
-    @object = Teacher.new
+    @user = Teacher.new
   end
 
   def create
@@ -21,9 +21,9 @@ class TeachersController < ApplicationController
   end
 
   def update
-    if @object.update(object_params)
+    if @user.update(teacher_params)
       flash[:notice] = 'Your profile has been updated.'
-      redirect_to edit_teacher_path(@object)
+      redirect_to edit_teacher_path(@user)
     else
       render 'edit'
     end
@@ -42,12 +42,12 @@ class TeachersController < ApplicationController
   end
 
   def destroy
-    if @object.admin?
-      flash[:warning] = "This is the Admin account, which can be edited, but not destroyed."
-      redirect_to edit_teacher_path(@object)
+    if @user.admin?
+      flash[:alert] = "This is the Admin account, which can be edited, but not destroyed."
+      redirect_to edit_teacher_path(@user)
     else
-      @object.destroy
-      session[:user_id] = nil# if @object == current_object
+      @user.destroy
+      session[:user_id] = nil# if @user == current_user
       flash[:notice] = 'Your EduLink account has been destroyed.'
       redirect_to root_path
     end
@@ -59,8 +59,8 @@ class TeachersController < ApplicationController
     params.require(:teacher).permit(:id_number,:first_name, :last_name, :email, :password)
   end
 
-  def set_object
-    @object = Teacher.find(params[:id])
+  def set_user
+    @user = Teacher.find(params[:id])
   end
 
 end
