@@ -1,5 +1,7 @@
 class StudentsController < ApplicationController
 
+  before_action :set_object, only:[:show, :edit, :update, :destroy]
+
   def new
     @object = Student.new
   end
