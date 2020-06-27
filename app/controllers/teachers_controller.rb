@@ -21,7 +21,7 @@ class TeachersController < ApplicationController
   def update
     if @object.update(object_params)
       flash[:notice] = 'Your profile has been updated.'
-      redirect_to @object
+      redirect_to edit_teacher_path(@object)
     else
       render 'edit'
     end
@@ -33,7 +33,7 @@ class TeachersController < ApplicationController
   def destroy
     if @object.admin?
       flash[:warning] = "This is the Admin account, which can be edited, but not destroyed."
-      redirect_to @object
+      redirect_to edit_teacher_path(@object)
     else
       @object.destroy
       session[:user_id] = nil# if @object == current_object
