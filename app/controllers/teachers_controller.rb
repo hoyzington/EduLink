@@ -3,15 +3,19 @@ class TeachersController < ApplicationController
   before_action :set_user, only:[:show, :edit, :update, :destroy]
 
   def new
-    @user = Teacher.new
+    if user_is_admin?
+      @user = Teacher.new
+    else
+      flash[:alert] = "Unauthorized action"
+      redirect_to user_path(current_user)
+    end
   end
 
   def create
     teacher = Teacher.new(teacher_params)
     if teacher.save
-      session[:user_id] = teacher.id
-      flash[:notice] = "Welcome to EduLink, #{teacher.first_name}!"
-      redirect_to teacher
+      flash[:notice] = "#{teacher.full_name}'s teacher profile was created successfully."
+      redirect_to new_teacher_path
     else
       render 'new'
     end
