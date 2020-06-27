@@ -29,6 +29,15 @@ class TeachersController < ApplicationController
     end
   end
 
+  def index
+    if user_is_admin?
+      @teachers = Teacher.all.sort_by {|teacher| teacher[:last_name]}
+    else
+      flash[:alert] = 'Unauthorized Action'
+      redirect_to user_path(current_user)
+    end
+  end
+
   def show
   end
 

@@ -2,11 +2,17 @@
   <% if logged_in? %>
     <%= link_to "Home", home_path, class: "" %>
     <%= link_to "Log Out", logout_path, method: :delete, class: "" %>
-    <%= link_to "Edit Profile", edit_teacher_path(current_user), class: "" %>
-    <%= link_to "Teachers", teachers_path, class: "" %>
-    <%= link_to "Add Teacher", new_teacher_path, class: "" %>
-    <%= link_to "Classes", teacher_klasses_path(current_user), class: "" %>
-    <%= link_to "Add Class", new_teacher_klass_path(current_user), class: "" %>
+    <% if logged_in? && user_is_teacher? %>
+      <%= link_to "Edit Profile", edit_teacher_path(current_user), class: "" %>
+      <% if user_is_admin? %>
+        <%= link_to "Teachers", teachers_path, class: "" %>
+        <%= link_to "Add Teacher", new_teacher_path, class: "" %>
+        <%= link_to "Classes", teacher_klasses_path(current_user), class: "" %>
+      <% else %>
+        <%= link_to "My Classes", teacher_klasses_path(current_user), class: "" %>
+        <%= link_to "Add Class", new_teacher_klass_path(current_user), class: "" %>
+      <% end %>
+    <% end %>
   <% end %>
 </nav>
 
