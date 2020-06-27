@@ -7,7 +7,6 @@
       <% if user_is_admin? %>
         <%= link_to "Teachers", teachers_path, class: "" %>
         <%= link_to "Add Teacher", new_teacher_path, class: "" %>
-        <%= link_to "Classes", teacher_klasses_path(current_user), class: "" %>
       <% else %>
         <%= link_to "My Classes", teacher_klasses_path(current_user), class: "" %>
         <%= link_to "Add Class", new_teacher_klass_path(current_user), class: "" %>
@@ -15,4 +14,3 @@
     <% end %>
   <% end %>
 </nav>
-
