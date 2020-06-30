@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_25_181509) do
+ActiveRecord::Schema.define(version: 2020_06_30_032451) do
 
   create_table "homeworks", force: :cascade do |t|
     t.string "read", default: "None"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 2020_06_25_181509) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "dept"
   end
 
   add_foreign_key "homeworks", "klasses"
