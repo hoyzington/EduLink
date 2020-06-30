@@ -2,6 +2,7 @@ class StudentStatusesController < ApplicationController
 
   def new
     @status = StudentStatus.new(klass_id: params[:klass_id])
+    @klass = Klass.find(params[:klass_id])
   end
 
   def create
