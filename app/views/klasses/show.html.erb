@@ -1,6 +1,6 @@
 <h1><%= @klass.name %></h1>
 <h2>Period <%= @klass.period %></h2>
-<h3><%= link_to "Edit", "#" %></h3>
+<h3><%= link_to "Edit", teacher_klasses_edit_path(current_user, @klass) %></h3>
 <h2><%= link_to "Students", "#" %></h2>
 <h2>Today's Homework</h2>
 <h3>Reading: </h3>

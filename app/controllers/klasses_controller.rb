@@ -20,6 +20,12 @@ class KlassesController < ApplicationController
   end
 
   def update
+    if @klass.update(klass_params)
+      flash[:notice] = "#{@klass.name} was successfully updated."
+      redirect_to teacher_klass_path(current_user, @klass)
+    else
+      render 'edit'
+    end
   end
 
   def index
