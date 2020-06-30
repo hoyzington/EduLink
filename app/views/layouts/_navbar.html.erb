@@ -8,7 +8,8 @@
         <%= link_to "Teachers", teachers_path, class: "" %>
         <%= link_to "Add Teacher", new_teacher_path, class: "" %>
       <% else %>
-        <%= link_to "Add Class", teacher_klasses_new_path(current_user), class: "" %>
+        <%= link_to "Classes", teacher_klasses_path(current_user), class: "" %>
+        <%= new_klass_link %>
       <% end %>
     <% end %>
   <% end %>

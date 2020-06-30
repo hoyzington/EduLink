@@ -4,7 +4,6 @@ class KlassesController < ApplicationController
 
   def new
     @klass = Klass.new(teacher_id: params[:teacher_id])
-    @klasses = Klass.select {|klass| klass.teacher_id == params[:teacher_id]}
   end
 
   def create
