@@ -36,6 +36,9 @@ class KlassesController < ApplicationController
   end
 
   def destroy
+    @klass.destroy
+    flash[:notice] = "#{@klass.name}, Period #{@klass.period} has been deleted."
+    redirect_to teacher_klasses_path(current_user)
   end
 
 private

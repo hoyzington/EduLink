@@ -1,2 +1,3 @@
 <h1>Edit A Class</h1>
 <%= render 'form' %>
+<%= link_to 'Delete Class', klass_path, method: :delete, data: {confirm: "Are you sure?"} %>
