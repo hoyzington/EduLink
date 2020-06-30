@@ -1,2 +1,9 @@
-<h1>Klasses#show</h1>
-<p>Find me in app/views/klasses/show.html.erb</p>
+<h1><%= @klass.name %></h1>
+<h2>Period <%= @klass.period %></h2>
+<h3><%= link_to "Edit", "#" %></h3>
+<h2><%= link_to "Students", "#" %></h2>
+<h2>Today's Homework</h2>
+<h3>Reading: </h3>
+<h3>Exercises: </h3>
+<h3><%= link_to "Add", "#" %> <%= link_to "Edit", "#" %></h3>
+<h2><%= link_to "Past Homework", "#" %></h2>

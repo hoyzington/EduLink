@@ -1,10 +1,10 @@
 class KlassesController < ApplicationController
 
-  before_action :set_klass, only: [:edit, :update, :index, :destroy]
+  before_action :set_klass, only: [:edit, :update, :show, :destroy]
 
   def new
     @klass = Klass.new(teacher_id: params[:teacher_id])
-    @klasses = Klass.select {teacher_id: params[:teacher_id]}
+    @klasses = Klass.select {|klass| klass.teacher_id == params[:teacher_id]}
   end
 
   def create
