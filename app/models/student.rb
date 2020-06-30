@@ -7,4 +7,6 @@ class Student < ApplicationRecord
 
   has_secure_password
 
+  before_save {self.email = self.email.downcase}
+
 end
