@@ -4,6 +4,5 @@
 <% end %>
 <h2>Department: </h2>
 <h2>Classes</h2>
-<% @user.klasses.each do |klass| %>
-  <h3><%= klass.name %>, <%= klass.period %></h3>
-<% end %>
+<%= link_to "New", teacher_klasses_new_path(current_user), class: "" %>
+<%= render 'klasses/klasses' %>

@@ -8,12 +8,13 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
 
   resources :teachers do
-    get 'classes/new', to: 'klasses#new'
-    get 'classes/:id/edit', to: 'klasses#edit'
-    get 'classes', to: 'klasses#index'
-    get 'classes/:id', to: 'klasses#show'
-    resources :klasses
+    get 'classes/new', to: 'klasses#new', as: 'klasses_new'
+    get 'classes/:id/edit', to: 'klasses#edit', as: 'klasses_edit'
+    get 'classes', to: 'klasses#index', as: 'klasses'
+    get 'classes/:id', to: 'klasses#show', as: 'klass'
   end
+
+resources :klasses, only: [:create, :update, :destroy]
 
   get 'classes/:id', to: 'klasses#show' do
     resources :student_statuses

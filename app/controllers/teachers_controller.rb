@@ -43,6 +43,7 @@ class TeachersController < ApplicationController
   end
 
   def show
+    @klasses = @user.klasses
   end
 
   def destroy
