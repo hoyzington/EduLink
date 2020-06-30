@@ -43,7 +43,7 @@ class TeachersController < ApplicationController
   end
 
   def show
-    @klasses = @user.klasses
+    @klasses = Klass.by_teacher_by_period(params[:id])
   end
 
   def destroy

@@ -1,6 +1,7 @@
 class KlassesController < ApplicationController
 
   before_action :set_klass, only: [:edit, :update, :show, :destroy]
+  before_action :set_klasses, only: [:new, :index]
 
   def new
     @klass = Klass.new(teacher_id: params[:teacher_id])
@@ -47,4 +48,7 @@ private
     @klass = Klass.find(params[:id])
   end
 
+  def set_klasses
+    @klasses = Klass.by_teacher_by_period(params[:teacher_id])
+  end
 end
