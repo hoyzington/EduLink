@@ -1,2 +1,3 @@
-<h1>StudentStatuses#show</h1>
-<p>Find me in app/views/student_statuses/show.html.erb</p>
+<h1><%= @klass.name %>, Period <%= @klass.period %></h1>
+<h1><%= @student.full_name %></h1>
+<%= link_to "Edit Profile", klass_student_statuses_edit_path(@klass, @student) %>
