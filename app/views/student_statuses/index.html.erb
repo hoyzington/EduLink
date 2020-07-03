@@ -1,2 +1,5 @@
-<h1>StudentStatuses#index</h1>
-<p>Find me in app/views/student_statuses/index.html.erb</p>
+<h1><%= @klass.name %>, Period <%= @klass.period %></h1>
+<h2>Student List</h2>
+<% @students.each do |student| %>
+  <h3><%= link_to student.last_name_first, klass_student_status_path(@klass, student) %></h3>
+<% end %>

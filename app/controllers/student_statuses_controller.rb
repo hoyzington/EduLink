@@ -1,15 +1,15 @@
 class StudentStatusesController < ApplicationController
 
   def new
-    @student_status = StudentStatus.new(klass_id: params[:class_id])
-    @klass = @student_status.klass
+    @student = StudentStatus.new(klass_id: params[:class_id])
+    @klass = @student.klass
   end
 
   def create
-    @student_status = StudentStatus.new(status_params)
-    @klass = @student_status.klass
-    if @student_status.save
-      flash[:notice] = "#{@student_status.full_name} was added successfully."
+    @student = StudentStatus.new(status_params)
+    @klass = @student.klass
+    if @student.save
+      flash[:notice] = "#{@student.full_name} was added successfully."
       redirect_to klass_student_statuses_new_path(@klass)
     else
       render 'new'
@@ -23,6 +23,8 @@ class StudentStatusesController < ApplicationController
   end
 
   def index
+    @students = StudentStatus.all
+    @klass = Klass.find(params[:class_id])
   end
 
   def show

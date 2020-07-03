@@ -16,10 +16,10 @@ Rails.application.routes.draw do
 
   resources :klasses, only: [:create, :update, :destroy]
 
-  get 'classes/:class_id/student_statuses/new', to: 'student_statuses#new', as: :klass_student_statuses_new
-  # get 'classes/class_id/student_statuses/:id/edit', to: 'student_statuses#edit', as: :klass_student_statuses_edit
-  # get 'classes/class_id/student_statuses', to: 'student_statuses#index', as: :klass_student_statuses
-  # get 'classes/class_id/student_statuses/:id', to: 'student_statuses#show', as: :klass_student_status
+  get 'classes/:class_id/students/new', to: 'student_statuses#new', as: :klass_student_statuses_new
+  get 'classes/:class_id/students/:id/edit', to: 'student_statuses#edit', as: :klass_student_statuses_edit
+  get 'classes/:class_id/students', to: 'student_statuses#index', as: :klass_student_statuses
+  get 'classes/:class_id/students/:id', to: 'student_statuses#show', as: :klass_student_status
 
   resources :student_statuses, only: [:create, :update, :destroy]
 
