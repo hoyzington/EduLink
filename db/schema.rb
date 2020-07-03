@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_30_032451) do
+ActiveRecord::Schema.define(version: 2020_07_03_013517) do
 
   create_table "homeworks", force: :cascade do |t|
     t.string "read", default: "None"
@@ -40,14 +40,11 @@ ActiveRecord::Schema.define(version: 2020_06_30_032451) do
     t.string "first_name"
     t.string "last_name"
     t.integer "id_number"
-    t.integer "exams"
-    t.integer "quizes"
-    t.integer "projects"
     t.boolean "tutored?", default: false
     t.integer "klass_id", null: false
-    t.integer "student_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "student_id", default: 0
     t.index ["klass_id"], name: "index_student_statuses_on_klass_id"
     t.index ["student_id"], name: "index_student_statuses_on_student_id"
   end
@@ -77,5 +74,4 @@ ActiveRecord::Schema.define(version: 2020_06_30_032451) do
   add_foreign_key "homeworks", "students"
   add_foreign_key "klasses", "teachers"
   add_foreign_key "student_statuses", "klasses"
-  add_foreign_key "student_statuses", "students"
 end
