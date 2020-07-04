@@ -1,3 +1,4 @@
 <h1><%= @klass.name %>, Period <%= @klass.period %></h1>
 <h1><%= @student.full_name %></h1>
 <%= link_to "Edit Profile", klass_student_statuses_edit_path(@klass, @student) %>
+<%= link_to "Back to Student List", klass_student_statuses_path(@klass) %>

@@ -1,7 +1,7 @@
 class StudentStatusesController < ApplicationController
 
-  before_action :set_klass, except: [:edit, :update, :destroy]
   before_action :set_student, except: [:new, :create, :index]
+  before_action :set_klass, except: [:edit, :destroy]
 
   def new
     @student = StudentStatus.new(klass_id: params[:class_id])
@@ -21,6 +21,12 @@ class StudentStatusesController < ApplicationController
   end
 
   def update
+    if @student.update(status_params)
+      flash[:notice] = "#{@student.full_name}'s profile was successfully updated."
+      redirect_to klass_student_status_path(@klass, @student)
+    else
+      render 'edit'
+    end
   end
 
   def index
@@ -40,7 +46,7 @@ class StudentStatusesController < ApplicationController
   end
 
   def set_klass
-    @klass = Klass.find(params[:class_id])
+    @klass = Klass.find(params[:class_id] || @student.klass.id)
   end
 
   def status_params
