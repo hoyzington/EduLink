@@ -46,7 +46,7 @@ class StudentStatusesController < ApplicationController
   end
 
   def set_klass
-    @klass = Klass.find(params[:class_id] || @student.klass.id)
+    @klass = Klass.find(params[:class_id] || @student.klass_id)
   end
 
   def status_params

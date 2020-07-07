@@ -9,4 +9,8 @@ class ApplicationRecord < ActiveRecord::Base
     "#{self.last_name}, #{self.first_name}"
   end
 
+  def today
+    Time.now.strftime("%A, %m/%d/%y")
+  end
+
 end

@@ -23,10 +23,10 @@ Rails.application.routes.draw do
 
   resources :student_statuses, only: [:create, :update, :destroy]
 
-  # get 'classes/class_id/homework/new', to: 'homeworks#new', as: :klass_homeworks_new
-  # get 'classes/class_id/homework/:id/edit', to: 'homeworks#edit', as: :klass_homeworks_edit
-  # get 'classes/class_id/homework', to: 'homeworks#index', as: :klass_homeworks
-  # get 'classes/class_id/homework/:id', to: 'homeworks#show', as: :klass_homework
+  get 'classes/:class_id/homework/new', to: 'homeworks#new', as: :klass_homeworks_new
+  get 'classes/:class_id/homework/:id/edit', to: 'homeworks#edit', as: :klass_homeworks_edit
+  get 'classes/:class_id/homework', to: 'homeworks#index', as: :klass_homeworks
+  get 'classes/:class_id/homework/:id', to: 'homeworks#show', as: :klass_homework
 
     resources :homeworks, only: [:create, :update, :destroy]
 
