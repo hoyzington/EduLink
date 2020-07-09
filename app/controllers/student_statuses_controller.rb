@@ -30,7 +30,7 @@ class StudentStatusesController < ApplicationController
   end
 
   def index
-    @students = StudentStatus.all
+    @students = @klass.student_statuses
   end
 
   def show

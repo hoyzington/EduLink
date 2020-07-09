@@ -6,12 +6,11 @@ class HomeworksController < ApplicationController
   end
 
   def create
-    #byebug
     @klass = Klass.find(params[:homework][:klass_id])
     @klass.student_statuses.each do |ss|
       homework = Homework.new(homework_params)
-      homework.student_id = ss.id
-      render 'new' if !homework.save
+      homework.student_id = ss.student.id
+      homework.save
     end
     redirect_to klass_homework_path(@klass, @klass.homeworks.last)
   end

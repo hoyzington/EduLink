@@ -3,7 +3,13 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :logged_in?, :require_user, :admin_or_same_user, :user_is_teacher?, :user_is_admin?, :restore_admin
 
   def current_user
-    @current_user ||= Teacher.find(session[:user_id]) if session[:user_id]
+    if session[:user_id]
+      if session[:teacher]
+        @current_user ||= Teacher.find(session[:user_id])
+      else
+        @current_user ||= Student.find(session[:user_id])
+      end
+    end
   end
 
   def logged_in?

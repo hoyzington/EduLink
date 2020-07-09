@@ -52,6 +52,7 @@ class TeachersController < ApplicationController
       redirect_to edit_teacher_path(@user)
     else
       @user.destroy
+      session[:teacher] = nil
       session[:user_id] = nil# if @user == current_user
       flash[:notice] = 'Your EduLink account has been destroyed.'
       redirect_to root_path

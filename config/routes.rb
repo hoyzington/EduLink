@@ -30,11 +30,11 @@ Rails.application.routes.draw do
 
     resources :homeworks, only: [:create, :update, :destroy]
 
-  
-  # get 'students/signup', to: 'students#new'
-  # resources :students do
-  #   get 'student_status/:id', to: 'student_statuses#show'
-  #   get 'homework', to: 'homeworks#index'
-  # end
+  get 'students/signup', to: 'students#new'
+  post 'students/signup', to: 'students#create'
+  resources :students do
+    get 'student_status/:id', to: 'student_statuses#show'
+    get 'homework', to: 'homeworks#index'
+  end
 
 end

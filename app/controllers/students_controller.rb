@@ -1,26 +1,26 @@
 class StudentsController < ApplicationController
 
-  before_action :set_user, only:[:show, :edit, :update, :destroy]
+  before_action :set_student, only:[:show, :edit, :update, :destroy]
 
   def new
-    @user = Student.new
+    @student = Student.new
   end
 
   def create
-    student = Student.new(student_params)
-    status = StudentStatus.find_by(id_number: student.id_number)
-    if status.nil?
+    @student = Student.new(student_params)
+    @status = StudentStatus.find_by(id_number: @student.id_number)
+    if @status.nil?
       flash[:alert] = "Invalid student ID number. Please try again."
       render 'new'
-    elsif status.student
-      flash[:alert] = "Another student has created an account with this ID number. Please try again or contact your teacher."
+    elsif @status.student.id_number
+      flash[:alert] = "An account with this Student ID has already been created. Please try again or contact your teacher."
       render 'new'
     else
-      student.student_status = status
-      if student.save
-        session[:user_id] = student.id
-        flash[:notice] = "Welcome to EduLink, #{student.first_name}!"
-        redirect_to student
+      @status.student = @student
+      if @student.save
+        session[:user_id] = @student.id
+        flash[:notice] = "Welcome to EduLink, #{@student.first_name}!"
+        redirect_to @student
       else
         render 'new'
       end
@@ -32,9 +32,9 @@ class StudentsController < ApplicationController
   end
 
   def update
-    if @user.update(student_params)
+    if @student.update(student_params)
       flash[:notice] = 'Your profile has been updated.'
-      redirect_to @user
+      redirect_to @student
     else
       render 'edit'
     end
@@ -44,7 +44,7 @@ class StudentsController < ApplicationController
   end
 
   def destroy
-    @user.destroy
+    @student.destroy
     session[:user_id] = nil# if @user == current_user
     flash[:notice] = 'Your EduLink account has been destroyed; however, all your school records are still intact.'
     redirect_to root_path
@@ -56,8 +56,8 @@ class StudentsController < ApplicationController
     params.require(:student).permit(:id_number,:first_name, :last_name, :email, :password)
   end
 
-  def set_user
-    @user = Student.find(params[:id])
+  def set_student
+    @student = Student.find(params[:id])
   end
 
 end
