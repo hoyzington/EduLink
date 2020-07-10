@@ -1,13 +1,13 @@
 class TeachersController < ApplicationController
 
-  before_action :set_user, only:[:show, :edit, :update, :destroy]
+  before_action :set_teacher, only:[:show, :edit, :update, :destroy]
 
   def new
     if user_is_admin?
-      @user = Teacher.new
+      @teacher = Teacher.new
     else
       flash[:alert] = "Unauthorized action"
-      redirect_to user_path(current_user)
+      redirect_to teacher_path(current_user)
     end
   end
 
@@ -25,9 +25,9 @@ class TeachersController < ApplicationController
   end
 
   def update
-    if @user.update(teacher_params)
+    if @teacher.update(teacher_params)
       flash[:notice] = 'Your profile has been updated.'
-      redirect_to edit_teacher_path(@user)
+      redirect_to teacher_path(@teacher)
     else
       render 'edit'
     end
@@ -38,7 +38,7 @@ class TeachersController < ApplicationController
       @teachers = Teacher.all.sort_by {|teacher| teacher[:last_name]}
     else
       flash[:alert] = 'Unauthorized Action'
-      redirect_to user_path(current_user)
+      redirect_to teacher_path(current_user)
     end
   end
 
@@ -47,13 +47,13 @@ class TeachersController < ApplicationController
   end
 
   def destroy
-    if @user.admin?
+    if @teacher.admin?
       flash[:alert] = "This is the Admin account, which can be edited, but not destroyed."
-      redirect_to edit_teacher_path(@user)
+      redirect_to edit_teacher_path(@teacher)
     else
-      @user.destroy
+      @teacher.destroy
       session[:teacher] = nil
-      session[:user_id] = nil# if @user == current_user
+      session[:user_id] = nil# if @teacher == current_user
       flash[:notice] = 'Your EduLink account has been destroyed.'
       redirect_to root_path
     end
@@ -65,8 +65,8 @@ class TeachersController < ApplicationController
     params.require(:teacher).permit(:id_number,:first_name, :last_name, :email, :password)
   end
 
-  def set_user
-    @user = Teacher.find(params[:id])
+  def set_teacher
+    @teacher = Teacher.find(params[:id])
   end
 
 end

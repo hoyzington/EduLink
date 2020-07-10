@@ -1,7 +1,7 @@
 <h1><%= @klass.name %></h1>
 <h2>Period <%= @klass.period %></h2>
 <h3><%= link_to "Edit", teacher_klasses_edit_path(current_user, @klass) %></h3>
-<h2><%= link_to "Students", klass_student_statuses_path(@klass) %> <%= link_to "Add Student", klass_student_statuses_new_path(@klass) %></h2>
+<h2><%= link_to "Students", klass_student_statuses_path(@klass) if @klass.students.count > 0 %> <%= link_to "Add Student", klass_student_statuses_new_path(@klass) %></h2>
 <h2>Current Homework</h2>
 <h3>Reading: </h3>
 <h3>Exercises: </h3>

@@ -1,17 +1,20 @@
 class StudentStatusesController < ApplicationController
 
   before_action :set_student, except: [:new, :create, :index]
-  before_action :set_klass, except: [:edit, :destroy]
+  before_action :set_klass, except: [:create, :edit, :destroy]
 
   def new
-    @student = StudentStatus.new(klass_id: params[:class_id])
+    @student_status = StudentStatus.new(klass_id: params[:class_id])
   end
 
   def create
-    @student = StudentStatus.new(status_params)
-    if @student.save
-      flash[:notice] = "#{@student.full_name} was added successfully."
-      redirect_to klass_student_statuses_new_path(@klass)
+    # byebug
+    @student_status = StudentStatus.new(status_params)
+    student = Student.find_by(id_number: @student_status.id_number)
+    @student_status.student = student if student
+    if @student_status.save
+      flash[:notice] = "#{@student_status.full_name} was added successfully."
+      redirect_to klass_student_statuses_new_path(@student_status.klass)
     else
       render 'new'
     end
@@ -46,7 +49,7 @@ class StudentStatusesController < ApplicationController
   end
 
   def set_klass
-    @klass = Klass.find(params[:class_id] || @student.klass_id)
+    @klass = Klass.find(params[:class_id] || params[:klass_id] || @student.klass_id)
   end
 
   def status_params

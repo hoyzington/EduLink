@@ -1,8 +1,10 @@
-<h1><%= @user.full_name %></h1>
+<h1><%= @teacher.full_name %></h1>
 <% if user_is_admin? %>
   <%= link_to "Delete Profile", teacher_path, method: :delete, data: {confirm: "Are you sure?"} %>
 <% end %>
-<h2>Department: </h2>
+<h3>Teacher ID: <%= @teacher.id_number %></h3>
+<h3>Department: <%= @teacher.dept %></h3>
+<%= link_to "Edit Profile", edit_teacher_path(current_user) %>
 <h2>Classes</h2>
 <%= new_klass_link %>
 <%= render 'klasses/klasses' %>

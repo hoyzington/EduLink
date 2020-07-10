@@ -7,6 +7,7 @@ class Klass < ApplicationRecord
   has_many :students, through: :homeworks
 
   before_save {self.name = self.name.titlecase}
+  before_save {self.dept = self.dept.titlecase}
 
   def self.by_teacher_by_period(teacher_id)
     where(teacher: teacher_id).sort_by {|klass| klass[:period]}

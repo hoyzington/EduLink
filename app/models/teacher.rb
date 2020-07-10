@@ -7,6 +7,7 @@ class Teacher < ApplicationRecord
   has_secure_password
 
   before_save {self.email = self.email.downcase}
+  before_save {self.dept = self.dept.titlecase}
 
   def admin?
     self.id == 1

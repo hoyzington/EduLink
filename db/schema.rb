@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_03_013517) do
+ActiveRecord::Schema.define(version: 2020_07_09_180258) do
 
   create_table "homeworks", force: :cascade do |t|
     t.string "read", default: "None"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_07_03_013517) do
     t.integer "teacher_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "dept"
     t.index ["teacher_id"], name: "index_klasses_on_teacher_id"
   end
 

@@ -9,6 +9,8 @@ class KlassesController < ApplicationController
 
   def create
     @klass = Klass.new(klass_params)
+    # byebug
+    @klass.dept = current_user.dept
     if @klass.save
       flash[:notice] = "#{@klass.name} was added successfully."
       redirect_to teacher_klasses_new_path(current_user)
