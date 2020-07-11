@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_09_180258) do
+ActiveRecord::Schema.define(version: 2020_07_11_092827) do
 
   create_table "homeworks", force: :cascade do |t|
     t.string "read", default: "None"
@@ -75,4 +75,5 @@ ActiveRecord::Schema.define(version: 2020_07_09_180258) do
   add_foreign_key "homeworks", "students"
   add_foreign_key "klasses", "teachers"
   add_foreign_key "student_statuses", "klasses"
+  add_foreign_key "student_statuses", "students"
 end
