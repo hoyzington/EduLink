@@ -42,7 +42,7 @@ class StudentsController < ApplicationController
   end
 
   def show
-    @statuses = @student.student_statuses.sort_by {|ss| ss.klass[:period]}
+    @student_statuses = @student.student_statuses.sort_by {|ss| ss.klass[:period]}
   end
 
   def destroy
