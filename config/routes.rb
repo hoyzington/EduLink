@@ -33,8 +33,8 @@ Rails.application.routes.draw do
   get 'students/signup', to: 'students#new'
   post 'students/signup', to: 'students#create'
   resources :students do
-    get 'student_status/:id', to: 'student_statuses#show'
-    get 'homework', to: 'homeworks#index'
+    get 'statuses/:id', to: 'student_statuses#show', as: :student_status
+    # get 'homework/:id', to: 'homeworks#index', as: :homework
   end
 
 end

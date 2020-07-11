@@ -1,2 +1,29 @@
-<h1>Students#show</h1>
-<p>Find me in app/views/students/show.html.erb</p>
+<h1><%= @student.full_name %></h1>
+<% if user_is_teacher? %>
+  <%= link_to "Delete Profile", student_path, method: :delete, data: {confirm: "Are you sure?"} %>
+<% end %>
+<h3>Student ID: <%= @student.id_number %></h3>
+<%= link_to "Edit Profile", edit_student_path(current_user) %>
+<br><br>
+<h1>Homework For <%= homework_when %></h1>
+<p>(Click on a class to see how well you're doing)</p><br>
+
+<% @statuses.each do |status| %>
+  <h2><%= status.klass.period %> <%= link_to status.klass.name, student_student_status_path(@student, status) %></h2>
+  <% homeworks = @student.homeworks.select {|h| h.klass_id == status.klass_id} %>
+  <% if homeworks.count > 0 %>
+    <% homework = homeworks.detect {|h| h.assigned_for.today?} %>
+    <% if homework %>
+      <h4>READ: <%= homework.read %></h4>
+      <h4>EXERCISES: <%= homework.exercises %></h4>
+      <h4>OTHER: <%= homework.other %></h4>
+      <h4>NOTES: <%= homework.notes %></h4>
+    <% else %>
+      <h4>No Homework!</h4>
+    <% end %>
+  <% else %>
+    <h4>No Homework!</h4>
+  <% end %>
+  <%= link_to "Previous Homework", klass_homeworks_path(status.klass)%>
+  <br><br>
+<% end %>
