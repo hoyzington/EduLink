@@ -1,11 +1,22 @@
 module HomeworksHelper
 
-  def days_later(num)
-    60*60*24 * num
+  def weekday_only
+    if Time.now.saturday?
+      num = 2
+    elsif Time.now.sunday?
+      num = 1
+    else
+      num = 0
+    end
+    Time.now + (add_day * num)
   end
 
-  def homework_assigned?(week_day)
-    !!@klass.homeworks.detect{|h| h.date == week_day}
+  def add_day
+    60*60*24
+  end
+
+  def homework_assigned?(day)
+    !!@klass.homeworks.detect{|h| h.date == day}
   end
 
 end

@@ -1,16 +1,15 @@
 <%= form_with model: @homework, class: "" do |f| %>
   <%= f.hidden_field :klass_id %>
-  <% i = 0 %>
+  <% day = weekday_only %>
   <% 5.times do %>
-    <% week_day = Time.now + days_later(i) %>
-    <h3><%= f.radio_button :date, value: week_day %>
-    <%= f.label :date, week_day.strftime("%A, %m/%d/%y ") %>
-    <% if homework_assigned?(week_day) %>
+    <h3><%= f.radio_button :date, value: day %>
+    <%= f.label :date, day.strftime("%A, %m/%d/%y ") %>
+    <% if homework_assigned?(day) %>
       <span class="check_mark">&nbsp &#10004</span>
     <% end %></h3>
-    <% week_day.friday? ? i += 3 : i += 1 %>
+    <% day.friday? ? day += (add_day * 3) : day += add_day %>
   <% end %>
-  <p>(&#10004 -- Homework exists for that day.)</p><br>
+  <p>(&#10004 -- Homework already exists for that day.)</p><br>
   <h3><%= f.label :read, "Reading" %>
   <%= f.text_field :read %></h3>
   <h3><%= f.label :exercises %>
