@@ -1,12 +1,12 @@
 module HomeworksHelper
 
-  def weekday_only
-    if Time.now.saturday?
+  def future_weekday_only
+    if Time.now.friday?
+      num = 3
+    elsif Time.now.saturday?
       num = 2
-    elsif Time.now.sunday?
-      num = 1
     else
-      num = 0
+      num = 1
     end
     Time.now + (add_day * num)
   end
@@ -16,7 +16,7 @@ module HomeworksHelper
   end
 
   def homework_assigned?(day)
-    !!@klass.homeworks.detect{|h| h.date == day}
+    !!@klass.homeworks.detect{|h| h.date.day == day.day}
   end
 
 end

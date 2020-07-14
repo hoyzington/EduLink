@@ -25,7 +25,8 @@ Rails.application.routes.draw do
 
   get 'classes/:class_id/homework/new', to: 'homeworks#new', as: :klass_homeworks_new
   get 'classes/:class_id/homework/:id/edit', to: 'homeworks#edit', as: :klass_homeworks_edit
-  get 'classes/:class_id/homework', to: 'homeworks#index', as: :klass_homeworks
+  get 'classes/:class_id/past_homework', to: 'homeworks#index_past', as: :klass_past_homeworks
+  get 'classes/:class_id/future_homework', to: 'homeworks#index_future', as: :klass_future_homeworks
   get 'classes/:class_id/homework/:id', to: 'homeworks#show', as: :klass_homework
 
     resources :homeworks, only: [:create, :update, :destroy]
@@ -34,7 +35,7 @@ Rails.application.routes.draw do
   post 'students/signup', to: 'students#create'
   resources :students do
     get 'statuses/:id', to: 'student_statuses#show', as: :student_status
-    # get 'homework/:id', to: 'homeworks#index', as: :homework
+    get 'past_homework', to: 'homeworks#index_past', as: :past_homeworks
   end
 
 end

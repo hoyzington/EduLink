@@ -9,4 +9,5 @@
 <h3><%= link_to "Add New", klass_homeworks_new_path(@klass) %></h3>
 <h2>For <%= homework_when %></h2>
 <%= render 'layouts/current_homework' %>
-<h3><%= link_to "Past Homework", "#" %></h3>
+<h3><%= link_to "Future Homework", klass_future_homeworks_path(@klass) %></h3>
+<h3><%= link_to "Past Homework", klass_past_homeworks_path(@klass) %></h3>
