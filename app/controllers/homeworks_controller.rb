@@ -44,6 +44,13 @@ class HomeworksController < ApplicationController
   end
 
   def destroy
+    if user_is_admin?
+      Homework.all.each {|h| h.delete}
+      flash[:notice] = 'All homework assignments for all classes for the semester have been deleted.'
+    else
+      flash[:alert] = 'Unauthorized Action'
+    end
+    redirect_to home_path
   end
 
   private
