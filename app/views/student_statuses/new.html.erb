@@ -1,4 +1,4 @@
-<h1><%= @klass.name %>, Period <%= @klass.period %></h1>
+<h1><%= klass_heading_and_link(@klass) %></h1>
 <h2>Add A New Student</h2>
 <%= render 'profile_form' %>
 <%= render 'student_statuses' %>

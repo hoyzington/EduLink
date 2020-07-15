@@ -1,7 +1,7 @@
 class StudentStatusesController < ApplicationController
 
   before_action :set_student, except: [:new, :create, :index]
-  before_action :set_klass, except: [:create, :edit, :destroy]
+  before_action :set_klass, except: [:create, :edit]
 
   def new
     @student_status = StudentStatus.new(klass_id: params[:class_id])
@@ -40,6 +40,9 @@ class StudentStatusesController < ApplicationController
   end
 
   def destroy
+    @student.destroy unless @student.id_number == 0
+    flash[:notice] = 'The student has been removed from this class.'
+    redirect_to klass_students_path(@klass)
   end
 
   private

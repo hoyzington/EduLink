@@ -1,7 +1,8 @@
-<h1><%= @klass.name %>, Period <%= @klass.period %></h1>
+<h1><%= klass_heading_and_link(@klass) %></h1>
 <h2>Future Homework Assignments</h2>
 <p>(Homework assignments can not be edited on or after the day they are assigned for)</p>
-<h3><%= link_to "Add New Homework", klass_homeworks_new_path(@klass) %></h3><br>
+<h3><%= link_to_add_homework(@klass) %></h3>
+<h3><%= link_to_past_homework(@klass) %></h3><br>
 <% if @homeworks.size > 0 %>
   <% @homeworks.each do |homework| %>
     <h2><%= homework.date.strftime("%A, %m/%d/%y ") %>&nbsp
