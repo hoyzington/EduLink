@@ -8,11 +8,11 @@ class KlassesController < ApplicationController
   end
 
   def create
-    @klass = Klass.new(klass_params)
-    # byebug
-    @klass.dept = current_user.dept
-    if @klass.save
-      flash[:notice] = "#{@klass.name} was added successfully."
+    klass = Klass.new(klass_params)
+    klass.dept = current_user.dept
+    if klass.save
+      klass.create_default_student_status
+      flash[:notice] = "#{klass.name} was added successfully."
       redirect_to teacher_klasses_new_path(current_user)
     else
       render 'new'

@@ -9,6 +9,11 @@ class Klass < ApplicationRecord
   before_save {self.name = self.name.titlecase}
   before_save {self.dept = self.dept.titlecase}
 
+  def create_default_student_status
+    dss = Student.find_by(id_number: 0)
+    self.student_statuses.create(id_number: dss.id_number, first_name: dss.first_name, last_name: dss.last_name, student_id: dss.id)
+  end
+
   def self.by_teacher_by_period(teacher_id)
     where(teacher: teacher_id).sort_by {|klass| klass[:period]}
   end
