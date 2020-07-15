@@ -17,6 +17,8 @@ class HomeworksController < ApplicationController
   end
 
   def edit
+    @klass = Klass.find(params[:class_id])
+    @homework = Homework.find(params[:id])
   end
 
   def update
@@ -24,13 +26,16 @@ class HomeworksController < ApplicationController
 
   def index_future
     @klass = Klass.find(params[:class_id])
-    @homeworks = @klass.homeworks.select {|h| h.date.day > Time.now.day}
-    #byebug
+    homework_index_for_teacher
   end
 
   def index_past
     @klass = Klass.find(params[:class_id])
-    @homeworks = @klass.homeworks.select {|h| h.date.day < Time.now.day}
+    if user_is_teacher?
+      homework_index_for_teacher
+    else
+      @homeworks = current_user.homeworks.select {|h| h.date.day < Time.now.day}
+    end
   end
 
   def show
@@ -45,6 +50,11 @@ class HomeworksController < ApplicationController
 
   def homework_params
     params.require(:homework).permit(:date, :read, :exercises, :other, :notes, :klass_id, :student_id)
+  end
+
+  def homework_index_for_teacher
+    homeworks = @klass.homeworks.select {|h| h.student_id == 0}
+    @homeworks = homeworks.select {|h| h.date.day > Time.now.day}
   end
 
 end

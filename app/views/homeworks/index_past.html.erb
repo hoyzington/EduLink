@@ -1,6 +1,8 @@
 <h1><%= klass_heading_and_link(@klass) %></h1>
 <h2>Past Homework Assignments</h2>
-<h3><%= link_to_future_homework(@klass) %></h3><br>
+<% if user_is_teacher? %>
+  <h3><%= link_to_future_homework(@klass) %></h3>
+<% end %><br>
 <% if @homeworks.size > 0 %>
   <% @homeworks.each do |homework| %>
     <h2><%= homework.date.strftime("%A, %m/%d/%y ") %></h2>

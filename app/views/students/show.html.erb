@@ -11,5 +11,5 @@
   <% @klass = ss.klass %>
   <h2><%= @klass.period %> <%= link_to @klass.name, student_student_status_path(@student, ss) %></h2>
   <%= render 'layouts/current_homework' %>
-  <%= link_to "Past Homework", klass_homeworks_path(@klass)%><br><br>
+  <%= link_to_past_homework(@klass) %><br><br>
 <% end %>
