@@ -33,7 +33,7 @@ class StudentStatusesController < ApplicationController
   end
 
   def index
-    @students = @klass.student_statuses
+    @students = @klass.student_statuses.select {|ss| ss.id_number > 0}
   end
 
   def show
