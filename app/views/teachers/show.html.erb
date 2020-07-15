@@ -1,6 +1,6 @@
 <h1><%= @teacher.full_name %></h1>
 <% if user_is_admin? %>
-  <%= link_to "Delete Profile", teacher_path, method: :delete, data: {confirm: "Are you sure?"} %>
+  <%= delete_teacher_button %>
 <% end %>
 <h3>Teacher ID: <%= @teacher.id_number %></h3>
 <h3>Department: <%= @teacher.dept %></h3>
