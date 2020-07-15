@@ -3,19 +3,14 @@ class TeachersController < ApplicationController
   before_action :set_teacher, only:[:show, :edit, :update, :destroy]
 
   def new
-    if user_is_admin?
-      @teacher = Teacher.new
-    else
-      flash[:alert] = "Unauthorized action"
-      redirect_to teacher_path(current_user)
-    end
+    @teacher = Teacher.new
   end
 
   def create
     teacher = Teacher.new(teacher_params)
     if teacher.save
-      flash[:notice] = "#{teacher.full_name}'s teacher profile was created successfully."
-      redirect_to new_teacher_path
+      flash[:notice] = "Your profile was created successfully."
+      redirect_to teacher_path(teacher)
     else
       render 'new'
     end
@@ -52,9 +47,11 @@ class TeachersController < ApplicationController
       redirect_to edit_teacher_path(@teacher)
     else
       @teacher.destroy
-      session[:teacher] = nil
-      session[:user_id] = nil# if @teacher == current_user
-      flash[:notice] = 'Your EduLink account has been destroyed.'
+      if @teacher == current_user
+        session[:teacher] = nil
+        session[:user_id] = nil
+      end
+      flash[:notice] = 'The EduLink account has been destroyed.'
       redirect_to root_path
     end
   end
