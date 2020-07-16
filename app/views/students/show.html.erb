@@ -3,7 +3,9 @@
   <%= link_to "Delete Profile", student_path, method: :delete, data: {confirm: "Are you sure?"} %>
 <% end %>
 <h3>Student ID: <%= @student.id_number %></h3>
-<%= link_to "Edit Profile", edit_student_path(current_user) %><br><br>
+<% unless user_is_teacher? %>
+  <%= link_to "Edit Profile", edit_student_path(current_user) %>
+<% end %><br><br>
 
 <h1>Homework For <%= homework_when %></h1>
 <p>(Click on a class to see how well you're doing)</p><br>

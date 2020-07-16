@@ -1,5 +1,6 @@
 <h1><%= klass_heading_and_link(@klass) %></h1>
 <h2>Edit Homework Assignment for <%= @homework.date.strftime("%A, %m/%d/%y ") %></h2>
+<%= link_to "Back To Add New Homework Page", klass_homeworks_new_path(@klass) %><br><br>
 <%= form_with model: @homework, class: "" do |f| %>
   <%= f.hidden_field :klass_id %>
   <h3><%= f.label :read, "Reading" %>
