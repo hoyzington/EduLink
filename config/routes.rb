@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   resources :students do
     get 'statuses/:id', to: 'student_statuses#show', as: :student_status
     get 'past_homework', to: 'homeworks#index_past', as: :past_homeworks
+    get 'classes', to: 'klasses#index', as: :klasses
   end
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_11_092827) do
+ActiveRecord::Schema.define(version: 2020_07_16_145159) do
 
   create_table "homeworks", force: :cascade do |t|
     t.string "read", default: "None"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_07_11_092827) do
     t.text "other", default: "None"
     t.text "notes", default: "None"
     t.date "date"
-    t.boolean "done?", default: false
+    t.boolean "done", default: false
     t.integer "klass_id", null: false
     t.integer "student_id"
     t.datetime "created_at", precision: 6, null: false

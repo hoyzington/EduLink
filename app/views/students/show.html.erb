@@ -7,6 +7,7 @@
 
 <h1>Homework For <%= homework_when %></h1>
 <p>(Click on a class to see how well you're doing)</p><br>
+
 <% @student_statuses.each do |ss| %>
   <% @klass = ss.klass %>
   <h2><%= @klass.period %> <%= link_to @klass.name, student_student_status_path(@student, ss) %></h2>

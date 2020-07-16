@@ -11,6 +11,8 @@
         <%= link_to "Classes", teacher_klasses_path(current_user), class: "" %>
         <%= new_klass_link %>
       <% end %>
+    <% else %>
+      <%= link_to "Classes", student_klasses_path(current_user), class: "" %>
     <% end %>
   <% end %>
 </nav>

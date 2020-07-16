@@ -22,4 +22,14 @@ class Klass < ApplicationRecord
     self.homeworks.detect {|h| h.assigned_for.today?}
   end
 
+  def homework_for_each_student(params)
+    students = self.student_statuses
+    students.each do |s|
+      homework = Homework.new(params)
+      homework.student_id = s.student.id
+      homework.done = true if s.student.id == 0
+      homework.save
+    end
+  end
+
 end
