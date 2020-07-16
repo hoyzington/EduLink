@@ -1,7 +1,9 @@
 class HomeworksController < ApplicationController
 
+  before_action :set_klass, except:[:create, :destroy]
+  before_action :set_homework, only:[:edit, :update, :show]
+
   def new
-    @klass = Klass.find(params[:class_id])
     @homework = Homework.new(klass_id: @klass.id)
   end
 
@@ -17,20 +19,22 @@ class HomeworksController < ApplicationController
   end
 
   def edit
-    @klass = Klass.find(params[:class_id])
-    @homework = Homework.find(params[:id])
   end
 
   def update
+    if @homework.update(homework_params)
+      flash[:notice] = "The homework assignment for #{@homework.date.strftime("%A, %m/%d/%y ")} has been updated."
+      redirect_to klass_future_homeworks_path(@klass)
+    else
+      render 'edit'
+    end
   end
 
   def index_future
-    @klass = Klass.find(params[:class_id])
     homework_index_for_teacher
   end
 
   def index_past
-    @klass = Klass.find(params[:class_id])
     if user_is_teacher?
       homework_index_for_teacher
     else
@@ -39,8 +43,6 @@ class HomeworksController < ApplicationController
   end
 
   def show
-    @homework = Homework.find(params[:id])
-    @klass = Klass.find(params[:class_id])
   end
 
   def destroy
@@ -57,6 +59,14 @@ class HomeworksController < ApplicationController
 
   def homework_params
     params.require(:homework).permit(:date, :read, :exercises, :other, :notes, :klass_id, :student_id)
+  end
+
+  def set_klass
+    @klass = Klass.find(params[:class_id])
+  end
+
+  def set_homework
+    @homework = Homework.find(params[:id])
   end
 
   def homework_index_for_teacher
