@@ -6,6 +6,14 @@
 <% if @homeworks.size > 0 %>
   <% @homeworks.each do |homework| %>
     <h2><%= homework.date.strftime("%A, %m/%d/%y ") %></h2>
+    <% unless user_is_teacher? %>
+      <% @homework = homework %>
+      <%= form_with model: @homework, class: "" do |f| %>
+        <%= f.hidden_field :klass_id %>
+        <%= f.select :done, [['Done', true], ['Not Done', false]] %>
+        <%= f.submit "Update Status" %>
+      <% end %>
+    <% end %>
     <h4>READ: <%= homework.read %></h4>
     <h4>EXERCISES: <%= homework.exercises %></h4>
     <h4>OTHER: <%= homework.other %></h4>

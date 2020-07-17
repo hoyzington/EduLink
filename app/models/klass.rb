@@ -22,7 +22,7 @@ class Klass < ApplicationRecord
     self.homeworks.detect {|h| h.assigned_for.today?}
   end
 
-  def homework_for_each_student(params)
+  def new_homework_for_each_student(params)
     students = self.student_statuses
     students.each do |s|
       homework = Homework.new(params)
@@ -30,6 +30,16 @@ class Klass < ApplicationRecord
       homework.done = true if s.student.id == 0
       homework.save
     end
+  end
+
+  def past_homework_by_student(id)
+    hw = self.homeworks_by_student(id)
+    homeworks = hw.select {|h| h.date.day < Time.now.day}
+    @homeworks = homeworks.sort_by {|h| h.date}
+  end
+
+  def homeworks_by_student(id)
+    self.homeworks.select {|h| h.student_id == id}
   end
 
 end
