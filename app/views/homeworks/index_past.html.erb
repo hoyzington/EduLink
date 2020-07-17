@@ -1,4 +1,8 @@
-<h1><%= klass_heading_and_link(@klass) %></h1>
+<% if user_is_teacher? %>
+  <h1><%= klass_heading_and_link(@klass) %></h1>
+<% else %>
+  <h1><%= @klass.name %>, Period <%= @klass.period %></h1>
+<% end %>
 <h2>Past Homework Assignments</h2>
 <% if user_is_teacher? %>
   <h3><%= link_to_future_homework(@klass) %></h3>
