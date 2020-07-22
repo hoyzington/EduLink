@@ -13,13 +13,8 @@
 <% @student_statuses.each do |ss| %>
   <% @klass = ss.klass %>
   <h2><%= @klass.period %> <%= link_to @klass.name, student_student_status_path(@student, ss) %></h2>
-    <% @homework = @klass.current_homework %>
-    <% if @homework %>
-      <%= form_with model: @homework, class: "" do |f| %>
-        <%= f.select :done, [['Done', true], ['Not Done', false]] %>
-        <%= f.submit "Update Status" %>
-      <% end %>
-    <% end %>
-  <%= render 'layouts/current_homework' %>
+  <% @homework = @klass.current_homework(@id) %>
+  <%= render 'layouts/homework_status_selector' %>
+  <%= render 'layouts/homework_display' %>
   <%= link_to_past_homework(@klass) %><br><br>
 <% end %>

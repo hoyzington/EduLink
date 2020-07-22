@@ -8,7 +8,7 @@
 <h1>Homework</h1>
 <h3><%= link_to_add_homework(@klass) %></h3>
 <h2>For <%= homework_when %></h2>
-<%= render 'layouts/current_homework' %>
+<%= render 'layouts/homework_display' %>
 <p>(Homework assignments can not be edited on or after the day they are assigned for)</p>
 <h3><%= link_to_future_homework(@klass) %></h3>
 <h3><%= link_to_past_homework(@klass) %></h3>

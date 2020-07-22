@@ -1,0 +1,8 @@
+<% if @homework %>
+  <h4>READ: <%= @homework.read %></h4>
+  <h4>EXERCISES: <%= @homework.exercises %></h4>
+  <h4>OTHER: <%= @homework.other %></h4>
+  <h4>NOTES: <%= @homework.notes %></h4>
+<% else %>
+  <h4>No homework was assigned.</h4>
+<% end %>

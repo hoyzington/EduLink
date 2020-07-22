@@ -35,6 +35,8 @@ class KlassesController < ApplicationController
   end
 
   def show
+    id = DEFAULT_ID
+    @homework = @klass.current_homework(id)
   end
 
   def destroy

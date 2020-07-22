@@ -12,16 +12,9 @@
     <h2><%= homework.date.strftime("%A, %m/%d/%y ") %></h2>
     <% unless user_is_teacher? %>
       <% @homework = homework %>
-      <%= form_with model: @homework, class: "" do |f| %>
-        <%= f.hidden_field :klass_id %>
-        <%= f.select :done, [['Done', true], ['Not Done', false]] %>
-        <%= f.submit "Update Status" %>
-      <% end %>
+      <%= render 'layouts/homework_status_selector' %>
     <% end %>
-    <h4>READ: <%= homework.read %></h4>
-    <h4>EXERCISES: <%= homework.exercises %></h4>
-    <h4>OTHER: <%= homework.other %></h4>
-    <h4>NOTES: <%= homework.notes %></h4><br>
+    <%= render 'layouts/homework_display' %>
   <% end %>
 <% else %>
   <h4>No homework was assigned.</h4><br>

@@ -18,8 +18,9 @@ class Klass < ApplicationRecord
     where(teacher: teacher_id).sort_by {|klass| klass[:period]}
   end
 
-  def current_homework
-    self.homeworks.detect {|h| h.assigned_for.today?}
+  def current_homework(id)
+    hw = self.homeworks_by_student(id)
+    hw.detect {|h| h.assigned_for.today?}
   end
 
   def new_homework_for_each_student(params)

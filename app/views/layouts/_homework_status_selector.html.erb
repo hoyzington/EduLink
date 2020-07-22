@@ -1,0 +1,7 @@
+<% if @homework %>
+  <%= form_with model: @homework, class: "" do |f| %>
+    <%= f.hidden_field :klass_id %>
+    <%= f.select :done, [['Done', true], ['Not Done', false]] %>
+    <%= f.submit "Update Status" %>
+  <% end %>
+<% end %>
