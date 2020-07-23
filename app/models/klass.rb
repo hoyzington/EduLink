@@ -36,7 +36,7 @@ class Klass < ApplicationRecord
   def past_homework_by_student(id)
     hw = self.homeworks_by_student(id)
     homeworks = hw.select {|h| h.date.day < Time.now.day}
-    @homeworks = homeworks.sort_by {|h| h.date}
+    @homeworks = homeworks.sort_by {|h| h.date}.reverse
   end
 
   def homeworks_by_student(id)
