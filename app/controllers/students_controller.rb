@@ -7,20 +7,17 @@ class StudentsController < ApplicationController
   end
 
   def create
-    #byebug
     @student = Student.new(student_params)
-    @statuses = StudentStatus.select {|ss| ss.id_number == @student.id_number}
-    if @statuses.size == 0
+    @student_status = StudentStatus.detect {|ss| ss.id_number == @student.id_number}
+    if @student_status.nil?
       flash[:alert] = "Invalid student ID number. Please try again."
       render 'new'
-    elsif @statuses.first.student.id_number > 0
-      flash[:alert] = "An account with this Student ID number has already been created. Please try again or contact your teacher."
+    elsif @student_status.student.id > 0
+      flash[:alert] = "An account for this Student ID number has already been created. Please try again or contact your teacher."
       render 'new'
     elsif @student.save
-      @statuses.each do |status|
-        status.student_id = @student.id
-        status.save
-      end
+      @student_status.student_id = @student.id
+      @student_status.save
       session[:user_id] = @student.id
       flash[:notice] = "Welcome to EduLink, #{@student.first_name}!"
       redirect_to @student
