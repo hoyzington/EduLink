@@ -1,3 +1,6 @@
 <h1><%= current_user.full_name %>'s Classes</h1>
-<%= new_klass_link if user_is_teacher? %>
-<%= render 'klasses' %>
+<% if user_is_teacher? %>
+  <%= render 'teacher_klasses' %>
+<% else %>
+  <%= render 'student_klasses' %>
+<% end %>

@@ -1,0 +1,9 @@
+<p>(Click on a class to see how well you're doing)</p><br>
+<% @student_statuses.each do |ss| %>
+  <% @klass = ss.klass %>
+  <h2><%= @klass.period %> <%= link_to @klass.name, student_student_status_path(current_user, ss) %></h2>
+  <% @homework = @klass.current_homework(current_user.id) %>
+  <%= render 'layouts/homework_status_selector' %>
+  <%= render 'layouts/homework_display' %>
+  <%= link_to_past_homework(@klass) %><br><br>
+<% end %>

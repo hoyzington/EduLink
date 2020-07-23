@@ -6,15 +6,5 @@
 <% unless user_is_teacher? %>
   <%= link_to "Edit Profile", edit_student_path(current_user) %>
 <% end %><br><br>
-
 <h1>Homework For <%= homework_when %></h1>
-<p>(Click on a class to see how well you're doing)</p><br>
-
-<% @student_statuses.each do |ss| %>
-  <% @klass = ss.klass %>
-  <h2><%= @klass.period %> <%= link_to @klass.name, student_student_status_path(@student, ss) %></h2>
-  <% @homework = @klass.current_homework(@id) %>
-  <%= render 'layouts/homework_status_selector' %>
-  <%= render 'layouts/homework_display' %>
-  <%= link_to_past_homework(@klass) %><br><br>
-<% end %>
+<%= render 'klasses/student_klasses' %>
