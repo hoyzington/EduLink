@@ -1,4 +1,16 @@
-<h1><%= @klass.name %>, Period <%= @klass.period %></h1>
-<h1><%= @student.full_name %></h1>
-<%= link_to "Edit Profile", klass_student_statuses_edit_path(@klass, @student) %>
+<h1><%= klass_heading_and_link(@klass) %></h1><br>
+<h1>Student: <%= @student_status.full_name %></h1>
+<h2>Student ID: <%= @student_status.id_number %></h2>
+<%= link_to "Edit Profile", klass_student_statuses_edit_path(@klass, @student_status) %>
 <%= link_to "Back to Student List", klass_student_statuses_path(@klass) %>
+<br><br><br>
+<h2>Late Homework Assignments</h2><br>
+<% if @late_homework.count > 0 %>
+  <% @late_homework.each do |h| %>
+    <% @homework = h %>
+    <h3><%= h.date.strftime("%A, %m/%d/%y ") %></h3>
+    <%= render 'layouts/homework_display' %><br>
+  <% end %>
+<% else %>
+  <h3>None</h3>
+<% end %>

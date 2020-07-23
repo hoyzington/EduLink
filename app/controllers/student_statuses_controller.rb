@@ -34,6 +34,7 @@ class StudentStatusesController < ApplicationController
   end
 
   def show
+    @late_homework = @student_status.late_homework(@klass.id).sort_by {|h| h.date}.reverse
   end
 
   def destroy

@@ -5,7 +5,7 @@
 <h3><%= link_to_past_homework(@klass) %></h3><br>
 <% if @homeworks.size > 0 %>
   <% @homeworks.each do |homework| %>
-    <h2><%= homework.date.strftime("%A, %m/%d/%y ") %>&nbsp
+    <h2><%= homework.date.strftime("%A, %m/%d/%y ") %>&nbsp;
       <%= link_to "Edit", klass_homeworks_edit_path(@klass, homework) %></h2>
     <h4>READ: <%= homework.read %></h4>
     <h4>EXERCISES: <%= homework.exercises %></h4>
