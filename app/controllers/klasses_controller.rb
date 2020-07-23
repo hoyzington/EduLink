@@ -35,8 +35,9 @@ class KlassesController < ApplicationController
   end
 
   def show
-    id = DEFAULT_ID
-    @homework = @klass.current_homework(id)
+    @homework = @klass.current_homework(DEFAULT_ID)
+    @student_statuses = @klass.student_statuses
+    @late_students = @klass.students.uniq.select {|s| s.homeworks.detect {|h| h.done == false}} #fix!
   end
 
   def destroy

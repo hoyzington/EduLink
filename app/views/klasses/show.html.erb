@@ -2,9 +2,10 @@
 <h2>Period <%= @klass.period %></h2>
 <h3><%= link_to "Edit", teacher_klasses_edit_path(current_user, @klass) %></h3>
 <h3>
-  <%= link_to "Students", klass_student_statuses_path(@klass) if @klass.student_statuses.count > 0 %> 
+  <%= link_to "Students", klass_student_statuses_path(@klass) if @student_statuses.count > 0 %> 
   <%= link_to_add_student_status(@klass) %>
-</h3><br>
+</h3>
+<h3>Students with incomplete homework: <%= @late_students.count %></h3><br>
 <h1>Homework</h1>
 <h3><%= link_to_add_homework(@klass) %></h3>
 <h2>For <%= homework_when %></h2>
