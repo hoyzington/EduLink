@@ -1,9 +1,11 @@
 <h1><%= klass_heading_and_link(@klass) %></h1><br>
-<h1>Student: <%= @student_status.full_name %></h1>
-<h2>Student ID: <%= @student_status.id_number %></h2>
-<%= link_to "Edit Profile", klass_student_statuses_edit_path(@klass, @student_status) %>
-<%= link_to "Back to Student List", klass_student_statuses_path(@klass) %>
-<br><br><br>
+<% if user_is_teacher? %>
+  <h1>Student: <%= @student_status.full_name %></h1>
+  <h2>Student ID: <%= @student_status.id_number %></h2>
+  <%= link_to "Edit Profile", klass_student_statuses_edit_path(@klass, @student_status) %>
+  <%= link_to "Back to Student List", klass_student_statuses_path(@klass) %>
+  <br><br><br>
+<% end %>
 <h2>Quiz Grades</h2><br>
 <h2>Late Homework Assignments</h2><br>
 <% if @late_homework.count > 0 %>
