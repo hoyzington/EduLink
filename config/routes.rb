@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  get 'quiz_grades/new'
+  get 'quiz_grades/create'
+  get 'quiz_grades/edit'
+  get 'quiz_grades/update'
+  resources :quiz_grades
+
+  
   root 'pages#home'
   get 'home', to: 'pages#home'
 

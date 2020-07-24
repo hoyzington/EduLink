@@ -4,6 +4,7 @@
 <%= link_to "Edit Profile", klass_student_statuses_edit_path(@klass, @student_status) %>
 <%= link_to "Back to Student List", klass_student_statuses_path(@klass) %>
 <br><br><br>
+<h2>Quiz Grades</h2><br>
 <h2>Late Homework Assignments</h2><br>
 <% if @late_homework.count > 0 %>
   <% @late_homework.each do |h| %>
