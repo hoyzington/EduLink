@@ -1,2 +1,12 @@
-<h1>QuizGrades#new</h1>
-<p>Find me in app/views/quiz_grades/new.html.erb</p>
+<h1><%= klass_heading_and_link(@klass) %></h1>
+<h2>Enter Grades For The Chapter <%= @quiz_num %> Quiz</h2>
+<%= form_tag '/quiz_grades' do %>
+  <%= hidden_field_tag :klass_id, @klass.id %>
+  <%= hidden_field_tag :quiz_num, @quiz_num %>
+  <h3><ol>
+    <% @student_statuses.each do |ss| %>
+      <li><%= ss.last_name_first %> <%= text_field_tag "#{ss.id_number}" %></li>
+    <% end %>
+  </ol></h3>
+  <div><%= submit_tag 'Submit' %></div>
+<% end %>

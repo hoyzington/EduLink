@@ -30,7 +30,7 @@ class StudentStatusesController < ApplicationController
   end
 
   def index
-    @student_statuses = @klass.student_statuses.select {|ss| ss.id_number > 0}
+    @student_statuses = @klass.student_statuses.select {|ss| ss.id_number > 0}.sort_by {|student| student.last_name}
   end
 
   def show
