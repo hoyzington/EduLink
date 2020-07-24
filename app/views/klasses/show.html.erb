@@ -6,7 +6,7 @@
   <%= link_to_add_student_status(@klass) %>
 </h3>
 <h3>Students with incomplete homework: <%= @late_students.count %></h3><br>
-<h2><%= link_to "Enter Grades", "#" %></h2><br>
+<h2><%= link_to "Enter Quiz Grades", klass_quiz_grades_new_path(@klass) %></h2><br>
 <h2>Homework For <%= homework_when %></h2>
 <%= render 'layouts/homework_display' %>
 <p>(Homework assignments may be edited only before the day they are assigned for)</p>

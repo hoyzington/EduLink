@@ -1,5 +1,6 @@
 class StudentStatus < ApplicationRecord
 
+  has_many :quiz_grades
   belongs_to :klass
   belongs_to :student
 
