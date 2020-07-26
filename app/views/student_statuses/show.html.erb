@@ -6,8 +6,15 @@
   <%= link_to "Back to Student List", klass_student_statuses_path(@klass) %>
   <br><br><br>
 <% end %>
-<h2>Quiz Grades</h2><br>
-<h3></h3>
+<h2>Quiz Grades</h2>
+<% @quiz_grades.each do |q| %>
+  <h3>
+    Chapter <%= q.number %>: &nbsp;<%= q.grade %>%
+    <% if user_is_teacher? %>
+      &nbsp;<%= link_to 'Edit', klass_quiz_grades_edit_path(@klass, q) %>
+    <% end %>
+  </h3>
+<% end %><br>
 <h2>Late Homework Assignments</h2><br>
 <% if @late_homework.count > 0 %>
   <% @late_homework.each do |h| %>

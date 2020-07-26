@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'classes/:class_id/quiz_grades/new', to: 'quiz_grades#new', as: :klass_quiz_grades_new
-  # get 'quiz_grades/edit'
-  resources :quiz_grades, only:[:create, :update, :destroy]
-
-
   root 'pages#home'
   get 'home', to: 'pages#home'
 
@@ -34,7 +29,12 @@ Rails.application.routes.draw do
   get 'classes/:class_id/future_homework', to: 'homeworks#index_future', as: :klass_future_homeworks
   get 'classes/:class_id/homework/:id', to: 'homeworks#show', as: :klass_homework
 
-    resources :homeworks, only: [:create, :update, :destroy]
+  resources :homeworks, only: [:create, :update, :destroy]
+
+  get 'classes/:class_id/quiz_grades/new', to: 'quiz_grades#new', as: :klass_quiz_grades_new
+  get 'classes/:class_id/quiz_grades/:id/edit', to: 'quiz_grades#edit', as: :klass_quiz_grades_edit
+  
+  resources :quiz_grades, only:[:create, :update, :destroy]
 
   get 'students/signup', to: 'students#new'
   post 'students/signup', to: 'students#create'

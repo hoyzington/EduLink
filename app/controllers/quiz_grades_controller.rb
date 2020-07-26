@@ -1,19 +1,20 @@
 class QuizGradesController < ApplicationController
 
+  before_action :set_quiz_grade, only: [:edit, :update]
+  before_action :set_klass
+
   def new
-    @klass = Klass.find(params[:class_id])
     ss = @klass.student_statuses
     @student_statuses = ss.select {|ss| ss.id_number > 0}.sort_by {|s| s.last_name}
-    @quiz_num = generate_quiz_num(ss.first)
+    @quiz_num = generate_quiz_num(find_admin_or_default(ss))
   end
 
   def create
-    @klass = Klass.find(params[:klass_id])
     success = true
     @klass.student_statuses.each do |ss|
       qg = QuizGrade.new
       qg.number = params[:quiz_num]
-      qg.grade = params["#{ss.id_number}"]
+      qg.grade = params["#{ss.id_number}"] || 0
       qg.student_status_id = ss.id
       if !qg.save
         success = false
@@ -28,9 +29,20 @@ class QuizGradesController < ApplicationController
   end
 
   def edit
+    @student_status = @quiz_grade.student_status
+    unless @student_status.klass.teacher == current_user
+      flash[:alert] = 'Unauthorized Action'
+      redirect_to current_user
+    end
   end
 
   def update
+    if @quiz_grade.update(quiz_grade_params)
+      flash[:notice] = "The quiz grade was successfully updated."
+      redirect_to klass_student_status_path(@klass, @quiz_grade.student_status)
+    else
+      render 'edit'
+    end
   end
 
   private
@@ -38,6 +50,18 @@ class QuizGradesController < ApplicationController
   def generate_quiz_num(student_status)
     last_quiz = student_status.quiz_grades.last
     last_quiz ? (last_quiz.number + 1) : 1
+  end
+
+  def set_quiz_grade
+    @quiz_grade = QuizGrade.find(params[:id])
+  end
+
+  def set_klass
+    @klass = Klass.find(params[:class_id] || @quiz_grade.student_status.klass.id)
+  end
+
+  def quiz_grade_params
+    params.require(:quiz_grade).permit(:grade)
   end
 
 end

@@ -8,7 +8,7 @@ class StudentsController < ApplicationController
 
   def create
     @student = Student.new(student_params)
-    @student_status = StudentStatus.detect {|ss| ss.id_number == @student.id_number}
+    @student_status = StudentStatus.find_by(id_number: @student.id_number)
     if @student_status.nil?
       flash[:alert] = "Invalid student ID number. Please try again."
       render 'new'
