@@ -6,15 +6,17 @@
 <h2>Past Homework Assignments</h2>
 <% if user_is_teacher? %>
   <h3><%= link_to_future_homework(@klass) %></h3>
+<% else %>
+  <h3><%= link_to 'Back To Current Homework', current_user %></h3>
 <% end %><br>
 <% if @homeworks.size > 0 %>
   <% @homeworks.each do |homework| %>
     <h2><%= homework.date.strftime("%A, %m/%d/%y ") %></h2>
+    <% @homework = homework %>
     <% unless user_is_teacher? %>
-      <% @homework = homework %>
       <%= render 'layouts/homework_status_selector' %>
     <% end %>
-    <%= render 'layouts/homework_display' %>
+    <%= render 'layouts/homework_display' %><br>
   <% end %>
 <% else %>
   <h4>No homework was assigned.</h4><br>
