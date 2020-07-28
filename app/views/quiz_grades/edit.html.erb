@@ -2,6 +2,6 @@
 <h2>Chapter <%= @quiz_grade.number %> Quiz</h2>
 
 <%= form_with model: @quiz_grade, class: "" do |f| %>
-  <h2>Edit <%= @student_status.full_name %>'s grade: <%= f.text_field :grade, size: 2, maxlength: 2 %>%</h2>
-  <%= f.submit 'Update Grade' %>
+  <h2>Change <%= @student_status.full_name %>'s grade: <%= f.text_field :grade, size: 2, maxlength: 2 %>%</h2>
+  <%= f.submit 'Submit' %>
 <% end %>
