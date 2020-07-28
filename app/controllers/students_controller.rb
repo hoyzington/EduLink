@@ -12,9 +12,6 @@ class StudentsController < ApplicationController
     if @student_status.nil?
       flash[:alert] = "Invalid student ID number. Please try again."
       render 'new'
-    elsif @student_status.student.id > 0
-      flash[:alert] = "An account for this Student ID number has already been created. Please try again or contact your teacher."
-      render 'new'
     elsif @student.save
       @student_status.student_id = @student.id
       @student_status.save

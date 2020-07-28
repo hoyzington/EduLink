@@ -1,11 +1,14 @@
 class Klass < ApplicationRecord
 
   belongs_to :teacher
-  has_many :student_statuses
+  has_many :student_statuses, dependent: :destroy
   has_many :students, through: :student_statuses
   has_many :quiz_grades, through: :student_statuses
-  has_many :homeworks
+  has_many :homeworks, dependent: :destroy
   has_many :students, through: :homeworks
+
+  validates_presence_of :name
+  validates :period, presence: true, numericality: { only_integer: true, greater_than: 0, less_than: 8 }
 
   before_save {self.name = self.name.titlecase}
   before_save {self.dept = self.dept.titlecase}

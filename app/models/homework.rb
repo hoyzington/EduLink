@@ -3,6 +3,8 @@ class Homework < ApplicationRecord
   belongs_to :klass
   belongs_to :student
 
+  validates_presence_of :date
+
   def assigned_for
     today = Time.now
     if today.saturday?

@@ -1,4 +1,4 @@
-<%= new_klass_link %><br><br>
+<br><br>
 <% @klasses.each do |klass| %>
   <h2><%= klass.period %> <%= link_to klass.name, teacher_klass_path(klass.teacher, klass) %></h2>
 <% end %>

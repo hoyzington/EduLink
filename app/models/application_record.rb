@@ -1,5 +1,8 @@
 class ApplicationRecord < ActiveRecord::Base
+
   self.abstract_class = true
+
+  VALID_EMAIL = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   def full_name
     "#{self.first_name} #{self.last_name}"
@@ -8,9 +11,5 @@ class ApplicationRecord < ActiveRecord::Base
   def last_name_first
     "#{self.last_name}, #{self.first_name}"
   end
-
-  # def today
-  #   Time.now.strftime("%A, %m/%d/%y")
-  # end
 
 end
