@@ -1,4 +1,5 @@
-<%= form_with model: @klass, class: "" do |f| %>
+<%= render 'layouts/errors', obj: @klass %>
+<%= form_with model: @klass, local: true, class: "" do |f| %>
   <%= f.hidden_field :teacher_id %>
   <%= f.label :name, "Class Name" %>
   <%= f.text_field :name %>

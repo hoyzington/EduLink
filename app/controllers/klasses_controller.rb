@@ -1,18 +1,18 @@
 class KlassesController < ApplicationController
 
   before_action :set_klass, only: [:edit, :update, :show, :destroy]
-  before_action :set_klasses_or_student_statuses, only: [:new, :index]
+  before_action :set_klasses_or_student_statuses, only: [:new, :create, :index]
 
   def new
     @klass = Klass.new(teacher_id: params[:teacher_id])
   end
 
   def create
-    klass = Klass.new(klass_params)
-    klass.dept = current_user.dept
-    if klass.save
-      klass.create_default_student_status
-      flash[:notice] = "#{klass.name} was added successfully."
+    @klass = Klass.new(klass_params)
+    @klass.dept = current_user.dept
+    if @klass.save
+      @klass.create_default_student_status
+      flash[:notice] = "#{@klass.name} was added successfully."
       redirect_to teacher_klasses_new_path(current_user)
     else
       render 'new'
@@ -58,7 +58,7 @@ private
 
   def set_klasses_or_student_statuses
     if user_is_teacher?
-      @klasses = Klass.by_teacher_by_period(params[:teacher_id])
+      @klasses = (Klass.by_teacher_by_period(params[:teacher_id]) || Klass.by_teacher_by_period(params[:klass][:teacher_id]))
     else
       @student_statuses = current_user.student_statuses.sort_by {|ss| ss.klass[:period]}
     end

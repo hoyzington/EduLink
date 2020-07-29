@@ -1,3 +1,4 @@
+<%= render 'layouts/errors', obj: @teacher %>
 <%= form_with model: @teacher, class: "" do |f| %>
   <%= f.label :id_number, "Teacher ID" %>
   <%= f.number_field :id_number %>

@@ -8,6 +8,7 @@ class Klass < ApplicationRecord
   has_many :students, through: :homeworks
 
   validates_presence_of :name
+  validates_presence_of :dept
   validates :period, presence: true, numericality: { only_integer: true, greater_than: 0, less_than: 8 }
 
   before_save {self.name = self.name.titlecase}
