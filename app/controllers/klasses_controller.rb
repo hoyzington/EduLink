@@ -58,9 +58,10 @@ private
 
   def set_klasses_or_student_statuses
     if user_is_teacher?
-      @klasses = (Klass.by_teacher_by_period(params[:teacher_id]) || Klass.by_teacher_by_period(params[:klass][:teacher_id]))
+      @klasses = current_user.klasses.sort_by {|k| k[:period]}
     else
       @student_statuses = current_user.student_statuses.sort_by {|ss| ss.klass[:period]}
     end
   end
+
 end

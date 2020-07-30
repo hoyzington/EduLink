@@ -1,9 +1,13 @@
-<%= render 'layouts/errors', obj: @klass %>
-<%= form_with model: @klass, local: true, class: "" do |f| %>
+<%= render 'layouts/errors', obj: @klass %><br>
+<%= form_for @klass do |f| %>
   <%= f.hidden_field :teacher_id %>
-  <%= f.label :name, "Class Name" %>
-  <%= f.text_field :name %>
-  <%= f.label :period, "Period" %>
-  <%= f.text_field :period %>
-  <%= f.submit "Submit" %>
+  <div>
+    <h3><%= f.label :name, "Class Name" %>
+    <%= f.text_field :name %></h3>
+  </div>
+  <div>
+    <h3><%= f.label :period, "Period" %>
+    <%= f.text_field :period %></h3>
+  </div>
+  <div><h3><%= f.submit "Submit" %></h3></div>
 <% end %>

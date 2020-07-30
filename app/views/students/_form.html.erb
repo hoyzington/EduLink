@@ -1,14 +1,14 @@
-<%= render 'layouts/errors', obj: @student %>
-<%= form_with model: @student, class: "" do |f| %>
-  <%= f.label :id_number, "Student ID" %>
-  <%= f.number_field :id_number %>
-  <%= f.label :first_name, "First Name" %>
-  <%= f.text_field :first_name %>
-  <%= f.label :last_name, "Last Name" %>
-  <%= f.text_field :last_name %>
-  <%= f.label :email %>
-  <%= f.email_field :email %>
-  <%= f.label :password %>
-  <%= f.password_field :password %>
-  <%= f.submit "Submit" %>
+<%= render 'layouts/errors', obj: @student %><br>
+<%= form_for @student do |f| %>
+  <h3><%= f.label :id_number, "Student ID" %>
+  <%= f.number_field :id_number %></h3>
+  <h3><%= f.label :first_name, "First Name" %>
+  <%= f.text_field :first_name %></h3>
+  <h3><%= f.label :last_name, "Last Name" %>
+  <%= f.text_field :last_name %></h3>
+  <h3><%= f.label :email %>
+  <%= f.email_field :email %></h3>
+  <h3><%= f.label :password %>
+  <%= f.password_field :password %></h3>
+  <h3><%= f.submit "Submit" %></h3>
 <% end %>
