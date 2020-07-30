@@ -2,7 +2,7 @@
 <h2>Edit Homework Assignment for <%= @homework.date.strftime("%A, %m/%d/%y ") %></h2>
 <%= link_to "Back To Add New Homework Page", klass_homeworks_new_path(@klass) %><br><br>
 <%= render 'layouts/errors', obj: @homework %>
-<%= form_with model: @homework, class: "" do |f| %>
+<%= form_for @homework do |f| %>
   <%= f.hidden_field :klass_id %>
   <h3><%= f.label :read, "Reading" %>
   <%= f.text_field :read %></h3>

@@ -1,5 +1,5 @@
 <%= render 'layouts/errors', obj: @student_status %>
-<%= form_with model: @student_status, class: "" do |f| %>
+<%= form_for @student_status do |f| %>
   <%= f.hidden_field :klass_id %>
   <%= f.label :id_number, "Student ID" %>
   <%= f.number_field :id_number %>

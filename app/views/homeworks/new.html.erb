@@ -1,7 +1,7 @@
 <h1><%= klass_heading_and_link(@klass) %></h1>
 <h2>Add New Homework</h2><br>
 <%= render 'layouts/errors', obj: @homework %>
-<%= form_with model: @homework, class: "" do |f| %>
+<%= form_for @homework do |f| %>
   <%= f.hidden_field :klass_id %>
   <% day = future_weekday_only %>
   <% 5.times do %>
