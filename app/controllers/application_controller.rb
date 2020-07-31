@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :logged_in?, :require_user, :admin_or_same_user, :user_is_teacher?, :user_is_admin?, :restore_admin, :check_default_student, :find_admin_or_default, :unauthorized
 
-  DEFAULT_ID = 0
+  FIRST_ID = 0
 
   def current_user
     if session[:user_id]

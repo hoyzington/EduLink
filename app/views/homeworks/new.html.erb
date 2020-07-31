@@ -1,6 +1,5 @@
 <h1><%= klass_heading_and_link(@klass) %></h1>
-<br>
-<h2>Add New Homework</h2>
+<h1>Add New Homework</h1>
 <br>
 <%= render 'layouts/errors', obj: @homework %>
 <%= form_for @homework do |f| %>
@@ -18,7 +17,8 @@
     <% end %>
     <% day.friday? ? day += (add_day * 3) : day += add_day %>
   <% end %>
-  <p>(&#10004 -- Homework already exists for that day.)</p><br>
+  <p>(&#10004 -- Homework already exists for this day.)</p>
+  <br>
   <h3><%= f.label :read, "Reading" %>
   <%= f.text_field :read %></h3>
   <h3><%= f.label :exercises %>

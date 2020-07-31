@@ -9,8 +9,15 @@ class HomeworksController < ApplicationController
 
   def create
     @klass = Klass.find(params[:homework][:klass_id])
-    @klass.new_homework_for_each_student(homework_params)
-    redirect_to klass_homeworks_new_path(@klass)
+    @homework = homework_for_first_student
+    if @homework.save
+      @student_statuses = @klass.student_statuses
+      @student_statuses.shift
+      homework_for_remaining_students(@student_statuses)
+      redirect_to klass_homeworks_new_path(@klass)
+    else
+      render 'new'
+    end
   end
 
   def edit
@@ -81,6 +88,21 @@ class HomeworksController < ApplicationController
 
   def set_homework
     @homework = Homework.find(params[:id])
+  end
+
+  def homework_for_first_student
+    homework = Homework.new(homework_params)
+    homework.student_id = FIRST_ID
+    homework.done = true
+    homework
+  end
+
+  def homework_for_remaining_students(student_statuses)
+    student_statuses.each do |s|
+      homework = Homework.new(params)
+      homework.student_id = s.student_id
+      homework.save
+    end
   end
 
 end

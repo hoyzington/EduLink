@@ -15,8 +15,8 @@ class Klass < ApplicationRecord
   before_save {self.dept = self.dept.titlecase}
 
   def create_default_student_status
-    dss = Student.find_by(id_number: 0)
-    self.student_statuses.create(id_number: dss.id_number, first_name: dss.first_name, last_name: dss.last_name, student_id: dss.id)
+    ds = Student.find_by(id_number: 0)
+    self.student_statuses.create(id_number: ds.id_number, first_name: ds.first_name, last_name: ds.last_name, student_id: ds.id)
   end
 
   def self.by_teacher_by_period(teacher_id)
@@ -26,16 +26,6 @@ class Klass < ApplicationRecord
   def current_homework(id)
     hw = self.homeworks_by_student(id)
     hw.detect {|h| h.assigned_for.today?}
-  end
-
-  def new_homework_for_each_student(params)
-    students = self.student_statuses
-    students.each do |s|
-      homework = Homework.new(params)
-      homework.student_id = s.student.id
-      homework.done = true if s.student.id == 0
-      homework.save
-    end
   end
 
   def past_homework_by_student(id)
