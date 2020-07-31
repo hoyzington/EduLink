@@ -1,11 +1,12 @@
 <%= render 'layouts/errors', obj: @student_status %>
 <%= form_for @student_status do |f| %>
   <%= f.hidden_field :klass_id %>
-  <%= f.label :id_number, "Student ID" %>
-  <%= f.number_field :id_number %>
-  <%= f.label :first_name, "First Name" %>
-  <%= f.text_field :first_name %>
-  <%= f.label :last_name, "Last Name" %>
-  <%= f.text_field :last_name %>
-  <%= f.submit "Submit" %>
+  <h3><%= f.label :id_number, "Student ID" %>
+  <%= f.number_field :id_number %></h3>
+  <h3><%= f.label :first_name, "First Name" %>
+  <%= f.text_field :first_name %></h3>
+  <h3><%= f.label :last_name, "Last Name" %>
+  <%= f.text_field :last_name %></h3>
+  <h3><%= f.submit "Submit" %></h3>
 <% end %>
+<br>

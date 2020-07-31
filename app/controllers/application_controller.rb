@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  helper_method :current_user, :logged_in?, :require_user, :admin_or_same_user, :user_is_teacher?, :user_is_admin?, :restore_admin, :check_default_student, :find_admin_or_default
+  helper_method :current_user, :logged_in?, :require_user, :admin_or_same_user, :user_is_teacher?, :user_is_admin?, :restore_admin, :check_default_student, :find_admin_or_default, :unauthorized
 
   DEFAULT_ID = 0
 
@@ -54,6 +54,11 @@ class ApplicationController < ActionController::Base
 
   def find_admin_or_default(array)
     array.detect {|s| s.id_number == DEFAULT_ID}
+  end
+
+  def unauthorized
+    flash[:alert] = "Unauthorized Action"
+    redirect_to home_path
   end
 
 end

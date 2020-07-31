@@ -1,7 +1,7 @@
 class StudentStatusesController < ApplicationController
 
   before_action :set_student_status, except: [:new, :create, :index]
-  before_action :set_klass, except: [:create, :edit]
+  before_action :set_klass, except: [:edit]
 
   def new
     @student_status = StudentStatus.new(klass_id: params[:class_id])
@@ -51,7 +51,7 @@ class StudentStatusesController < ApplicationController
   end
 
   def set_klass
-    @klass = Klass.find(params[:class_id] || params[:klass_id] || @student_status.klass_id)
+    @klass = Klass.find(params[:class_id] || params[:klass_id] || params[:student_status][:klass_id] ||@student_status.klass_id)
   end
 
   def status_params

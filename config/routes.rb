@@ -14,12 +14,16 @@ Rails.application.routes.draw do
     get 'classes/:id', to: 'klasses#show', as: :klass
   end
 
+  get '/klasses', to: 'klasses#new'
+
   resources :klasses, only: [:create, :update, :destroy]
 
   get 'classes/:class_id/students/new', to: 'student_statuses#new', as: :klass_student_statuses_new
   get 'classes/:class_id/students/:id/edit', to: 'student_statuses#edit', as: :klass_student_statuses_edit
   get 'classes/:class_id/students', to: 'student_statuses#index', as: :klass_student_statuses
   get 'classes/:class_id/students/:id', to: 'student_statuses#show', as: :klass_student_status
+
+  get '/student_statuses', to: 'student_statuses#new'
 
   resources :student_statuses, only: [:create, :update, :destroy]
 
@@ -29,11 +33,15 @@ Rails.application.routes.draw do
   get 'classes/:class_id/future_homework', to: 'homeworks#index_future', as: :klass_future_homeworks
   get 'classes/:class_id/homework/:id', to: 'homeworks#show', as: :klass_homework
 
+  get '/homeworks', to: 'homeworks#new'
+
   resources :homeworks, only: [:create, :update, :destroy]
 
   get 'classes/:class_id/quiz_grades/new', to: 'quiz_grades#new', as: :klass_quiz_grades_new
   get 'classes/:class_id/quiz_grades/:id/edit', to: 'quiz_grades#edit', as: :klass_quiz_grades_edit
-  
+
+  get '/quiz_grades', to: 'quiz_grades#new'
+
   resources :quiz_grades, only:[:create, :update, :destroy]
 
   get 'students/signup', to: 'students#new'

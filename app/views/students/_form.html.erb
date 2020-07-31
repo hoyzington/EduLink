@@ -1,4 +1,4 @@
-<%= render 'layouts/errors', obj: @student %><br>
+<%= render 'layouts/errors', obj: @student %>
 <%= form_for @student do |f| %>
   <h3><%= f.label :id_number, "Student ID" %>
   <%= f.number_field :id_number %></h3>
@@ -12,3 +12,4 @@
   <%= f.password_field :password %></h3>
   <h3><%= f.submit "Submit" %></h3>
 <% end %>
+<br>

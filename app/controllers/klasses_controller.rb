@@ -4,7 +4,11 @@ class KlassesController < ApplicationController
   before_action :set_klasses_or_student_statuses, only: [:new, :create, :index]
 
   def new
-    @klass = Klass.new(teacher_id: params[:teacher_id])
+    if user_is_teacher?
+      @klass = Klass.new(teacher_id: current_user.id)
+    else
+      unauthorized
+    end
   end
 
   def create
