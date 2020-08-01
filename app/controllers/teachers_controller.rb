@@ -3,7 +3,15 @@ class TeachersController < ApplicationController
   before_action :set_teacher, only:[:show, :edit, :update, :destroy]
 
   def new
-    @teacher = Teacher.new
+    if !user_is_teacher?
+      unauthorized
+    elsif !user_is_admin?
+      session[:teacher] = nil
+      session[:user_id] = nil
+      @teacher = Teacher.new
+    else
+      @teacher = Teacher.new
+    end
   end
 
   def create
@@ -32,8 +40,7 @@ class TeachersController < ApplicationController
     if user_is_admin?
       @teachers = Teacher.all.sort_by {|teacher| teacher.last_name}
     else
-      flash[:alert] = 'Unauthorized Action'
-      redirect_to teacher_path(current_user)
+      unauthorized
     end
   end
 
