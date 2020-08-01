@@ -1,16 +1,9 @@
 <h1><%= klass_heading_and_link(@klass) %></h1>
-<h2>Edit Homework Assignment for <%= @homework.date.strftime("%A, %m/%d/%y ") %></h2>
+<h2>Edit Homework Assignment for <%= @homework.date.strftime(day_format) %></h2>
 <%= link_to "Back To Add New Homework Page", klass_homeworks_new_path(@klass) %><br><br>
 <%= render 'layouts/errors', obj: @homework %>
 <%= form_for @homework do |f| %>
   <%= f.hidden_field :klass_id %>
-  <h3><%= f.label :read, "Reading" %>
-  <%= f.text_field :read %></h3>
-  <h3><%= f.label :exercises %>
-  <%= f.text_field :exercises %></h3>
-  <h3><%= f.label :other %>
-  <%= f.text_area :other, rows: 6 %></h3>
-  <h3><%= f.label :notes %>
-  <%= f.text_area :notes, rows: 6 %></h3>
-  <%= f.submit "Submit" %>
+  <% @f = f %>
+  <%= render 'form' %>
 <% end %>

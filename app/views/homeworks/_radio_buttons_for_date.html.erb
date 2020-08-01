@@ -1,0 +1,11 @@
+  <% assign_date = future_weekday_only %>
+  <% 5.times do %>
+    <% if homework_assigned?(assign_date) %>
+      <% homework = fetch_homework(@klass, assign_date) %>
+      <h3>&#10004;&nbsp;<%= link_to assign_date.strftime(day_format), klass_homeworks_edit_path(@klass, homework) %></h3>
+    <% else %>
+      <h3><%= @f.radio_button :date, value: assign_date %>
+      <%= @f.label :date, assign_date.strftime(day_format) %></h3>
+    <% end %>
+    <% assign_date = next_day(assign_date) %>
+  <% end %>

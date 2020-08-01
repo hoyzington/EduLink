@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def day_format
+    "%A, %m/%d/%y "
+  end
+
   def homework_when
     Time.now.on_weekend? ? "This Weekend" : "Today (#{Time.now.strftime("%A")})"
   end

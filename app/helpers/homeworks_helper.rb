@@ -11,12 +11,22 @@ module HomeworksHelper
     Time.now + (add_day * num)
   end
 
-  def add_day
-    60*60*24
+  def homework_assigned?(assign_date)
+    !!@klass.homeworks.detect{|h| h.date.day == assign_date.day}
   end
 
-  def homework_assigned?(day)
-    !!@klass.homeworks.detect{|h| h.date.day == day.day}
+  def fetch_homework(klass, assign_date)
+    homeworks = klass.homeworks.select {|h| h.student_id == 0}
+    homeworks.detect {|h| h.date.day == assign_date.day}
+  end
+
+  def next_day(date)
+    date.friday? ? date += (add_day * 3) : date += add_day
+    date
+  end
+
+  def add_day
+    60*60*24
   end
 
 end
