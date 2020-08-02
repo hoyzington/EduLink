@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  helper_method :current_user, :logged_in?, :require_user, :admin_or_same_user, :user_is_teacher?, :user_is_admin?, :restore_admin, :check_default_student, :find_admin_or_default, :unauthorized
+  helper_method :current_user, :logged_in?, :require_user, :admin_or_same_user, :user_is_teacher?, :user_is_admin?, :restore_admin, :check_first_student, :find_admin_or_default, :unauthorized
 
   FIRST_ID = 0
 
@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def check_default_student
+  def check_first_student
     if !Student.find_by(id_number: 0)
       Student.create(id: 0, first_name: "Default", last_name: "Student", id_number: 0, email: "default@email.com", password: "password")
     end

@@ -47,7 +47,7 @@ class TeachersController < ApplicationController
   def show
     @klasses = Klass.by_teacher_by_period(params[:id])
     if user_is_admin?
-      check_default_student
+      check_first_student
     end
   end
 

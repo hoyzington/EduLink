@@ -1,10 +1,11 @@
 class StudentStatusesController < ApplicationController
 
-  before_action :set_student_status, except: [:new, :create, :index]
+  before_action :set_student_status, except: [:new, :create, :index, :index_non_edulink]
   before_action :set_klass, except: [:edit]
 
   def new
     @student_status = StudentStatus.new(klass_id: params[:class_id])
+    @student_statuses = @klass.student_statuses || []
   end
 
   def create
@@ -31,6 +32,10 @@ class StudentStatusesController < ApplicationController
 
   def index
     @student_statuses = @klass.student_statuses.select {|ss| ss.id_number > 0}.sort_by {|student| student.last_name}
+  end
+
+  def index_non_edulink
+    @student_statuses = @klass.non_edulink_students.sort_by {|s| s[:last_name]}
   end
 
   def show

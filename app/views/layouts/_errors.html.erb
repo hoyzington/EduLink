@@ -1,5 +1,5 @@
+<br>
 <% if obj.errors.any? %>
-  <br>
   <h3>The following <%= obj.errors.size > 1 ? 'errors' : 'error' %> occurred:</h3>
   <ul>
     <% obj.errors.full_messages.each do |message| %>

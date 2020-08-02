@@ -14,13 +14,17 @@ class Klass < ApplicationRecord
   before_save {self.name = self.name.titlecase}
   before_save {self.dept = self.dept.titlecase}
 
-  def create_default_student_status
+  def create_first_student_status
     ds = Student.find_by(id_number: 0)
     self.student_statuses.create(id_number: ds.id_number, first_name: ds.first_name, last_name: ds.last_name, student_id: ds.id)
   end
 
   def self.by_teacher_by_period(teacher_id)
     where(teacher: teacher_id).sort_by {|klass| klass[:period]}
+  end
+
+  def non_edulink_students
+    self.student_statuses.select {|ss| ss.student_id == FIRST_ID && ss.id_number > FIRST_ID}
   end
 
   def current_homework(id)

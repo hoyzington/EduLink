@@ -49,18 +49,20 @@ class HomeworksController < ApplicationController
   end
 
   def index_future
-    # uses the default student's id
-    hw = @klass.homeworks_by_student(0)
+    hw = @klass.homeworks_by_student(FIRST_ID)
     @homeworks = hw.select {|h| h.date.day > Time.now.day}
   end
 
   def index_past
     if user_is_teacher?
-      # uses the default student's id
-      @homeworks = @klass.past_homework_by_student(0)
+      @homeworks = @klass.past_homework_by_student(FIRST_ID)
     else
       @homeworks = @klass.past_homework_by_student(current_user.id)
     end
+  end
+
+  def index_late
+    @late_homeworks = @klass.homeworks.select {|h| h.done == false}.sort_by {|h| h.date}.reverse
   end
 
   def show

@@ -15,7 +15,7 @@ class KlassesController < ApplicationController
     @klass = Klass.new(klass_params)
     @klass.dept = current_user.dept
     if @klass.save
-      @klass.create_default_student_status
+      @klass.create_first_student_status
       flash[:notice] = "#{@klass.name} was added successfully."
       redirect_to teacher_klasses_new_path(current_user)
     else
@@ -42,6 +42,7 @@ class KlassesController < ApplicationController
     @homework = @klass.current_homework(FIRST_ID)
     @student_statuses = @klass.student_statuses
     @late_students = @klass.students.uniq.select {|s| s.homeworks.detect {|h| h.done == false}} #fix!
+    @non_edulink_students = @klass.non_edulink_students
   end
 
   def destroy
