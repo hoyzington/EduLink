@@ -11,6 +11,7 @@
 
   <body>
     <%= render 'layouts/navbar' %>
+    <h3><%= render 'layouts/flash_msgs' if flash.keys %></h3>
     <br>
     <%= yield %>
   </body>
