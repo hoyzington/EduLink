@@ -1,5 +1,7 @@
 module ApplicationHelper
 
+  FIRST_ID = 0
+
   def day_format
     "%A, %m/%d/%y "
   end
@@ -11,7 +13,9 @@ module ApplicationHelper
   # Links
 
   def link_to_delete(obj)
-    link_to "Delete #{obj}", obj, method: :delete, data: { confirm: "Are you sure?" }
+    unless obj.class == Teacher && obj.id_number == FIRST_ID
+      link_to "Delete #{obj.class}", obj, method: :delete, data: { confirm: "Are you sure?" }
+    end
   end
 
   # Klass Links

@@ -45,9 +45,13 @@ class TeachersController < ApplicationController
   end
 
   def show
-    @klasses = Klass.by_teacher_by_period(params[:id])
-    if user_is_admin?
-      check_first_student
+    if user_is_teacher? && (user_is_admin? || @teacher == current_user)
+      @klasses = Klass.by_teacher_by_period(params[:id])
+      if user_is_admin?
+        check_first_student
+      end
+    else
+      unauthorized
     end
   end
 
@@ -69,7 +73,7 @@ class TeachersController < ApplicationController
   private
 
   def teacher_params
-    params.require(:teacher).permit(:id_number,:first_name, :last_name, :email, :password)
+    params.require(:teacher).permit(:id_number,:first_name, :last_name, :dept, :email, :password)
   end
 
   def set_teacher

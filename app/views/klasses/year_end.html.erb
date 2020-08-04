@@ -1,0 +1,7 @@
+<h1>EduLink End Of Year Proceedure</h1>
+<br>
+<p>This automated proceedure must be, and may only be, performed after the last of the final exams have occurred.</p>
+<p>This will delete the Edulink data for all classes, students, and all related data, but will not delete any teacher profiles.</p>
+<p>Once performed, the proceedure cannot be undone!</p>
+<br><br>
+<%= link_to 'Perform End_Of_Year_Proceedure', teacher_destroy_all_path(current_user), method: :post, data: { confirm: "Are you sure?" } %>

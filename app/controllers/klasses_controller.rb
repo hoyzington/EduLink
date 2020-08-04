@@ -51,6 +51,15 @@ class KlassesController < ApplicationController
     redirect_to teacher_klasses_path(current_user)
   end
 
+  def destroy_all
+    if user_is_admin?
+      flash[:notice] = 'The End Of Year Proceedure was performed.'
+      redirect_to current_user
+    else
+      unauthorized
+    end
+  end
+
 private
 
   def klass_params

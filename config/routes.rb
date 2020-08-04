@@ -12,8 +12,11 @@ Rails.application.routes.draw do
     get 'classes/:id/edit', to: 'klasses#edit', as: :klasses_edit
     get 'classes', to: 'klasses#index', as: :klasses
     get 'classes/:id', to: 'klasses#show', as: :klass
+    get 'end_of_year_proceedure', to: 'klasses#year_end', as: :end_of_year
+    post 'destroy_all', to: 'klasses#destroy_all', as: :destroy_all
   end
 
+  # handles back button edge case
   get '/klasses', to: 'klasses#new'
 
   resources :klasses, only: [:create, :update, :destroy]
