@@ -1,4 +1,5 @@
 <h1><%= klass_heading_and_link(@klass) %></h1>
+<br>
 <h2>Enter Grades For The Chapter <%= @quiz_num %> Quiz</h2>
 <%= form_tag '/quiz_grades' do %>
   <%= hidden_field_tag :klass_id, @klass.id %>

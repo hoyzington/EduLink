@@ -1,4 +1,4 @@
 <h1>Edit Profile</h1>
 <%= render 'form' %>
 <br>
-<%= link_to 'Delete Student', @student_status, method: :delete, data: { confirm: "Are you sure?" } %>
+<%= link_to_delete(@student_status) %>

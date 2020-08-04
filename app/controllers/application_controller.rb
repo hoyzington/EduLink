@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
   end
 
   def find_admin_or_default(array)
-    array.detect {|s| s.id_number == DEFAULT_ID}
+    array.detect {|s| s.id_number == FIRST_ID}
   end
 
   def unauthorized

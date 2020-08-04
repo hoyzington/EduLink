@@ -39,10 +39,13 @@ class StudentsController < ApplicationController
   end
 
   def destroy
-    @student.destroy unless @student.id_number == 0
-    session[:user_id] = nil if @student == current_user
-    flash[:notice] = 'Your EduLink account has been destroyed; however, all your school records are still intact.'
-    redirect_to root_path
+    if user_is_teacher?
+      flash[:alert] = "To delete a student, you must first choose one of your classes, and then choose one of it's students"
+      redirect_to teacher_klasses_path(current_user)
+    else
+      flash[:alert] = "Your EduLink profile will be deleted automatically at the end of the school year or upon withdrawal from school."
+      redirect_to @student
+    end
   end
 
   private

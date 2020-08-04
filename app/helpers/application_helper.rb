@@ -8,7 +8,13 @@ module ApplicationHelper
     Time.now.on_weekend? ? "This Weekend" : "Today (#{Time.now.strftime("%A")})"
   end
 
-# Klass Links
+  # Links
+
+  def link_to_delete(obj)
+    link_to "Delete #{obj}", obj, method: :delete, data: { confirm: "Are you sure?" }
+  end
+
+  # Klass Links
 
   def klass_heading_and_link(klass)
     link_to "#{klass.name}, Period #{klass.period}", teacher_klass_path(current_user, klass)
