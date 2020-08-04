@@ -44,9 +44,20 @@ class StudentStatusesController < ApplicationController
   end
 
   def destroy
-    @student_status.destroy unless @student_status.id_number == 0
-    flash[:notice] = 'The student has been removed from this class.'
-    redirect_to klass_students_path(@klass)
+    if user_is_teacher? && @klass.teacher == current_user
+      if @student_status.id_number == FIRST_ID
+        flash[:alert] = "This default student profile must remain as long as #{@klass.name} exists."
+        redirect_to klass_student_statuses_path(@klass)
+      else
+        @student_status.delete_homework
+        @student_status.delete_quiz_grades
+        @student_status.destroy
+        flash[:notice] = "#{@student_status.full_name} has been removed from #{@klass.name} in EduLink."
+        redirect_to klass_student_statuses_path(@klass)
+      end
+    else
+      unauthorized
+    end
   end
 
   private

@@ -12,4 +12,14 @@ class StudentStatus < ApplicationRecord
     self.student.homeworks.select {|h| h.klass_id == klass_id && h.done == false}
   end
 
+  def delete_homework
+    student_homework = self.student.homeworks
+    student_klass_homework = student_homework.select {|h| h.klass == self.klass}
+    student_klass_homework.each {|h| h.delete}
+  end
+
+  def delete_quiz_grades
+    self.quiz_grades.each {|q| q.delete}
+  end
+
 end
