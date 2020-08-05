@@ -10,7 +10,8 @@ class StudentsController < ApplicationController
     @student = Student.new(student_params)
     @student_status = StudentStatus.find_by(id_number: @student.id_number)
     if !@student_status
-      
+      @student.errors[:student] << 'ID number is invalid'
+      render 'new'
     elsif @student.save
       @student_status.student_id = @student.id
       @student_status.save
