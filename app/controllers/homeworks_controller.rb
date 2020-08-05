@@ -10,7 +10,7 @@ class HomeworksController < ApplicationController
   def create
     @homework = homework_for_first_student
     if @homework.save
-      @student_statuses = @klass.student_statuses.select {|ss| ss.id_number > FIRST_ID}
+      @student_statuses = @klass.student_statuses.select {|ss| ss.student_id > FIRST_ID}
       homework_for_remaining_students(@student_statuses)
       redirect_to klass_homeworks_new_path(@klass)
     else
@@ -100,9 +100,12 @@ class HomeworksController < ApplicationController
 
   def homework_for_remaining_students(student_statuses)
     student_statuses.each do |s|
-      homework = Homework.new(homework_params)
-      homework.student_id = s.student_id
-      homework.save
+      hw = Homework.new(homework_params)
+      hw.student_id = s.student_id
+      if hw.read == 'None' && hw.exercises == 'None' && hw.other == 'None'
+        hw.done = true
+      end
+      hw.save
     end
   end
 
