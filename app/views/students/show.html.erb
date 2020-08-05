@@ -4,7 +4,7 @@
 <% end %>
 <h3>Student ID: <%= @student.id_number %></h3>
 <% unless user_is_teacher? %>
-  <h3><%= link_to "Edit Profile", edit_student_path(current_user) %></h3>
+  <%= link_to "Edit Profile", edit_student_path(current_user) %>
 <% end %><br><br>
 <h1>Homework For <%= homework_when %></h1>
 <%= render 'klasses/student_klasses' %>

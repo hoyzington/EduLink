@@ -1,12 +1,12 @@
 <h1><%= klass_heading_and_link(@klass) %></h1>
-<h1>Add New Homework</h1>
+<h2>Add New Homework</h2>
 <br>
 <%= render 'layouts/errors', obj: @homework %>
 <%= form_for @homework do |f| %>
   <%= f.hidden_field :klass_id %>
   <% @f = f %>
   <h3><%= render 'radio_buttons_for_date' %></h3>
-  <p>(&#10004; - Homework already exists for this day. Click to edit or delete.)</p>
+  <p>(&#10004; <em>- Homework already exists for this day. Click to edit or delete.)</em></p>
   <br>
   <%= render 'form' %>
 <% end %>

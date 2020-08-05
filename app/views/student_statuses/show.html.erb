@@ -8,10 +8,10 @@
   <br><br><br>
 <% else %>
   <h1><%= @klass.name %>, Period <%= @klass.period %></h1>
-  <h3><%= link_to 'Back To Home', student_path(current_user) %></h3>
-  <br>
+  <%= link_to 'Back To Home', student_path(current_user) %>
+  <br><br>
 <% end %>
-<h2>Quiz Grades</h2>
+<h1>Quiz Grades</h1>
 <% @quiz_grades.each do |q| %>
   <h3>
     Chapter <%= q.number %>: &nbsp;<%= q.grade %>%
@@ -20,13 +20,16 @@
       &nbsp;<%= link_to_edit_quiz_grade(@klass, @q) %>
     <% end %>
   </h3>
-<% end %><br>
-<h2>Late Homework Assignments</h2><br>
+<% end %>
+<br><br>
+<h1>Late Homework Assignments</h1>
+<br>
 <% if @late_homework.count > 0 %>
   <% @late_homework.each do |h| %>
     <% @homework = h %>
     <h3><%= h.date.strftime(day_format) %></h3>
-    <%= render 'layouts/homework_display' %><br>
+    <%= render 'layouts/homework_display' %>
+    <br>
   <% end %>
 <% else %>
   <h3>None</h3>

@@ -5,11 +5,11 @@
   <% @homework = @klass.current_homework(current_user.id) %>
   <%= render 'layouts/homework_status_selector' %>
   <%= render 'layouts/homework_display' %>
-  <h3><%= link_to_past_homework(@klass) %> 
+  <%= link_to_past_homework(@klass) %> 
   <% undone = @klass.past_homework_by_student(current_user.id).select {|h| h.done == false} %>
   <% qty = undone.count %>
   <% if qty > 0 %>
     &nbsp;<strong>(<%= qty %> not yet completed)</strong>
-  <% end %></h3>
+  <% end %>
   <br><br>
 <% end %>
