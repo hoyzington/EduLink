@@ -56,17 +56,16 @@ class TeachersController < ApplicationController
   end
 
   def destroy
-    if @teacher.admin?
-      flash[:alert] = "This is the Admin account, which can be edited, but not destroyed."
-      redirect_to edit_teacher_path(@teacher)
-    else
-      @teacher.destroy
-      if @teacher == current_user
-        session[:teacher] = nil
-        session[:user_id] = nil
+    if user_is_admin?
+      if @teacher.admin?
+        flash[:alert] = "This is the Admin account, which can be edited, but not deleted."
+        redirect_to teacher_path(@teacher)
+      else
+        @teacher.destroy
+        flash[:notice] =  "#{@teacher.full_name}'s EduLink account has been deleted."
       end
-      flash[:notice] = 'The EduLink account has been destroyed.'
-      redirect_to root_path
+    else
+      unauthorized
     end
   end
 

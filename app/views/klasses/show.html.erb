@@ -7,7 +7,7 @@
 <h3>Not signed up with EduLink: <%= link_to @non_edulink_students.count, klass_non_edulink_path(@klass) %></h3>
 <h3>With incomplete homework: <%= link_to @late_students.count, klass_late_homeworks_path(@klass) %></h3>
 <br>
-<h2><%= link_to "Enter Quiz Grades", klass_quiz_grades_new_path(@klass) %></h2><br>
+<h2><%= link_to_new_quiz_grades(@klass) %></h2><br>
 <h2>Homework For <%= homework_when %></h2>
 <%= render 'layouts/homework_display' %>
 <p>(Homework assignments may be edited only before the day they are assigned for)</p>

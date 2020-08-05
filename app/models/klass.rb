@@ -42,4 +42,9 @@ class Klass < ApplicationRecord
     self.homeworks.select {|h| h.student_id == id}
   end
 
+  def delete_homework(homework)
+    homeworks = self.homeworks.select {|h| h.date == homework.date}
+    homeworks.each {|h| h.delete}
+  end
+
 end

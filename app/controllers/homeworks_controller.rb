@@ -1,18 +1,16 @@
 class HomeworksController < ApplicationController
 
-  before_action :set_klass, except:[:create, :update, :destroy]
-  before_action :set_homework, only:[:edit, :update, :show]
+  before_action :set_homework, only:[:edit, :update, :show, :destroy]
+  before_action :set_klass, except:[:destroy]
 
   def new
     @homework = Homework.new(klass_id: @klass.id)
   end
 
   def create
-    @klass = Klass.find(params[:homework][:klass_id])
     @homework = homework_for_first_student
     if @homework.save
-      @student_statuses = @klass.student_statuses
-      @student_statuses.shift
+      @student_statuses = @klass.student_statuses.select {|ss| ss.id_number > FIRST_ID}
       homework_for_remaining_students(@student_statuses)
       redirect_to klass_homeworks_new_path(@klass)
     else
@@ -24,7 +22,6 @@ class HomeworksController < ApplicationController
   end
 
   def update
-    @klass = @homework.klass
     if user_is_teacher?
       if @homework.update(homework_params)
         homeworks = @klass.homeworks.select {|h| h.date == @homework.date}
@@ -69,13 +66,15 @@ class HomeworksController < ApplicationController
   end
 
   def destroy
-    if user_is_admin?
-      Homework.all.each {|h| h.delete}
-      flash[:notice] = 'All homework assignments for all classes for the semester have been deleted.'
+    @klass = @homework.klass
+    if user_is_teacher? && @klass.teacher == current_user
+      date = @homework.date.strftime(day_format)
+      @klass.delete_homework(@homework)
+      flash[:notice] = "The homework assignment for #{date} has been deleted."
+      redirect_to klass_future_homeworks_path(@klass)
     else
-      flash[:alert] = 'Unauthorized Action'
+      unauthorized
     end
-    redirect_to home_path
   end
 
   private
@@ -84,12 +83,12 @@ class HomeworksController < ApplicationController
     params.require(:homework).permit(:date, :read, :exercises, :other, :notes, :done, :klass_id, :student_id)
   end
 
-  def set_klass
-    @klass = Klass.find(params[:class_id])
-  end
-
   def set_homework
     @homework = Homework.find(params[:id])
+  end
+
+  def set_klass
+    @klass = Klass.find(params[:class_id] || params[:homework][:klass_id] || params[:id])
   end
 
   def homework_for_first_student
@@ -101,7 +100,7 @@ class HomeworksController < ApplicationController
 
   def homework_for_remaining_students(student_statuses)
     student_statuses.each do |s|
-      homework = Homework.new(params)
+      homework = Homework.new(homework_params)
       homework.student_id = s.student_id
       homework.save
     end

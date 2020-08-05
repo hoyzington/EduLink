@@ -3,14 +3,14 @@
     <%= link_to "#{current_user.first_name}'s EduLink", home_path, class: "" %>
     <%=  %>
     <%= link_to "Log Out", logout_path, method: :delete, class: "" %>
-    <% if logged_in? && user_is_teacher? %>
-      <%= link_to "Edit Profile", edit_teacher_path(current_user), class: "" %>
+    <% if user_is_teacher? %>
+      <%= link_to_edit_teacher %>
       <% if user_is_admin? %>
         <%= link_to "Teachers", teachers_path, class: "" %>
-        <%= link_to "Add Teacher", new_teacher_path, class: "" %>
+        <%= link_to_new_teacher %>
       <% else %>
         <%= link_to "Classes", teacher_klasses_path(current_user), class: "" %>
-        <%= new_klass_link %>
+        <%= link_to_new_klass %>
       <% end %>
     <% else %>
       <%= link_to "Classes", student_klasses_path(current_user), class: "" %>

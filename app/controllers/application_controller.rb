@@ -61,4 +61,8 @@ class ApplicationController < ActionController::Base
     redirect_to home_path
   end
 
+  def day_format
+    "%A, %m/%d/%y "
+  end
+
 end

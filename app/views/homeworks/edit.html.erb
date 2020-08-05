@@ -1,6 +1,8 @@
 <h1><%= klass_heading_and_link(@klass) %></h1>
 <h2>Edit Homework Assignment for <%= @homework.date.strftime(day_format) %></h2>
-<%= link_to "Back To Add New Homework Page", klass_homeworks_new_path(@klass) %><br><br>
+<h4><%= link_to "Back To Add New Homework Page", klass_homeworks_new_path(@klass) %></h4>
+<br>
+<b><%= link_to_delete(@homework) %></b>
 <%= render 'layouts/errors', obj: @homework %>
 <%= form_for @homework do |f| %>
   <%= f.hidden_field :klass_id %>

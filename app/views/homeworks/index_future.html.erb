@@ -5,12 +5,13 @@
 <h3><%= link_to_past_homework(@klass) %></h3><br>
 <% if @homeworks.size > 0 %>
   <% @homeworks.each do |homework| %>
-    <h2><%= homework.date.strftime("%A, %m/%d/%y ") %>&nbsp;
-      <%= link_to "Edit", klass_homeworks_edit_path(@klass, homework) %></h2>
-    <h4>READ: <%= homework.read %></h4>
-    <h4>EXERCISES: <%= homework.exercises %></h4>
-    <h4>OTHER: <%= homework.other %></h4>
-    <h4>NOTES: <%= homework.notes %></h4><br>
+    <% @homework = homework %>
+    <h2>
+      <%= homework.date.strftime(day_format) %>&nbsp;
+      <%= link_to_edit_homework(@klass, @homework) %>
+      &nbsp;<%= link_to_delete(@homework) unless user_is_admin? %>
+    </h2>
+    <%= render 'layouts/homework_display' %><br>
   <% end %>
 <% else %>
   <h3>No future homework has been assigned.</h3>

@@ -47,12 +47,17 @@ class KlassesController < ApplicationController
 
   def destroy
     @klass.destroy
-    flash[:notice] = "#{@klass.name}, Period #{@klass.period} has been deleted."
+    flash[:notice] = "The EduLink data for #{@klass.name}, Period #{@klass.period} has been deleted."
     redirect_to teacher_klasses_path(current_user)
   end
 
   def destroy_all
     if user_is_admin?
+      # Klass.all.each {|k| k.delete}
+      # Homework.all.each {|h| h.delete}
+      # StudentStatus.all.each {|ss| ss.delete}
+      # QuizGrade.all.each {|qg| qg.delete}
+      # Student.all.each {|s| s.delete}
       flash[:notice] = 'The End Of Year Proceedure was performed.'
       redirect_to current_user
     else
