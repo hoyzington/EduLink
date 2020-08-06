@@ -12,7 +12,7 @@
 <br><br><br>
 <% if @homeworks.size > 0 %>
   <% @homeworks.each do |homework| %>
-    <h2><%= homework.date.strftime("%A, %m/%d/%y ") %></h2>
+    <h2><%= homework.date.strftime(day_format) %></h2>
     <% @homework = homework %>
     <% unless user_is_teacher? %>
       <%= render 'layouts/homework_status_selector' %>

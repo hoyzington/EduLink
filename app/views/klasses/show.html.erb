@@ -3,7 +3,6 @@
 <br><br>
 <h2><%= link_to "Students", klass_student_statuses_path(@klass) if @student_statuses.count > 0 %></h2>
 <%= link_to_add_student_status(@klass) %>
-
 <h3>Not signed up with EduLink: <%= link_to @non_edulink_students.count, klass_non_edulink_path(@klass) %></h3>
 <h3>With incomplete homework: <%= link_to @late_students.count, klass_late_homeworks_path(@klass) %></h3>
 <br>
