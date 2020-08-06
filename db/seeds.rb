@@ -35,15 +35,15 @@ students = Student.create([{id_number: 0, first_name: 'Default', last_name: 'Stu
 ## StudentStatuses
 
 def ss_data(students)
-  ss_array = []
+  array = []
   students.each do |s|
-    ss_array << {id_number: s.id_number, first_name: s.first_name, last_name: s.last_name, student_id: s.id}
+    array << {id_number: s.id_number, first_name: s.first_name, last_name: s.last_name, student_id: s.id}
   end
-  ss_array
+  array
 end
 
 klasses.each do |klass|
-  klass.student_statuses.create(ss_data(students))
+  klass.student_statuses.create(attr_data(students))
 end
 
 klasses.each do |klass|
@@ -52,16 +52,50 @@ end
 
 ## Homeworks
 
-def h_data(students)
-  h_array = []
-  students.each do |h|
-    # h_array << {date: , read: "Chapter #{num}", exercises: "All from chapter #{num}", other: '', notes: '', student_id: h.id}
+def start_date(today)
+  if today.thursday || today.friday
+    days = 3
+  elsif today.saturday
+    days = 4
+  else
+    days = 5
   end
-  h_array
+  today - days
+end
+
+def days(qty)
+  (60*60*24) * qty
+end
+
+def date_mkr(qty)
+  Time.now + days(qty)
+end
+
+def increment(date)
+  if date.
+    date +=
+  elsif date.
+    date +=
+  else
+    date +=
+  end
+  date
+end
+
+def h_data(students)
+  array = []
+  chap_num = 1
+  date = start_date(Time.now)
+  6.times do 
+    students.each do |s|
+      array << {date: date, read: "Chapter #{num1}", exercises: "All from chapter #{num1}", other: '', notes: '', student_id: s.id}
+    end
+    num1 += 1
+    increment(date)
+  end
+  array
 end
 
 klasses.each do |klass|
   klass.homeworks.create(h_data(students))
 end
-
-Homework.create([{date: , read: '', exercises: '', other: '', notes: '', done: , klass: klasses[], student: students[]}, {date: , read: '', exercises: '', other: '', notes: '', done: , klass: klasses[], student: students[]}])
