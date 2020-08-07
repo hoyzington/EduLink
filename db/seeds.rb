@@ -8,7 +8,7 @@
 
 ## Teachers
 
-Teacher.create(id_number: 0, first_name: 'William', last_name: 'McKinley', dept: 'Admin', email: 'william@email.com', password: 'password')
+Teacher.create(id_number: 1, first_name: 'William', last_name: 'McKinley', dept: 'Admin', email: 'william@email.com', password: 'password', id: 1)
 
 hector = Teacher.create(id_number: 100, first_name: 'Hector', last_name: 'LaCovara', dept: 'Science', email: 'hector@email.com', password: 'password')
 
@@ -30,7 +30,7 @@ klasses = klasses.flatten
 
 ## Students
 
-students = Student.create([{id_number: 0, first_name: 'Default', last_name: 'Student', email: 'default@email.com', password: 'password'}, {id_number: 1000, first_name: 'Lindsay', last_name: 'Weir', email: 'lindsay@email.com', password: 'password'}, {id_number: 1001, first_name: 'Daniel', last_name: 'Desario', email: 'daniel@email.com', password: 'password'}, {id_number: 1002, first_name: 'Nick', last_name: 'Andopolis', email: 'nick@email.com', password: 'password'}, {id_number: 1003, first_name: 'Ken', last_name: 'Miller', email: 'ken@email.com', password: 'password'}])
+students = Student.create([{id_number: 1, first_name: 'Default', last_name: 'Student', email: 'default@email.com', password: 'password', id: 1}, {id_number: 1000, first_name: 'Lindsay', last_name: 'Weir', email: 'lindsay@email.com', password: 'password'}, {id_number: 1001, first_name: 'Daniel', last_name: 'Desario', email: 'daniel@email.com', password: 'password'}, {id_number: 1002, first_name: 'Nick', last_name: 'Andopolis', email: 'nick@email.com', password: 'password'}, {id_number: 1003, first_name: 'Ken', last_name: 'Miller', email: 'ken@email.com', password: 'password'}])
 
 ## StudentStatuses
 
@@ -43,11 +43,11 @@ def ss_data(students)
 end
 
 klasses.each do |klass|
-  klass.student_statuses.create(attr_data(students))
+  klass.student_statuses.create(ss_data(students))
 end
 
 klasses.each do |klass|
-  klass.student_statuses.create(id_number: 1004, first_name: 'Kim', last_name: 'Kelly', student_id: 0)
+  klass.student_statuses.create(id_number: 1004, first_name: 'Kim', last_name: 'Kelly', student_id: 1)
 end
 
 ## Homeworks

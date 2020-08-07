@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-  FIRST_ID = 0
+  FIRST_ID = 1
 
   def day_format
     "%A, %m/%d/%y "
@@ -33,6 +33,10 @@ module ApplicationHelper
     if user_is_admin? && teacher == current_user
       link_to "End Of Year Proceedure", teacher_end_of_year_path(current_user)
     end
+  end
+
+  def link_to_students
+    link_to 'Students', students_path
   end
 
 # Teacher Links

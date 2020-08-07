@@ -58,12 +58,11 @@ class KlassesController < ApplicationController
   def year_end
   end
 
-  def destroy_all_data
+  def destroy_data
     if user_is_admin?
       # QuizGrade.destroy_all
       # Homework.destroy_all
       # StudentStatus.all.each {|ss| ss.destroy unless ss.id_number == FIRST_ID}
-      # Student.all.each {|s| s.destroy unless s.id_number == FIRST_ID}
       flash[:notice] = 'The End Of Year Proceedure was performed.'
       redirect_to current_user
     else

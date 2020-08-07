@@ -4,7 +4,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   VALID_EMAIL = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  FIRST_ID = 0
+  FIRST_ID = 1
 
   def full_name
     "#{self.first_name} #{self.last_name}"

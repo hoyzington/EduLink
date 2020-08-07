@@ -39,12 +39,26 @@ class StudentsController < ApplicationController
     @student_statuses = @student.student_statuses.sort_by {|ss| ss.klass[:period]}
   end
 
+  def index
+    if user_is_admin?
+      @students = Student.all
+    else
+      unauthorized
+    end
+  end
+
   def destroy
     if user_is_teacher?
-      flash[:alert] = "To delete a student, you must first choose one of your classes, and then choose one of it's students"
-      redirect_to teacher_klasses_path(current_user)
+      if user_is_admin?
+        @student.destroy
+        flash[:notice] = 'Student was successfully deleted from EduLink'
+        redirect_to students_path
+      else
+        flash[:alert] = "To delete a student, you must first choose one of your classes, and then choose one of it's students"
+        redirect_to teacher_klasses_path(current_user)
+      end
     else
-      flash[:alert] = "Your EduLink profile will be deleted automatically at the end of the school year or upon withdrawal from school."
+      flash[:alert] = "Your EduLink profile will be deleted automatically after graduation or upon withdrawal from school."
       redirect_to @student
     end
   end

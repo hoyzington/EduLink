@@ -16,7 +16,7 @@ class Teacher < ApplicationRecord
   before_save {self.dept = self.dept.titlecase}
 
   def admin?
-    self.id == 1
+    self.id == FIRST_ID
   end
 
 end

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     get 'classes', to: 'klasses#index', as: :klasses
     get 'classes/:id', to: 'klasses#show', as: :klass
     get 'end_of_year_proceedure', to: 'klasses#year_end', as: :end_of_year
-    post 'destroy_all_data', to: 'klasses#destroy_all_data', as: :destroy_all_data
+    post 'destroy_data', to: 'klasses#destroy_data', as: :destroy_data
   end
 
   # handles back button edge case

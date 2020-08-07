@@ -5,7 +5,7 @@ class QuizGradesController < ApplicationController
 
   def new
     ss = @klass.student_statuses
-    @student_statuses = ss.select {|ss| ss.id_number > 0}.sort_by {|s| s.last_name}
+    @student_statuses = ss.select {|ss| ss.id_number > FIRST_ID}.sort_by {|s| s.last_name}
     @quiz_num = generate_quiz_num(find_admin_or_first_student(ss))
   end
 

@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :logged_in?, :require_user, :user_is_teacher?, :user_is_admin?, :find_admin_or_first_student, :unauthorized
 
-  FIRST_ID = 0
+  FIRST_ID = 1
 
   def current_user
     if session[:user_id]
