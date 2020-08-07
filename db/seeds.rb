@@ -52,34 +52,29 @@ end
 
 ## Homeworks
 
-def start_date(today)
-  if today.thursday || today.friday
-    days = 3
-  elsif today.saturday
-    days = 4
-  else
-    days = 5
-  end
-  today - days
-end
-
 def days(qty)
   (60*60*24) * qty
 end
 
-def date_mkr(qty)
-  Time.now + days(qty)
+def start_date(today)
+  if today.thursday? || today.friday?
+    days_back = days(3)
+  elsif today.saturday?
+    days_back = days(4)
+  else
+    days_back = days(5)
+  end
+  today - days_back
 end
 
 def increment(date)
-  if date.
-    date +=
-  elsif date.
-    date +=
+  if date.friday?
+    date += days(3)
+  elsif date.saturday?
+    date += days(2)
   else
-    date +=
+    date += days(1)
   end
-  date
 end
 
 def h_data(students)
@@ -88,9 +83,10 @@ def h_data(students)
   date = start_date(Time.now)
   6.times do 
     students.each do |s|
-      array << {date: date, read: "Chapter #{num1}", exercises: "All from chapter #{num1}", other: '', notes: '', student_id: s.id}
+      done = (s.id_number == 0 ? true : false)
+      array << {date: date, read: "Chapter #{chap_num}", exercises: "All from chapter #{chap_num}", other: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', notes: 'Dolore et perferendis, facilis quos odit quibusdam.', done: done, student_id: s.id}
     end
-    num1 += 1
+    chap_num += 1
     increment(date)
   end
   array
