@@ -47,7 +47,7 @@ class HomeworksController < ApplicationController
 
   def index_future
     hw = @klass.homeworks_by_student(FIRST_ID)
-    @homeworks = hw.select {|h| h.date.day > Time.now.day}
+    @homeworks = hw.select {|h| h.future?}
   end
 
   def index_past
@@ -59,7 +59,7 @@ class HomeworksController < ApplicationController
   end
 
   def index_late
-    @late_homeworks = @klass.homeworks.select {|h| h.done == false}.sort_by {|h| h.date}.reverse
+    @late_homeworks = @klass.homeworks.select {|h| h.past? && h.done == false}.sort_by {|h| h.date}.reverse
   end
 
   def show

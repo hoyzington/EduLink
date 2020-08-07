@@ -9,7 +9,7 @@ class StudentStatus < ApplicationRecord
   validates_presence_of :last_name
 
   def late_homework(klass_id)
-    self.student.homeworks.select {|h| h.klass_id == klass_id && h.done == false}
+    self.student.homeworks.select {|h| h.klass_id == klass_id && h.past? && h.done == false}
   end
 
   def delete_homework

@@ -20,13 +20,12 @@ module HomeworksHelper
   end
 
   def fetch_homework(klass, assign_date)
-    homeworks = klass.homeworks.select {|h| h.student_id == 0}
-    homeworks.detect {|h| h.date.day == assign_date.day}
+    homeworks = klass.homeworks.select {|h| h.student_id == FIRST_ID}
+    homeworks.detect {|h| h.date.strftime("%y%m%d") == assign_date.strftime("%y%m%d")}
   end
 
   def next_day(date)
     date.friday? ? date += (add_day * 3) : date += add_day
-    date
   end
 
 end

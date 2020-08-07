@@ -17,4 +17,12 @@ class Homework < ApplicationRecord
     day
   end
 
+  def past?
+    self.date.strftime("%y%m%d") < Time.now.strftime("%y%m%d")
+  end
+
+  def future?
+    self.date.strftime("%y%m%d") > Time.now.strftime("%y%m%d")
+  end
+
 end
