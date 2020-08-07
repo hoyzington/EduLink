@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  helper_method :current_user, :logged_in?, :require_user, :admin_or_same_user, :user_is_teacher?, :user_is_admin?, :restore_admin, :check_first_student, :find_admin_or_default, :unauthorized
+  helper_method :current_user, :logged_in?, :require_user, :user_is_teacher?, :user_is_admin?, :find_admin_or_first_student, :unauthorized
 
   FIRST_ID = 0
 
@@ -25,13 +25,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def admin_or_same_user
-    if current_user != @user && !current_user.admin?
-      flash[:alert] = 'Unauthorized Action'
-      redirect_to user_path(current_user)
-    end
-  end
-
   def user_is_teacher?
     session[:teacher]
   end
@@ -40,20 +33,8 @@ class ApplicationController < ActionController::Base
     user_is_teacher? && session[:user_id] == 1
   end
 
-  def restore_admin
-    if Teacher.first.id != 1
-      Teacher.create(first_name: "William", last_name: "McKinley", id_number: 0, email: "william@email.com", password: "password", id: 1)
-    end
-  end
-
-  def check_first_student
-    if !Student.find_by(id_number: 0)
-      Student.create(id: 0, first_name: "Default", last_name: "Student", id_number: 0, email: "default@email.com", password: "password")
-    end
-  end
-
-  def find_admin_or_default(array)
-    array.detect {|s| s.id_number == FIRST_ID}
+  def find_admin_or_first_student(array)
+    array.detect {|x| x.id_number == FIRST_ID}
   end
 
   def unauthorized

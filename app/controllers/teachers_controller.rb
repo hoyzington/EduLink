@@ -47,9 +47,6 @@ class TeachersController < ApplicationController
   def show
     if user_is_teacher? && (user_is_admin? || @teacher == current_user)
       @klasses = Klass.by_teacher_by_period(params[:id])
-      if user_is_admin?
-        check_first_student
-      end
     else
       unauthorized
     end

@@ -56,11 +56,10 @@ class KlassesController < ApplicationController
 
   def destroy_all_data
     if user_is_admin?
-      # Klass.all.each {|k| k.delete}
-      # Homework.all.each {|h| h.delete}
-      # StudentStatus.all.each {|ss| ss.delete}
-      # QuizGrade.all.each {|qg| qg.delete}
-      # Student.all.each {|s| s.delete}
+      # QuizGrade.destroy_all
+      # Homework.destroy_all
+      # StudentStatus.all.each {|ss| ss.destroy unless ss.id_number == FIRST_ID}
+      # Student.all.each {|s| s.destroy unless s.id_number == FIRST_ID}
       flash[:notice] = 'The End Of Year Proceedure was performed.'
       redirect_to current_user
     else

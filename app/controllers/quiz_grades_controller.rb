@@ -6,7 +6,7 @@ class QuizGradesController < ApplicationController
   def new
     ss = @klass.student_statuses
     @student_statuses = ss.select {|ss| ss.id_number > 0}.sort_by {|s| s.last_name}
-    @quiz_num = generate_quiz_num(find_admin_or_default(ss))
+    @quiz_num = generate_quiz_num(find_admin_or_first_student(ss))
   end
 
   def create
@@ -31,8 +31,7 @@ class QuizGradesController < ApplicationController
   def edit
     @student_status = @quiz_grade.student_status
     unless @student_status.klass.teacher == current_user
-      flash[:alert] = 'Unauthorized Action'
-      redirect_to current_user
+      unauthorized
     end
   end
 

@@ -35,7 +35,7 @@ class HomeworksController < ApplicationController
       end
     else
       if @homework.update(homework_params)
-        flash[:notice] = "The status of your current homework assignment for #{@homework.klass.name} has been updated."
+        flash[:notice] = "The status of your homework assignment for #{@homework.klass.name} has been updated."
       end
       if @homework.date.day == Time.now.day
         redirect_to student_path(current_user)
