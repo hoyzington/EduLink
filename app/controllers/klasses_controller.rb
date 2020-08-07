@@ -41,7 +41,7 @@ class KlassesController < ApplicationController
   def show
     @homework = @klass.current_homework(FIRST_ID)
     @student_statuses = @klass.student_statuses
-    @late_students = @klass.students.uniq.select {|s| s.homeworks.detect {|h| h.done == false}} #fix!
+    @late_students = @klass.students.select {|s| s.homeworks.detect {|h| h.done == false}}
     @non_edulink_students = @klass.non_edulink_students
   end
 
@@ -51,7 +51,10 @@ class KlassesController < ApplicationController
     redirect_to teacher_klasses_path(current_user)
   end
 
-  def destroy_all
+  def year_end
+  end
+
+  def destroy_all_data
     if user_is_admin?
       # Klass.all.each {|k| k.delete}
       # Homework.all.each {|h| h.delete}

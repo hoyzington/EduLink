@@ -4,4 +4,4 @@
 <p>This will delete the Edulink data for all classes, students, and all related data, but will not delete any teacher profiles.</p>
 <p>Once performed, the proceedure cannot be undone!</p>
 <br><br>
-<%= link_to 'Perform End_Of_Year_Proceedure', teacher_destroy_all_path(current_user), method: :post, data: { confirm: "Are you sure?" } %>
+<%= link_to 'Perform End_Of_Year_Proceedure', teacher_destroy_all_data_path(current_user), method: :post, data: { confirm: "Are you sure?" } %>
