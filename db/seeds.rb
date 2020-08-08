@@ -42,6 +42,8 @@ def ss_data(students)
   array
 end
 
+klasses = Klass.all
+
 klasses.each do |klass|
   klass.student_statuses.create(ss_data(students))
 end
@@ -75,6 +77,7 @@ def increment(date)
   else
     date += days(1)
   end
+  date
 end
 
 def h_data(students)
@@ -87,7 +90,7 @@ def h_data(students)
       array << {date: date, read: "Chapter #{chap_num}", exercises: "All from chapter #{chap_num}", other: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', notes: 'Dolore et perferendis, facilis quos odit quibusdam.', done: done, student_id: s.id}
     end
     chap_num += 1
-    increment(date)
+    date = increment(date)
   end
   array
 end

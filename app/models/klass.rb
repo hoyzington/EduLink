@@ -11,9 +11,6 @@ class Klass < ApplicationRecord
   validates_presence_of :dept
   validates :period, presence: true, numericality: { only_integer: true, greater_than: 0, less_than: 8 }
 
-  before_save {self.name = self.name.titlecase}
-  before_save {self.dept = self.dept.titlecase}
-
   def create_first_student_status
     s = Student.find_by(id_number: FIRST_ID)
     self.student_statuses.create(id_number: s.id_number, first_name: s.first_name, last_name: s.last_name, student_id: s.id)
