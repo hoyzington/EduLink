@@ -41,7 +41,8 @@ class KlassesController < ApplicationController
   def show
     @homework = @klass.current_homework(FIRST_ID)
     @student_statuses = @klass.student_statuses
-    @late_students = @klass.students.select {|s| s.homeworks.detect {|h| h.done == false}}
+    late_homeworks = @klass.homeworks.select {|h| h.past? && h.done == false}
+    @late_students = late_homeworks.map {|h| h.student.id_number }.uniq
     @non_edulink_students = @klass.non_edulink_students
   end
 

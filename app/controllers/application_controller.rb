@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_is_admin?
-    user_is_teacher? && session[:user_id] == 1
+    user_is_teacher? && session[:user_id] == FIRST_ID
   end
 
   def find_admin_or_first_student(array)
