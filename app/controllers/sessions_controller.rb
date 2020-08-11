@@ -12,8 +12,6 @@ class SessionsController < ApplicationController
       redirect_to @user
     else
       flash[:alert] = "There was something wrong with your login details."
-      #byebug
-      #return head(:forbidden) #unless @user.authenticate(params[:session][:password])
       redirect_to login_path
     end
   end
@@ -21,8 +19,7 @@ class SessionsController < ApplicationController
   def destroy
     session.delete :teacher if session[:teacher]
     session.delete :user_id
-    flash[:notice] = "You have logged out successfully."
-    redirect_to root_path
+    redirect_to root_path, notice: "Come back soon!"
   end
   
 end

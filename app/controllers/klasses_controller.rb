@@ -1,14 +1,12 @@
 class KlassesController < ApplicationController
 
+  before_action :require_teacher, except:[:destroy, :year_end, :destroy_data]
+  before_action :require_admin, only:[:destroy, :year_end, :destroy_data]
   before_action :set_klass, only: [:edit, :update, :show, :destroy]
   before_action :set_klasses_or_student_statuses, only: [:new, :create, :index]
 
   def new
-    if user_is_teacher?
-      @klass = Klass.new(teacher_id: current_user.id)
-    else
-      unauthorized
-    end
+    @klass = Klass.new(teacher_id: current_user.id)
   end
 
   def create
@@ -47,28 +45,20 @@ class KlassesController < ApplicationController
   end
 
   def destroy
-    if user_is_admin?
-      @klass.destroy
-      flash[:notice] = "The EduLink data for #{@klass.name}, Period #{@klass.period} has been deleted."
-      redirect_to teacher_klasses_path(current_user)
-    else
-      unauthorized
-    end
+    @klass.destroy
+    flash[:notice] = "The EduLink data for #{@klass.name}, Period #{@klass.period} has been deleted."
+    redirect_to teacher_klasses_path(current_user)
   end
 
   def year_end
   end
 
   def destroy_data
-    if user_is_admin?
-      # QuizGrade.destroy_all
-      # Homework.destroy_all
-      # StudentStatus.all.each {|ss| ss.destroy unless ss.id_number == FIRST_ID}
-      flash[:notice] = 'The End Of Year Proceedure was performed.'
-      redirect_to current_user
-    else
-      unauthorized
-    end
+    # QuizGrade.destroy_all
+    # Homework.destroy_all
+    # StudentStatus.all.each {|ss| ss.destroy unless ss.id_number == FIRST_ID}
+    flash[:notice] = 'The End Of Year Proceedure was performed.'
+    redirect_to current_user
   end
 
 private

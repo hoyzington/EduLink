@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
   def require_user
     if !logged_in?
-      flash[:alert] = "You must log in first."
+      flash[:alert] = "Please log in first."
       redirect_to login_path
     end
   end
@@ -29,8 +29,20 @@ class ApplicationController < ActionController::Base
     session[:teacher]
   end
 
+  def require_teacher
+    unauthorized unless user_is_teacher?
+  end
+
   def user_is_admin?
     user_is_teacher? && session[:user_id] == FIRST_ID
+  end
+
+  def require_admin
+    unauthorized unless user_is_admin?
+  end
+
+  def require_student
+    unauthorized unless current_user.class == Student
   end
 
   def find_admin_or_first_student(array)
@@ -38,8 +50,7 @@ class ApplicationController < ActionController::Base
   end
 
   def unauthorized
-    flash[:alert] = "Unauthorized Action"
-    redirect_to home_path
+    redirect_to home_path, alert: "Unauthorized Action"
   end
 
   def day_format

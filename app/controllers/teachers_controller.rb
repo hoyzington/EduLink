@@ -1,11 +1,11 @@
 class TeachersController < ApplicationController
 
+  before_action :require_teacher, except:[:index, :destroy]
+  before_action :require_admin, only:[:index, :destroy]
   before_action :set_teacher, only:[:show, :edit, :update, :destroy]
 
   def new
-    if !user_is_teacher?
-      unauthorized
-    elsif !user_is_admin?
+    if !user_is_admin?
       session[:teacher] = nil
       session[:user_id] = nil
       @teacher = Teacher.new
@@ -45,7 +45,7 @@ class TeachersController < ApplicationController
   end
 
   def show
-    if user_is_teacher? && (user_is_admin? || @teacher == current_user)
+    if user_is_admin? || @teacher == current_user
       @klasses = Klass.by_teacher_by_period(params[:id])
     else
       unauthorized

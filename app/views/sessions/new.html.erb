@@ -1,5 +1,5 @@
 <h1>Log In</h1>
-<%= form_with scope: :session, url: login_path, class: "" do |f| %>
+<%= form_with scope: :session, url: login_path do |f| %>
   <h3><%= f.label :email %>
   <%= f.email_field :email %></h3>
   <h3><%= f.label :password %>

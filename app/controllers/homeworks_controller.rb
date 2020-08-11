@@ -1,5 +1,7 @@
 class HomeworksController < ApplicationController
 
+  before_action :require_user, only:[:update, :index_past]
+  before_action :require_teacher, except:[:udate, :index_past, ]
   before_action :set_homework, only:[:edit, :update, :show, :destroy]
   before_action :set_klass, except:[:destroy]
 
@@ -62,12 +64,9 @@ class HomeworksController < ApplicationController
     @late_homeworks = @klass.homeworks.select {|h| h.past? && h.done == false}.sort_by {|h| h.date}.reverse
   end
 
-  def show
-  end
-
   def destroy
     @klass = @homework.klass
-    if user_is_teacher? && @klass.teacher == current_user
+    if @klass.teacher == current_user
       date = @homework.date.strftime(day_format)
       @klass.delete_homework(@homework)
       flash[:notice] = "The homework assignment for #{date} has been deleted."

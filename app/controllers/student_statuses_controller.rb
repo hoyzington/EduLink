@@ -1,5 +1,7 @@
 class StudentStatusesController < ApplicationController
 
+  before_action :require_user, only:[:show]
+  before_action :require_teacher, except:[:show]
   before_action :set_student_status, except: [:new, :create, :index, :index_non_edulink]
   before_action :set_klass, except: [:edit]
 
@@ -44,7 +46,7 @@ class StudentStatusesController < ApplicationController
   end
 
   def destroy
-    if user_is_teacher? && @klass.teacher == current_user
+    if user_is_admin? || @klass.teacher == current_user
       if @student_status.id_number == FIRST_ID
         flash[:alert] = "This default student profile must remain as long as #{@klass.name} exists."
         redirect_to klass_student_statuses_path(@klass)

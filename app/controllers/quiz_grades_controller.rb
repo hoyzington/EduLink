@@ -1,5 +1,6 @@
 class QuizGradesController < ApplicationController
 
+  before_action :require_teacher
   before_action :set_quiz_grade, only: [:edit, :update]
   before_action :set_klass
 
