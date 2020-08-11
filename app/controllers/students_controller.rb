@@ -2,7 +2,7 @@ class StudentsController < ApplicationController
 
   before_action :require_user, only:[:show, :destroy]
   before_action :require_admin, only:[:index]
-  before_action :require_student, except:[:index, :show, :destroy]
+  before_action :require_student, only:[:edit, :update]
   before_action :set_student, only:[:show, :edit, :update, :destroy]
 
   def new

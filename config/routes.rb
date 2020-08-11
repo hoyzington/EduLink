@@ -7,7 +7,10 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
 
-  resources :teachers do
+  get 'teachers/signup', to: 'teachers#new'
+  post 'teachers/signup', to: 'teachers#create'
+
+  resources :teachers, except: [:new, :create] do
     get 'classes/new', to: 'klasses#new', as: :klasses_new
     get 'classes/:id/edit', to: 'klasses#edit', as: :klasses_edit
     get 'classes', to: 'klasses#index', as: :klasses
@@ -51,7 +54,8 @@ Rails.application.routes.draw do
 
   get 'students/signup', to: 'students#new'
   post 'students/signup', to: 'students#create'
-  resources :students do
+
+  resources :students, except:[:new, :create] do
     get 'statuses/:id', to: 'student_statuses#show', as: :student_status
     get 'past_homework', to: 'homeworks#index_past', as: :past_homeworks
     get 'classes', to: 'klasses#index', as: :klasses

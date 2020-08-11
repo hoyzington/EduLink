@@ -1,6 +1,6 @@
 class TeachersController < ApplicationController
 
-  before_action :require_teacher, except:[:index, :destroy]
+  before_action :require_teacher, only:[:edit, :update, :show]
   before_action :require_admin, only:[:index, :destroy]
   before_action :set_teacher, only:[:show, :edit, :update, :destroy]
 
@@ -13,10 +13,15 @@ class TeachersController < ApplicationController
 
   def create
     @teacher = Teacher.new(teacher_params)
-    if @teacher.save
-      flash[:notice] = "Your profile was created successfully."
-      redirect_to teacher_path(@teacher)
+    if @@teachers.include?(params[:teacher][:id_number])
+      if @teacher.save
+        flash[:notice] = "Your profile was created successfully."
+        redirect_to teacher_path(@teacher)
+      else
+        render 'new'
+      end
     else
+      @teacher.errors[:teacher] << 'ID number is invalid'
       render 'new'
     end
   end
@@ -56,6 +61,8 @@ class TeachersController < ApplicationController
   end
 
   private
+
+  @@teachers = [100, 101, 102, 103]
 
   def teacher_params
     params.require(:teacher).permit(:id_number,:first_name, :last_name, :dept, :email, :password)
