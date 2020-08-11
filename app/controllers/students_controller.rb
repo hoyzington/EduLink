@@ -43,7 +43,7 @@ class StudentsController < ApplicationController
   end
 
   def index
-    @students = Student.all
+    @students = Student.order(:last_name, :first_name)
   end
 
   def destroy

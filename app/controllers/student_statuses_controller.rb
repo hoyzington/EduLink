@@ -33,11 +33,11 @@ class StudentStatusesController < ApplicationController
   end
 
   def index
-    @student_statuses = @klass.student_statuses.select {|ss| ss.id_number > FIRST_ID}.sort_by {|student| student.last_name}
+    @student_statuses = @klass.students_in_order
   end
 
   def index_non_edulink
-    @student_statuses = @klass.non_edulink_students.sort_by {|s| s[:last_name]}
+    @student_statuses = @klass.non_edulink_students
   end
 
   def show
