@@ -16,7 +16,7 @@ class Klass < ApplicationRecord
     self.student_statuses.create(id_number: s.id_number, first_name: s.first_name, last_name: s.last_name, student_id: s.id)
   end
 
-  def self.by_teacher_by_period(teacher_id)
+  def self.filtered_by_teacher(teacher_id)
     where(teacher: teacher_id).sort_by {|klass| klass[:period]}
   end
 

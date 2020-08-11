@@ -5,20 +5,17 @@ class TeachersController < ApplicationController
   before_action :set_teacher, only:[:show, :edit, :update, :destroy]
 
   def new
-    if !user_is_admin?
-      session[:teacher] = nil
-      session[:user_id] = nil
-      @teacher = Teacher.new
-    else
-      @teacher = Teacher.new
+    unless user_is_admin?
+      clear_session
     end
+    @teacher = Teacher.new
   end
 
   def create
-    teacher = Teacher.new(teacher_params)
-    if teacher.save
+    @teacher = Teacher.new(teacher_params)
+    if @teacher.save
       flash[:notice] = "Your profile was created successfully."
-      redirect_to teacher_path(teacher)
+      redirect_to teacher_path(@teacher)
     else
       render 'new'
     end
@@ -37,32 +34,24 @@ class TeachersController < ApplicationController
   end
 
   def index
-    if user_is_admin?
-      @teachers = Teacher.all.sort_by {|teacher| teacher.last_name}
-    else
-      unauthorized
-    end
+    @teachers = Teacher.order(:last_name, :first_name)
   end
 
   def show
     if user_is_admin? || @teacher == current_user
-      @klasses = Klass.by_teacher_by_period(params[:id])
+      @klasses = Klass.filtered_by_teacher(@teacher.id)
     else
       unauthorized
     end
   end
 
   def destroy
-    if user_is_admin?
-      if @teacher.admin?
-        flash[:alert] = "This is the Admin account, which can be edited, but not deleted."
-        redirect_to teacher_path(@teacher)
-      else
-        @teacher.destroy
-        flash[:notice] =  "#{@teacher.full_name}'s EduLink account has been deleted."
-      end
+    if @teacher.admin?
+      flash[:alert] = "This is the Admin account, which can be edited, but not deleted."
+      redirect_to teacher_path(@teacher)
     else
-      unauthorized
+      @teacher.destroy
+      flash[:notice] =  "#{@teacher.full_name}'s EduLink account has been deleted."
     end
   end
 
@@ -74,6 +63,11 @@ class TeachersController < ApplicationController
 
   def set_teacher
     @teacher = Teacher.find(params[:id])
+  end
+
+  def clear_session
+    session.delete :teacher
+    session.delete :user_id
   end
 
 end
