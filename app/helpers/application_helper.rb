@@ -27,7 +27,7 @@ module ApplicationHelper
     end
   end
 
-# Admin Links
+  # Admin Links
 
   def link_to_end_of_year_proceedure(teacher)
     if user_is_admin? && teacher == current_user
@@ -40,10 +40,6 @@ module ApplicationHelper
   end
 
 # Teacher Links
-
-  def link_to_new_teacher
-    link_to "Add Teacher", new_teacher_path
-  end
 
   def link_to_edit_teacher
     link_to "Edit Profile", edit_teacher_path(current_user)
@@ -62,8 +58,14 @@ module ApplicationHelper
   end
 
   def link_to_edit_klass
-    unless user_is_admin? 
-      
+    link_to "Edit Class", teacher_klasses_edit_path(@klass.teacher, @klass)
+  end
+
+  def link_to_klasses
+    if user_is_teacher?
+      link_to "Classes", teacher_klasses_path(current_user)
+    else
+      link_to "Classes", student_klasses_path(current_user)
     end
   end
 

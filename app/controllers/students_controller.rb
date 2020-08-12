@@ -43,7 +43,7 @@ class StudentsController < ApplicationController
   end
 
   def index
-    @students = Student.order(:last_name, :first_name)
+    @students = Student.order(:last_name, :first_name).select {|s| s.id_number > FIRST_ID}
   end
 
   def destroy

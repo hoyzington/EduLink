@@ -6,13 +6,13 @@
       <%= link_to_edit_teacher %> | 
       <% if user_is_admin? %>
         <%= link_to "Teachers", teachers_path %> | 
-        <%= link_to_new_teacher %> | 
+        <%= link_to_students %>
       <% else %>
-        <%= link_to "Classes", teacher_klasses_path(current_user) %> | 
+        <%= link_to_klasses %> | 
         <%= link_to_new_klass %>
       <% end %>
     <% else %>
-      <%= link_to "Classes", student_klasses_path(current_user) %>
+      <%= link_to_klasses %>
     <% end %>
   <% else %>
     <%= link_to 'Home', root_path %>
