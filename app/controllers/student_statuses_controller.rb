@@ -2,16 +2,18 @@ class StudentStatusesController < ApplicationController
 
   before_action :require_user, only:[:show]
   before_action :require_teacher, except:[:show]
-  before_action :set_student_status, except: [:new, :create, :index, :index_non_edulink]
-  before_action :set_klass, except: [:edit]
+  before_action :set_student_status, except:[:new, :create, :index, :index_non_edulink]
+  before_action :set_klass, except:[:edit]
+  before_action :set_student_statuses, only:[:new, :create, :index]
 
   def new
     @student_status = StudentStatus.new(klass_id: params[:class_id])
-    @student_statuses = @klass.student_statuses || []
   end
 
   def create
     @student_status = StudentStatus.new(status_params)
+    @student = Student.find_by(id_number: @student_status.id_number)
+    @student_status.student = @student || Student.find(FIRST_ID)
     if @student_status.save
       flash[:notice] = "#{@student_status.full_name} was added successfully."
       redirect_to klass_student_statuses_new_path(@student_status.klass)
@@ -33,7 +35,6 @@ class StudentStatusesController < ApplicationController
   end
 
   def index
-    @student_statuses = @klass.students_in_order
   end
 
   def index_non_edulink
@@ -66,6 +67,10 @@ class StudentStatusesController < ApplicationController
 
   def set_student_status
     @student_status = StudentStatus.find(params[:id])
+  end
+
+  def set_student_statuses
+    @student_statuses = @klass.students_in_order || []
   end
 
   def set_klass

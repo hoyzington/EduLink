@@ -56,7 +56,7 @@ Rails.application.routes.draw do
   get 'students/signup', to: 'students#new'
   post 'students/signup', to: 'students#create'
 
-  resources :students, except:[:new, :create] do
+  resources :students, except:[:new] do
     get 'statuses/:id', to: 'student_statuses#show', as: :student_status
     get 'past_homework', to: 'homeworks#index_past', as: :past_homeworks
     get 'classes', to: 'klasses#index', as: :klasses

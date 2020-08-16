@@ -15,17 +15,13 @@ class StudentsController < ApplicationController
     @student_status = StudentStatus.find_by(id_number: @student.id_number)
     if !@student_status
       @student.errors[:student] << 'ID number is invalid'
-      render 'new'
+      form_chooser
     elsif @student.save
       @student_status.student_id = @student.id
       @student_status.save
       login(@student, 'Welcome to EduLink')
     else
-      if oauth?
-        render 'finish_profile'
-      else
-        render 'new'
-      end
+      form_chooser
     end
   end
 
@@ -77,6 +73,14 @@ class StudentsController < ApplicationController
 
   def oauth?
     session[:oauth] == 'true'
+  end
+
+  def form_chooser
+    if oauth?
+      render 'finish_profile'
+    else
+      render 'new'
+    end
   end
 
 end
