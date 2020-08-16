@@ -49,6 +49,12 @@ class ApplicationController < ActionController::Base
     array.detect {|x| x.id_number == FIRST_ID}
   end
 
+  def login(user, welcome)
+    session[:user_id] = user.id
+    flash[:notice] = "#{welcome}, #{user.first_name}!"
+    redirect_to user
+  end
+
   def unauthorized
     redirect_to home_path, alert: "Unauthorized Action"
   end

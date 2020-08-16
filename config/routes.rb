@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
+  get '/auth/facebook/callback', to: 'sessions#omniauth'
   delete 'logout', to: 'sessions#destroy'
 
   get 'teachers/signup', to: 'teachers#new'
@@ -59,6 +60,7 @@ Rails.application.routes.draw do
     get 'statuses/:id', to: 'student_statuses#show', as: :student_status
     get 'past_homework', to: 'homeworks#index_past', as: :past_homeworks
     get 'classes', to: 'klasses#index', as: :klasses
+    get 'finish_profile', to: 'students#finish_profile'
   end
 
 end

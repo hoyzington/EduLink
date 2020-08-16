@@ -11,6 +11,7 @@ class StudentsController < ApplicationController
 
   def create
     @student = Student.new(student_params)
+    @student.password = SecureRandom.hex if oauth?
     @student_status = StudentStatus.find_by(id_number: @student.id_number)
     if !@student_status
       @student.errors[:student] << 'ID number is invalid'
@@ -18,11 +19,13 @@ class StudentsController < ApplicationController
     elsif @student.save
       @student_status.student_id = @student.id
       @student_status.save
-      session[:user_id] = @student.id
-      flash[:notice] = "Welcome to EduLink, #{@student.first_name}!"
-      redirect_to @student
+      login(@student, 'Welcome to EduLink')
     else
-      render 'new'
+      if oauth?
+        render 'finish_profile'
+      else
+        render 'new'
+      end
     end
   end
 
@@ -70,6 +73,10 @@ class StudentsController < ApplicationController
 
   def set_student
     @student = Student.find(params[:id])
+  end
+
+  def oauth?
+    session[:oauth] == 'true'
   end
 
 end

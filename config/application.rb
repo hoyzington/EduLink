@@ -31,5 +31,9 @@ module EduLink
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Commenting out this next line because it causes Chrome to cache the HTTPS protocol for the localhost
+    # domain, forcing students to have to clear the cache to work
+    # config.force_ssl = true
   end
 end

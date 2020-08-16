@@ -8,7 +8,6 @@ class Student < ApplicationRecord
 
   validates :id_number, presence: true, uniqueness: true
   validates_presence_of :first_name
-  validates_presence_of :last_name
   validates :email, presence: true, uniqueness: {case_sensitive: false}, length: {maximum: 100}, format: {with: VALID_EMAIL}
 
   has_secure_password
