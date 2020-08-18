@@ -57,7 +57,7 @@ class QuizGradesController < ApplicationController
   end
 
   def set_klass
-    @klass = Klass.find(params[:class_id] || @quiz_grade.student_status.klass.id)
+    @klass = Klass.find(params[:class_id] || params[:klass_id] || @quiz_grade.student_status.klass_id)
   end
 
   def quiz_grade_params

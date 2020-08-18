@@ -6,7 +6,7 @@
   <%= hidden_field_tag :quiz_num, @quiz_num %>
   <h3><ol>
     <% @student_statuses.each do |ss| %>
-      <li><%= ss.last_name_first %>: <%= text_field_tag "#{ss.id_number}", nil, size: 2, maxlength: 2 %>%</li>
+      <li><%= ss.last_name_first %>: <%= text_field_tag "#{ss.id_number}", nil, size: 3, maxlength: 3 %>%</li>
     <% end %>
   </ol></h3>
   <h3><%= submit_tag 'Submit' %></h3>

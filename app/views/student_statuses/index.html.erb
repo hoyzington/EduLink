@@ -2,14 +2,18 @@
 <br>
 <h2>Student List</h2>
 <h3><%= link_to_add_student_status(@klass) %></h3>
-<p>(A number after a students name indicates the number of incomplete homework assignments)</p>
-<br>
+<i><p>(A number after a students name indicates the number of incomplete homework assignments)</p>
+<p>(* No homework status--student not signed up with EduLink)</p></i>
 <% @student_statuses.each do |ss| %>
   <h3>
     <%= link_to ss.last_name_first, klass_student_status_path(@klass, ss) %>
-    <% qty = ss.late_homework(@klass.id).count %>
-    <% if qty > 0 %>
-      &nbsp;<b><%= qty %></b>
+    <% if ss.student_id > 1 %>
+      <% qty = ss.late_homework(@klass.id).count %>
+      <% if qty > 0 %>
+        &nbsp;<b><%= qty %></b>
+      <% end %>
+    <% else %>
+      &nbsp;<b>*</b>
     <% end %>
   </h3>
 <% end %>

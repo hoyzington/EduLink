@@ -3,7 +3,7 @@
   <br>
   <h1>Student: <%= @student_status.full_name %></h1>
   <h2>Student ID: <%= @student_status.id_number %></h2>
-  <%= link_to_edit_student_status(@klass, @student_status) %>
+  <%= link_to_edit_student_status(@klass, @student_status) %> &nbsp;
   <%= link_to "Back to Student List", klass_student_statuses_path(@klass) %>
   <br><br><br>
 <% else %>
