@@ -73,7 +73,7 @@ module ApplicationHelper
 
   def link_to_add_student_status(klass)
     unless user_is_admin?
-      link_to 'Add Student', klass_student_statuses_new_path(klass)
+      link_to 'Add Students', klass_student_statuses_new_path(klass)
     end
   end
 
@@ -83,7 +83,11 @@ module ApplicationHelper
     end
   end
 
-# QuizGrade Links
+  def link_to_klass_student_statuses(klass)
+    link_to "Students", klass_student_statuses_path(@klass) if @student_statuses.count > 1
+  end
+
+  # QuizGrade Links
 
   def link_to_new_quiz_grades(klass)
     unless user_is_admin?

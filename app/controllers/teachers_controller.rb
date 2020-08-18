@@ -5,15 +5,13 @@ class TeachersController < ApplicationController
   before_action :set_teacher, only:[:show, :edit, :update, :destroy]
 
   def new
-    unless user_is_admin?
-      clear_session
-    end
     @teacher = Teacher.new
   end
 
   def create
     @teacher = Teacher.new(teacher_params)
     if @teacher.save
+      session[:teacher] = 'true'
       login(@teacher, 'Welcome to EduLink')
     else
       render 'new'
@@ -51,6 +49,7 @@ class TeachersController < ApplicationController
     else
       @teacher.destroy
       flash[:notice] =  "#{@teacher.full_name}'s EduLink account has been deleted."
+      redirect_to teachers_path
     end
   end
 
@@ -62,11 +61,6 @@ class TeachersController < ApplicationController
 
   def set_teacher
     @teacher = Teacher.find(params[:id])
-  end
-
-  def clear_session
-    session.delete :teacher
-    session.delete :user_id
   end
 
 end

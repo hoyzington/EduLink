@@ -1,5 +1,5 @@
 <%= render 'layouts/errors', obj: @teacher %>
-<%= form_for @teacher, url: 'signup' do |f| %>
+<%= form_for @teacher do |f| %>
   <h3><%= f.label :id_number, "Teacher ID" %>
   <%= f.number_field :id_number %></h3>
   <h3><%= f.label :first_name, "First Name" %>

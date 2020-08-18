@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_is_teacher?
-    session[:teacher]
+    session[:teacher] == 'true'
   end
 
   def require_teacher

@@ -4,7 +4,9 @@
   <h1>Student: <%= @student_status.full_name %></h1>
   <h2>Student ID: <%= @student_status.id_number %></h2>
   <%= link_to_edit_student_status(@klass, @student_status) %> &nbsp;
-  <%= link_to "Back to Student List", klass_student_statuses_path(@klass) %>
+  <% unless user_is_admin? %>
+    <%= link_to "Back to Student List", klass_student_statuses_path(@klass) %>
+  <% end %>
   <br><br><br>
 <% else %>
   <h1><%= @klass.name %>, Period <%= @klass.period %></h1>

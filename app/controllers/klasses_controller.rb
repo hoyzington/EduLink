@@ -47,7 +47,7 @@ class KlassesController < ApplicationController
   def destroy
     @klass.destroy
     flash[:notice] = "The EduLink data for #{@klass.name}, Period #{@klass.period} has been deleted."
-    redirect_to teacher_klasses_path(current_user)
+    redirect_to teacher_klasses_path(@klass.teacher)
   end
 
   def year_end

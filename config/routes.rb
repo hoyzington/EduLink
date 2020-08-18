@@ -9,9 +9,9 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
 
   get 'teachers/signup', to: 'teachers#new'
-  post 'teachers/signup', to: 'teachers#create'
+#  post 'teachers/signup', to: 'teachers#create'
 
-  resources :teachers, except: [:new, :create] do
+  resources :teachers do
     get 'classes/new', to: 'klasses#new', as: :klasses_new
     get 'classes/:id/edit', to: 'klasses#edit', as: :klasses_edit
     get 'classes', to: 'klasses#index', as: :klasses
@@ -54,7 +54,7 @@ Rails.application.routes.draw do
   resources :quiz_grades, only:[:create, :update, :destroy]
 
   get 'students/signup', to: 'students#new'
-  post 'students/signup', to: 'students#create'
+#  post 'students/signup', to: 'students#create'
 
   resources :students, except:[:new] do
     get 'statuses/:id', to: 'student_statuses#show', as: :student_status

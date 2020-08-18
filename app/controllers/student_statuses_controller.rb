@@ -3,7 +3,7 @@ class StudentStatusesController < ApplicationController
   before_action :require_user, only:[:show]
   before_action :require_teacher, except:[:show]
   before_action :set_student_status, except:[:new, :create, :index, :index_non_edulink]
-  before_action :set_klass, except:[:edit]
+  before_action :set_klass, except:[:edit, :show]
   before_action :set_student_statuses, only:[:new, :create, :index]
 
   def new
@@ -42,6 +42,7 @@ class StudentStatusesController < ApplicationController
   end
 
   def show
+    @klass = @student_status.klass
     @late_homework = @student_status.late_homework(@klass.id).sort_by {|h| h.date}.reverse
     @quiz_grades = @student_status.quiz_grades
   end
@@ -77,7 +78,7 @@ class StudentStatusesController < ApplicationController
     if user_is_teacher?
       @klass = Klass.find(params[:class_id] || params[:klass_id] || params[:student_status][:klass_id])
     else
-      @klass = Klass.find(@student_status.klass_id)
+      @klass = @student_status.klass
     end
   end
 

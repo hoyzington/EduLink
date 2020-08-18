@@ -1,5 +1,7 @@
 module HomeworksHelper
 
+  FIRST_ID = 1
+
   def future_weekday_only
     if Time.now.friday?
       num = 3

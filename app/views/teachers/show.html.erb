@@ -12,7 +12,5 @@
   <%= link_to_new_klass %>
   <%= render 'klasses/teacher_klasses' %>
 <% end %>
-<br><br>
-<h3><%= link_to_students if user_is_admin? && @teacher == current_user %></h3>
-<br>
+<br><br><br>
 <h3><%= link_to_end_of_year_proceedure(@teacher) %></h3>
