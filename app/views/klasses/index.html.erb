@@ -1,5 +1,7 @@
 <h1><%= current_user.full_name %>'s Classes</h1>
 <% if user_is_teacher? %>
+  <%= link_to_new_klass %>
+  <br><br>
   <%= render 'teacher_klasses' %>
 <% else %>
   <%= render 'student_klasses' %>

@@ -5,7 +5,7 @@
 <h3>Teacher ID: <%= @teacher.id_number %></h3>
 <h3>Department: <%= @teacher.dept %></h3>
 <br>
-<%= link_to_edit_teacher if @teacher == current_user %>
+<%= link_to_edit_profile(@teacher) if @teacher == current_user %>
 <br><br><br>
 <% unless user_is_admin? && @teacher == current_user %>
   <h1>Classes</h1>
@@ -13,4 +13,4 @@
   <%= render 'klasses/teacher_klasses' %>
 <% end %>
 <br><br><br>
-<h3><%= link_to_end_of_year_proceedure(@teacher) %></h3>
+<h3><%= link_to_end_of_year_proceedure %></h3>

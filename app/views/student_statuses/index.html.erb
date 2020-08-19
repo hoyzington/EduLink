@@ -1,7 +1,7 @@
-<h1><%= klass_heading_and_link(@klass) %></h1>
+<h1><%= klass_heading_and_link %></h1>
 <br>
 <h2>Student List</h2>
-<h3><%= link_to_add_student_status(@klass) %></h3>
+<%= link_to_add_student_status %>
 <i><p>(A number after a students name indicates the number of incomplete homework assignments)</p>
 <p>(* No homework status--student not signed up with EduLink)</p></i>
 <% @student_statuses.each do |ss| %>

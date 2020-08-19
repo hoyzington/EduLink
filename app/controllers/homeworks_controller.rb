@@ -1,7 +1,7 @@
 class HomeworksController < ApplicationController
 
   before_action :require_user, only:[:update, :index_past]
-  before_action :require_teacher, except:[:udate, :index_past, ]
+  before_action :require_teacher, except:[:update, :index_past, ]
   before_action :set_homework, only:[:edit, :update, :show, :destroy]
   before_action :set_klass, except:[:destroy]
 
@@ -30,7 +30,7 @@ class HomeworksController < ApplicationController
         homeworks.each do |h|
           h.update(homework_params)
         end
-        flash[:notice] = "The homework assignment for #{@homework.date.strftime("%A, %m/%d/%y ")} has been updated."
+        flash[:notice] = "The homework assignment for #{@homework.date.strftime(day_format)} has been updated."
         redirect_to klass_future_homeworks_path(@klass)
       else
         render 'edit'
@@ -39,7 +39,7 @@ class HomeworksController < ApplicationController
       if @homework.update(homework_params)
         flash[:notice] = "The status of your homework assignment for #{@homework.klass.name} has been updated."
       end
-      if @homework.date.day == Time.now.day
+      if @homework.date.strftime("%y%m%d") == Time.now.strftime("%y%m%d")
         redirect_to student_path(current_user)
       else
         redirect_to klass_past_homeworks_path(@klass)

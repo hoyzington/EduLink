@@ -1,15 +1,15 @@
-<h1><%= klass_heading_and_link(@klass) %></h1>
+<h1><%= klass_heading_and_link %></h1>
 <h2>Future Homework Assignments</h2>
 <p>(Homework assignments can not be edited on or after the day they are assigned for)</p>
-<p><%= link_to_add_homework(@klass) %></p>
-<p><%= link_to_past_homework(@klass) %></p>
+<p><%= link_to_add_homework %></p>
+<p><%= link_to_past_homework %></p>
 <br><br>
 <% if @homeworks.size > 0 %>
   <% @homeworks.each do |homework| %>
     <% @homework = homework %>
     <h2>
       <%= homework.date.strftime(day_format) %>&nbsp;
-      <%= link_to_edit_homework(@klass, @homework) %>
+      <%= link_to_edit_homework %>
       &nbsp;<%= link_to_delete(@homework) unless user_is_admin? %>
     </h2>
     <%= render 'layouts/homework_display' %>

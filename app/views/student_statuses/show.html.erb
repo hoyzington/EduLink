@@ -1,9 +1,9 @@
 <% if user_is_teacher? %>
-  <h1><%= klass_heading_and_link(@klass) %></h1>
+  <h1><%= klass_heading_and_link %></h1>
   <br>
   <h1>Student: <%= @student_status.full_name %></h1>
   <h2>Student ID: <%= @student_status.id_number %></h2>
-  <%= link_to_edit_student_status(@klass, @student_status) %> &nbsp;
+  <%= link_to_edit_student_status %> &nbsp;
   <% unless user_is_admin? %>
     <%= link_to "Back to Student List", klass_student_statuses_path(@klass) %>
   <% end %>
@@ -18,21 +18,11 @@
   <h3>
     Chapter <%= q.number %>: &nbsp;<%= q.grade %>%
     <% if user_is_teacher? %>
-      <% @q = q %>
-      &nbsp;<%= link_to_edit_quiz_grade(@klass, @q) %>
+      <% @quiz_grade = q %>
+      &nbsp;<%= link_to_edit_quiz_grade %>
     <% end %>
   </h3>
 <% end %>
 <br><br>
 <h1>Late Homework Assignments</h1>
-<br>
-<% if @late_homework.count > 0 %>
-  <% @late_homework.each do |h| %>
-    <% @homework = h %>
-    <h3><%= h.date.strftime(day_format) %></h3>
-    <%= render 'layouts/homework_display' %>
-    <br>
-  <% end %>
-<% else %>
-  <h3>None</h3>
-<% end %>
+<%= render 'layouts/homeworks' %>
