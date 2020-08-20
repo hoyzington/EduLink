@@ -13,7 +13,7 @@ class HomeworksController < ApplicationController
     @homework = homework_for_first_student
     if @homework.save
       @student_statuses = @klass.student_statuses.select {|ss| ss.student_id > FIRST_ID}
-      homework_for_remaining_students(@student_statuses)
+      homework_for_remaining_students
       redirect_to klass_homeworks_new_path(@klass)
     else
       render 'new'
@@ -26,10 +26,7 @@ class HomeworksController < ApplicationController
   def update
     if user_is_teacher?
       if @homework.update(homework_params)
-        homeworks = @klass.homeworks.select {|h| h.date == @homework.date}
-        homeworks.each do |h|
-          h.update(homework_params)
-        end
+        update_for_remaining_students
         flash[:notice] = "The homework assignment for #{@homework.date.strftime(day_format)} has been updated."
         redirect_to klass_future_homeworks_path(@klass)
       else
@@ -39,7 +36,7 @@ class HomeworksController < ApplicationController
       if @homework.update(homework_params)
         flash[:notice] = "The status of your homework assignment for #{@homework.klass.name} has been updated."
       end
-      if @homework.date.strftime("%y%m%d") == Time.now.strftime("%y%m%d")
+      if @homework.date.today?
         redirect_to student_path(current_user)
       else
         redirect_to klass_past_homeworks_path(@klass)
@@ -48,7 +45,7 @@ class HomeworksController < ApplicationController
   end
 
   def index_future
-    hw = @klass.homeworks_by_student(FIRST_ID)
+    hw = @klass.homeworks.by_student(FIRST_ID)
     @homeworks = hw.select {|h| h.future?}
   end
 
@@ -61,7 +58,7 @@ class HomeworksController < ApplicationController
   end
 
   def index_late
-    @late_homeworks = @klass.homeworks.select {|h| h.past? && h.done == false}.sort_by {|h| h.date}.reverse
+    @late_homeworks = @klass.homeworks.not_done.order(:date).reverse
   end
 
   def destroy
@@ -87,24 +84,32 @@ class HomeworksController < ApplicationController
   end
 
   def set_klass
-    @klass = Klass.find(params[:class_id] || params[:homework][:klass_id] || params[:id])
+    @klass = Klass.find(params[:klass_id] || params[:homework][:klass_id] || params[:id])
   end
 
   def homework_for_first_student
     homework = Homework.new(homework_params)
-    homework.student_id = FIRST_ID
-    homework.done = true
-    homework
+    homework.tap do |hw|
+      hw.student_id = FIRST_ID
+      hw.done = true
+    end
   end
 
-  def homework_for_remaining_students(student_statuses)
-    student_statuses.each do |s|
+  def homework_for_remaining_students
+    @student_statuses.each do |s|
       hw = Homework.new(homework_params)
       hw.student_id = s.student_id
       if hw.read == 'None' && hw.exercises == 'None' && hw.other == 'None'
         hw.done = true
       end
       hw.save
+    end
+  end
+
+  def update_for_remaining_students
+    homeworks = @klass.homeworks.select {|h| h.date == @homework.date}
+    homeworks.each do |h|
+      h.update(homework_params)
     end
   end
 

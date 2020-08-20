@@ -19,9 +19,7 @@ class SessionsController < ApplicationController
     if @student
       login(@student, 'Welcome back')
     else
-      info = auth[:info]
-      fb_name = info[:name].split
-      @student = Student.new(email: info[:email], first_name: fb_name.first, last_name: (fb_name.last if fb_name.count > 1))
+      @student = Student.new(attributes_from_omniauth)
       session[:oauth] = 'true'
       render 'students/finish_profile'
     end
@@ -40,6 +38,11 @@ class SessionsController < ApplicationController
 
   def find_teacher_or_student
     Teacher.find_by(email: params[:session][:email].downcase) || Student.find_by(email: params[:session][:email].downcase)
+  end
+
+  def attributes_from_omniauth
+    fb_name = auth[:info][:name].split
+    {email: auth[:info][:email], first_name: fb_name.first, last_name: (fb_name.last if fb_name.count > 1)}
   end
 
 end

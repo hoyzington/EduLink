@@ -8,8 +8,17 @@ class StudentStatus < ApplicationRecord
   validates_presence_of :first_name
   validates_presence_of :last_name
 
+  def link_with_student
+    student = Student.find_by(id_number: self.id_number)
+    self.student = student || Student.find(FIRST_ID)
+  end
+
+  def self.list
+    self.order(:last_name, :first_name).select {|ss| ss.id_number > FIRST_ID}
+  end
+
   def late_homework(klass_id)
-    self.student.homeworks.select {|h| h.klass_id == klass_id && h.past? && h.done == false}
+    self.student.homeworks.select {|h| h.klass_id == klass_id && h.not_done}
   end
 
   def delete_homework
@@ -18,8 +27,8 @@ class StudentStatus < ApplicationRecord
     student_klass_homework.each {|h| h.delete}
   end
 
-  def delete_quiz_grades
-    self.quiz_grades.each {|q| q.delete}
+  def self.not_on_edulink
+    self.order(:last_name, :first_name).select {|ss| ss.student_id == FIRST_ID && ss.id_number > FIRST_ID}
   end
 
 end

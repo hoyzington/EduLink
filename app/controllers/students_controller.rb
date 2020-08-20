@@ -17,7 +17,7 @@ class StudentsController < ApplicationController
       @student.errors[:student] << 'ID number is invalid'
       form_chooser
     elsif @student.save
-      @student_status.student_id = @student.id
+      @student_status.student = @student
       @student_status.save
       login(@student, 'Welcome to EduLink')
     else

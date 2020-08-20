@@ -7,13 +7,12 @@ class StudentStatusesController < ApplicationController
   before_action :set_student_statuses, only:[:new, :create, :index]
 
   def new
-    @student_status = StudentStatus.new(klass_id: params[:class_id])
+    @student_status = StudentStatus.new(klass_id: @klass.id)
   end
 
   def create
     @student_status = StudentStatus.new(status_params)
-    @student = Student.find_by(id_number: @student_status.id_number)
-    @student_status.student = @student || Student.find(FIRST_ID)
+    @student_status.link_with_student
     if @student_status.save
       flash[:notice] = "#{@student_status.full_name} was added successfully."
       redirect_to klass_student_statuses_new_path(@student_status.klass)
@@ -38,7 +37,7 @@ class StudentStatusesController < ApplicationController
   end
 
   def index_non_edulink
-    @student_statuses = @klass.non_edulink_students
+    @student_statuses = @klass.student_statuses.not_on_edulink
   end
 
   def show
@@ -54,7 +53,7 @@ class StudentStatusesController < ApplicationController
         redirect_to klass_student_statuses_path(@klass)
       else
         @student_status.delete_homework
-        @student_status.delete_quiz_grades
+        @student_status.quiz_grades.clear
         @student_status.destroy
         flash[:notice] = "#{@student_status.full_name} has been removed from #{@klass.name} in EduLink."
         redirect_to klass_student_statuses_path(@klass)
@@ -71,15 +70,11 @@ class StudentStatusesController < ApplicationController
   end
 
   def set_student_statuses
-    @student_statuses = @klass.students_in_order || []
+    @student_statuses = @klass.student_statuses.list || []
   end
 
   def set_klass
-    if user_is_teacher?
-      @klass = Klass.find(params[:class_id] || params[:klass_id] || params[:student_status][:klass_id])
-    else
-      @klass = @student_status.klass
-    end
+    @klass = Klass.find(params[:klass_id] || params[:student_status][:klass_id]) || @student_status.klass
   end
 
   def status_params

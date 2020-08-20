@@ -29,12 +29,12 @@ class ApplicationController < ActionController::Base
     session[:teacher] == 'true'
   end
 
-  def require_teacher
-    unauthorized unless user_is_teacher?
-  end
-
   def user_is_admin?
     user_is_teacher? && session[:user_id] == FIRST_ID
+  end
+
+  def require_teacher
+    unauthorized unless user_is_teacher?
   end
 
   def require_admin

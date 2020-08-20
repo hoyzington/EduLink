@@ -5,9 +5,8 @@ class QuizGradesController < ApplicationController
   before_action :set_klass
 
   def new
-    ss = @klass.student_statuses
-    @student_statuses = ss.select {|ss| ss.id_number > FIRST_ID}.sort_by {|s| s.last_name}
-    @quiz_num = generate_quiz_num(find_admin_or_first_student(ss))
+    @student_statuses = @klass.student_statuses.list
+    @quiz_num = generate_quiz_num
   end
 
   def create
@@ -31,9 +30,7 @@ class QuizGradesController < ApplicationController
 
   def edit
     @student_status = @quiz_grade.student_status
-    unless @student_status.klass.teacher == current_user
-      unauthorized
-    end
+    unauthorized unless @student_status.klass.teacher == current_user
   end
 
   def update
@@ -47,21 +44,22 @@ class QuizGradesController < ApplicationController
 
   private
 
-  def generate_quiz_num(student_status)
-    last_quiz = student_status.quiz_grades.last
-    last_quiz ? (last_quiz.number + 1) : 1
-  end
-
   def set_quiz_grade
     @quiz_grade = QuizGrade.find(params[:id])
   end
 
   def set_klass
-    @klass = Klass.find(params[:class_id] || params[:klass_id] || @quiz_grade.student_status.klass_id)
+    @klass = Klass.find(params[:klass_id]) || @quiz_grade.student_status.klass
   end
 
   def quiz_grade_params
     params.require(:quiz_grade).permit(:grade)
+  end
+
+  def generate_quiz_num
+    ss = find_admin_or_first_student(@klass.student_statuses)
+    last_quiz = ss.quiz_grades.last
+    last_quiz ? (last_quiz.number + 1) : 1
   end
 
 end

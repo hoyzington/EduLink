@@ -5,7 +5,7 @@
 <h2><%= link_to_klass_student_statuses %></h2>
 <%= link_to_add_student_status %>
 <% if @student_statuses.count > 1 %>
-  <h3>Not signed up with EduLink: <%= link_to @non_edulink_students.count, klass_non_edulink_path(@klass) %></h3>
+  <h3>Not signed up with EduLink: <%= link_to @nonlinked.count, klass_non_edulink_path(@klass) %></h3>
   <h3>With incomplete homework: <%= link_to @late_students.count, klass_late_homeworks_path(@klass) %></h3>
   <br>
   <h2><%= link_to_new_quiz_grades %></h2><br>

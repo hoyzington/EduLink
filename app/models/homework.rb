@@ -25,4 +25,20 @@ class Homework < ApplicationRecord
     self.date.strftime("%y%m%d") > Time.now.strftime("%y%m%d")
   end
 
+  def not_done
+    self.past? && self.done == false
+  end
+
+  def self.current(id)
+    self.by_student(id).detect {|h| h.assigned_for.today?}
+  end
+
+  def self.by_student(id)
+    self.select {|h| h.student_id == id}
+  end
+
+  def self.not_done
+    self.select {|h| h.past? && h.done == false}
+  end
+
 end

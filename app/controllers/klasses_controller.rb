@@ -13,7 +13,7 @@ class KlassesController < ApplicationController
     @klass = Klass.new(klass_params)
     @klass.dept = current_user.dept
     if @klass.save
-      @klass.create_first_student_status
+      create_first_student_status(@klass)
       flash[:notice] = "#{@klass.name} was added successfully."
       redirect_to teacher_klasses_new_path(current_user)
     else
@@ -37,11 +37,10 @@ class KlassesController < ApplicationController
   end
 
   def show
-    @homework = @klass.current_homework(FIRST_ID)
+    @homework = @klass.homeworks.current(FIRST_ID)
     @student_statuses = @klass.student_statuses
-    late_homeworks = @klass.homeworks.select {|h| h.past? && h.done == false}
-    @late_students = late_homeworks.map {|h| h.student.id_number }.uniq
-    @non_edulink_students = @klass.non_edulink_students
+    @late_students = students_with_late_homework
+    @nonlinked = @klass.student_statuses.not_on_edulink
   end
 
   def destroy
@@ -73,10 +72,20 @@ private
 
   def set_klasses_or_student_statuses
     if user_is_teacher?
-      @klasses = current_user.klasses.sort_by {|k| k[:period]}
+      @klasses = current_user.klasses.order(:period)
     else
       @student_statuses = current_user.student_statuses.sort_by {|ss| ss.klass[:period]}
     end
+  end
+
+  def create_first_student_status(klass)
+    s = Student.find_by(id_number: FIRST_ID)
+    klass.student_statuses.create(id_number: s.id_number, first_name: s.first_name, last_name: s.last_name, student_id: s.id)
+  end
+
+  def students_with_late_homework
+    late_homeworks = @klass.homeworks.not_done
+    late_homeworks.map {|h| h.student.id_number}.uniq
   end
 
 end
