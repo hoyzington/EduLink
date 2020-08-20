@@ -17,17 +17,22 @@ module HomeworksHelper
     60*60*24
   end
 
-  def homework_assigned?(assign_date)
-    !!@klass.homeworks.detect{|h| h.date.strftime(day_format) == assign_date.strftime(day_format)}
+  def homework_assigned?
+    !!@klass.homeworks.detect{|h| h.formatted_date == @date.strftime(day_format)}
   end
 
-  def fetch_homework(klass, assign_date)
-    homeworks = klass.homeworks.select {|h| h.student_id == FIRST_ID}
-    homeworks.detect {|h| h.date.strftime("%y%m%d") == assign_date.strftime("%y%m%d")}
+  def homework_for(date)
+    homeworks = @klass.homeworks.select {|h| h.student_id == FIRST_ID}
+    homeworks.detect {|h| h.date.strftime("%y%m%d") == date.strftime("%y%m%d")}
   end
 
-  def next_day(date)
-    date.friday? ? date += (add_day * 3) : date += add_day
+  def next_day
+    @date.friday? ? @date += (add_day * 3) : @date += add_day
+  end
+
+  def clickable_homework_to_edit
+    title = "✔ #{@date.strftime(day_format)}"
+    link_to title, klass_homeworks_edit_path(@klass, homework_for(@date))
   end
 
 end

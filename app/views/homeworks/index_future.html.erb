@@ -8,7 +8,7 @@
   <% @homeworks.each do |homework| %>
     <% @homework = homework %>
     <h2>
-      <%= homework.date.strftime(day_format) %>&nbsp;
+      <%= homework.formatted_date %>&nbsp;
       <%= link_to_edit_homework %>
       &nbsp;<%= link_to_delete(@homework) unless user_is_admin? %>
     </h2>

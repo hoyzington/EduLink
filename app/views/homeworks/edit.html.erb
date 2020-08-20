@@ -1,5 +1,5 @@
 <h1><%= klass_heading_and_link %></h1>
-<h2>Edit Homework Assignment for <%= @homework.date.strftime(day_format) %></h2>
+<h2>Edit Homework Assignment for <%= @homework.formatted_date %></h2>
 <h4><%= link_to "Back To Add New Homework Page", klass_homeworks_new_path(@klass) %></h4>
 <br>
 <b><%= link_to_delete(@homework) %></b>

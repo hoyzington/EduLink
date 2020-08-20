@@ -1,7 +1,7 @@
 <br>
-<% if @homeworks.count > 0 %>
+<% if @homeworks.any? %>
   <% @homeworks.each do |h| %>
-    <h3><%= h.date.strftime(day_format) %></h3>
+    <h3><%= h.formatted_date %></h3>
     <% @homework = h %>
     <% unless user_is_teacher? %>
       <%= render 'layouts/homework_status_selector' %>

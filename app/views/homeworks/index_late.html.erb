@@ -4,7 +4,7 @@
 <% @late_homeworks.each do |h| %>
   <% if date != h.date %>
     <br>
-    <h2><%= h.date.strftime(day_format) %></h2>
+    <h2><%= h.formatted_date %></h2>
     <% date = h.date %>
   <% end %>
   <h3><%= h.student.last_name_first %></h3>

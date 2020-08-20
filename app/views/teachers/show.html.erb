@@ -9,7 +9,7 @@
 <br><br><br>
 <% unless user_is_admin? && @teacher == current_user %>
   <h1>Classes</h1>
-  <%= link_to_new_klass %>
+  <%= link_to_add_klass %>
   <%= render 'klasses/teacher_klasses' %>
 <% end %>
 <br><br><br>

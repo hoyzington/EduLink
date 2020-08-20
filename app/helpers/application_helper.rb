@@ -52,7 +52,7 @@ module ApplicationHelper
     link_to "#{@klass.name}, Period #{@klass.period}", teacher_klass_path(current_user, @klass)
   end
 
-  def link_to_new_klass
+  def link_to_add_klass
     unless user_is_admin?
       link_to "Add A Class", teacher_klasses_new_path(current_user)
     end
@@ -90,7 +90,7 @@ module ApplicationHelper
 
   # QuizGrade Links
 
-  def link_to_new_quiz_grades
+  def link_to_add_quiz_grades
     unless user_is_admin?
       link_to "Enter Quiz Grades", klass_quiz_grades_new_path(@klass)
     end

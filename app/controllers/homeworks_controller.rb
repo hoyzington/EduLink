@@ -27,7 +27,7 @@ class HomeworksController < ApplicationController
     if user_is_teacher?
       if @homework.update(homework_params)
         update_for_remaining_students
-        flash[:notice] = "The homework assignment for #{@homework.date.strftime(day_format)} has been updated."
+        flash[:notice] = "The homework assignment for #{@homework.formatted_date} has been updated."
         redirect_to klass_future_homeworks_path(@klass)
       else
         render 'edit'
@@ -58,13 +58,13 @@ class HomeworksController < ApplicationController
   end
 
   def index_late
-    @late_homeworks = @klass.homeworks.not_done.order(:date).reverse
+    @late_homeworks = @klass.homeworks.not_done.sort_by {|h| h.date}.reverse
   end
 
   def destroy
     @klass = @homework.klass
     if @klass.teacher == current_user
-      date = @homework.date.strftime(day_format)
+      date = @homework.formatted_date
       @klass.delete_homework(@homework)
       flash[:notice] = "The homework assignment for #{date} has been deleted."
       redirect_to klass_future_homeworks_path(@klass)

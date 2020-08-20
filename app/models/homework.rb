@@ -41,4 +41,8 @@ class Homework < ApplicationRecord
     self.select {|h| h.past? && h.done == false}
   end
 
+  def formatted_date
+    self.date.strftime("%A, %m/%d/%y ")
+  end
+
 end

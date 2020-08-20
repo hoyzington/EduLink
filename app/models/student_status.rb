@@ -17,8 +17,8 @@ class StudentStatus < ApplicationRecord
     self.order(:last_name, :first_name).select {|ss| ss.id_number > FIRST_ID}
   end
 
-  def late_homework(klass_id)
-    self.student.homeworks.select {|h| h.klass_id == klass_id && h.not_done}
+  def late_homeworks(klass)
+    self.student.homeworks.select {|h| h.klass_id == klass.id && h.not_done}
   end
 
   def delete_homework
