@@ -22,7 +22,7 @@ module HomeworksHelper
   end
 
   def homework_for(date)
-    homeworks = @klass.homeworks.select {|h| h.student_id == FIRST_ID}
+    homeworks = @klass.homeworks.select {|h| h.is_default}
     homeworks.detect {|h| h.date.strftime("%y%m%d") == date.strftime("%y%m%d")}
   end
 

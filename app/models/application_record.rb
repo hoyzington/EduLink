@@ -14,4 +14,12 @@ class ApplicationRecord < ActiveRecord::Base
     "#{self.last_name}, #{self.first_name}"
   end
 
+  def is_default
+    if self.class == StudentStatus
+      self.id_number == FIRST_ID
+    else
+      self.id_number == FIRST_ID || self.student_id == FIRST_ID || self.id == FIRST_ID
+    end
+  end
+
 end

@@ -1,6 +1,4 @@
 <h1>All Teachers</h1>
 <% @teachers.each do |teacher| %>
-  <% unless teacher.id == 1 %>
-    <h3><%= link_to teacher.last_name_first, teacher %></h3>
-  <% end %>
+  <h3><%= link_to teacher.last_name_first, teacher %></h3>
 <% end %>

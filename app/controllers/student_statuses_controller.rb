@@ -48,7 +48,7 @@ class StudentStatusesController < ApplicationController
 
   def destroy
     if user_is_admin? || @klass.teacher == current_user
-      if @student_status.id_number == FIRST_ID
+      if @student_status.is_default
         flash[:alert] = "This default student profile must remain as long as #{@klass.name} exists."
         redirect_to klass_student_statuses_path(@klass)
       else

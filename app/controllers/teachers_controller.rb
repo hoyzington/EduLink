@@ -31,7 +31,7 @@ class TeachersController < ApplicationController
   end
 
   def index
-    @teachers = Teacher.order(:last_name, :first_name)
+    @teachers = Teacher.order(:last_name, :first_name).select {|t| !t.admin?}
   end
 
   def show

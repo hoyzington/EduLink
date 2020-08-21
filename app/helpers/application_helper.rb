@@ -12,8 +12,16 @@ module ApplicationHelper
 
 # Flexible Links
 
+  def link_to_edulink
+    link_to "#{current_user.first_name}'s EduLink", home_path
+  end
+
+  def link_to_logout
+    link_to "Log Out", logout_path, method: :delete
+  end
+
   def link_to_delete(obj)
-    unless (obj.class == Teacher) && (obj.id_number == FIRST_ID)
+    unless (obj.class == Teacher) && (obj.is_default)
       if obj.class == Teacher
         title = 'Delete Teacher'
       elsif obj.class == Klass

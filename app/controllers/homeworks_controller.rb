@@ -12,7 +12,7 @@ class HomeworksController < ApplicationController
   def create
     @homework = homework_for_first_student
     if @homework.save
-      @student_statuses = @klass.student_statuses.select {|ss| ss.student_id > FIRST_ID}
+      @student_statuses = @klass.student_statuses.select {|ss| !ss.is_default_or_nonlinked}
       homework_for_remaining_students
       redirect_to klass_homeworks_new_path(@klass)
     else

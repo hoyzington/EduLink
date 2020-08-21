@@ -14,7 +14,7 @@ class StudentStatus < ApplicationRecord
   end
 
   def self.list
-    self.order(:last_name, :first_name).select {|ss| ss.id_number > FIRST_ID}
+    self.order(:last_name, :first_name).select {|ss| !ss.is_default}
   end
 
   def late_homeworks(klass)
@@ -22,13 +22,17 @@ class StudentStatus < ApplicationRecord
   end
 
   def delete_homework
-    student_homework = self.student.homeworks
-    student_klass_homework = student_homework.select {|h| h.klass == self.klass}
-    student_klass_homework.each {|h| h.delete}
+    student_homeworks = self.student.homeworks
+    student_klass_homeworks = student_homeworks.select {|h| h.klass == self.klass}
+    student_klass_homeworks.each {|h| h.delete}
   end
 
   def self.not_on_edulink
-    self.order(:last_name, :first_name).select {|ss| ss.student_id == FIRST_ID && ss.id_number > FIRST_ID}
+    self.order(:last_name, :first_name).select {|ss| ss.is_default_or_nonlinked && !ss.is_default}
+  end
+
+  def is_default_or_nonlinked
+    self.student_id == 1
   end
 
 end
