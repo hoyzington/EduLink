@@ -10,7 +10,11 @@ module ApplicationHelper
     Time.now.on_weekend? ? "This Weekend" : "Today (#{Time.now.strftime("%A")})"
   end
 
-# Flexible Links
+  def link_to_home
+    link_to 'Back', home_path
+  end
+
+  # Flexible Links
 
   def link_to_edulink
     link_to "#{current_user.first_name}'s EduLink", home_path
