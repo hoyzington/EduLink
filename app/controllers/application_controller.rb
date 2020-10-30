@@ -34,7 +34,6 @@ class ApplicationController < ActionController::Base
   end
 
   def require_teacher
-    # byebug
     unauthorized unless user_is_teacher?
   end
 
@@ -53,7 +52,6 @@ class ApplicationController < ActionController::Base
   def login(user, welcome)
     session[:user_id] = user.id
     session[:teacher] = 'true' if user.class == Teacher
-    # byebug
     flash[:notice] = "#{welcome}, #{user.first_name}!"
     redirect_to user
   end
