@@ -3,10 +3,20 @@ class SessionsController < ApplicationController
   def new
   end
 
+  # def create
+  #   @user = find_teacher_or_student
+  #   if @user && @user.authenticate(params[:session][:password])
+  #     session[:teacher] = 'true' if @user.class == Teacher
+  #     login(@user, 'Welcome back')
+  #   else
+  #     flash[:alert] = "There was something wrong with your login details."
+  #     redirect_to login_path
+  #   end
+  # end
+
   def create
-    @user = find_teacher_or_student
+    @user = find_teacher_or_student(params[:session])
     if @user && @user.authenticate(params[:session][:password])
-      session[:teacher] = 'true' if @user.class == Teacher
       login(@user, 'Welcome back')
     else
       flash[:alert] = "There was something wrong with your login details."
@@ -14,14 +24,30 @@ class SessionsController < ApplicationController
     end
   end
 
+  # def omniauth
+  #   @student = Student.find_by(email: auth[:info][:email])
+  #   if @student
+  #     login(@student, 'Welcome back')
+  #   else
+  #     @student = Student.new(attributes_from_omniauth)
+  #     session[:oauth] = 'true'
+  #     render 'students/finish_profile'
+  #   end
+  # end
+
   def omniauth
-    @student = Student.find_by(email: auth[:info][:email])
-    if @student
-      login(@student, 'Welcome back')
+    @user = params[:session] ? find_teacher_or_student(params[:session]) : nil
+    if @user
+      login(@user, 'Welcome back')
     else
       @student = Student.new(attributes_from_omniauth)
       session[:oauth] = 'true'
-      render 'students/finish_profile'
+      if StudentStatus.find_by(first_name: @student.first_name, last_name: @student.last_name)
+        render 'students/finish_profile'
+      else
+        @teacher = Teacher.new(attributes_from_omniauth)
+        render 'teachers/finish_profile'
+      end
     end
   end
 
@@ -36,8 +62,12 @@ class SessionsController < ApplicationController
     request.env['omniauth.auth']
   end
 
-  def find_teacher_or_student
-    Teacher.find_by(email: params[:session][:email].downcase) || Student.find_by(email: params[:session][:email].downcase)
+  # def find_teacher_or_student
+  #   Teacher.find_by(email: params[:session][:email].downcase) || Student.find_by(email: params[:session][:email].downcase)
+  # end
+
+  def find_teacher_or_student(hash)
+    Teacher.find_by(email: hash[:email].downcase) || Student.find_by(email: hash[:email].downcase)
   end
 
   def attributes_from_omniauth

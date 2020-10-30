@@ -3,7 +3,7 @@ class StudentStatusesController < ApplicationController
   before_action :require_user, only:[:show]
   before_action :require_teacher, except:[:show]
   before_action :set_student_status, except:[:new, :create, :index, :index_non_edulink]
-  before_action :set_klass, except:[:edit, :show]
+  before_action :set_klass, except:[:edit, :show, :destroy]
   before_action :set_student_statuses, only:[:new, :create, :index]
 
   def new
@@ -47,19 +47,15 @@ class StudentStatusesController < ApplicationController
   end
 
   def destroy
-    if user_is_admin? || @klass.teacher == current_user
-      if @student_status.is_default
-        flash[:alert] = "This default student profile must remain as long as #{@klass.name} exists."
-        redirect_to klass_student_statuses_path(@klass)
-      else
-        @student_status.delete_homework
-        @student_status.quiz_grades.clear
-        @student_status.destroy
-        flash[:notice] = "#{@student_status.full_name} has been removed from #{@klass.name} in EduLink."
-        redirect_to klass_student_statuses_path(@klass)
-      end
+    if @student_status.is_default
+      flash[:alert] = "This default student profile must remain as long as your class exists."
+      redirect_to current_user
     else
-      unauthorized
+      @student_status.delete_homework
+      @student_status.quiz_grades.clear
+      @student_status.destroy
+      flash[:notice] = "#{@student_status.full_name} has been removed from your class in EduLink."
+      redirect_to current_user
     end
   end
 

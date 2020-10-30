@@ -2,14 +2,15 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
-gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
+# gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
-gem 'puma', '~> 4.1'
+# gem 'puma', '~> 4.1'
+gem 'puma', '~> 5.0', '>= 5.0.4'
 
 gem 'thin', '~> 1.7', '>= 1.7.2'
 
@@ -25,9 +26,9 @@ gem 'jbuilder', '~> 2.7'
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-gem 'omniauth', '~> 1.9', '>= 1.9.1'
-gem 'omniauth-facebook', '~> 6.0'
-gem 'omniauth-instagram', '~> 1.3'
+
+gem 'omniauth-facebook', '~> 8.0'
+# gem 'omniauth-instagram', '~> 1.3'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -54,4 +55,4 @@ group :production do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

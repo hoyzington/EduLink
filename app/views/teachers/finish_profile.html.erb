@@ -1,0 +1,15 @@
+<%= render 'layouts/errors', obj: @teacher %>
+<h2>Please complete your profile information</h2><br>
+<%= form_for @teacher do |f| %>
+  <h3><%= f.label :id_number, "Teacher ID" %>
+  <%= f.number_field :id_number %></h3>
+  <h3><%= f.label :first_name, "First Name" %>
+  <%= f.text_field :first_name %></h3>
+  <h3><%= f.label :last_name, "Last Name" %>
+  <%= f.text_field :last_name %></h3>
+  <h3><%= f.label :dept, "Department" %>
+  <%= f.text_field :dept %></h3>
+  <h3><%= f.hidden_field :email %>
+  <h3><%= f.submit "Submit" %></h3>
+<% end %>
+<br>

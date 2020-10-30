@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  helper_method :current_user, :logged_in?, :require_user, :user_is_teacher?, :user_is_admin?, :find_admin_or_first_student, :unauthorized
+  helper_method :current_user, :logged_in?, :require_user, :user_is_teacher?, :user_is_admin?, :require_teacher, :require_admin, :require_student, :find_admin_or_first_student, :login, :unauthorized, :day_format, :choose_form, :oauth?
 
   FIRST_ID = 1
 
@@ -34,6 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_teacher
+    # byebug
     unauthorized unless user_is_teacher?
   end
 
@@ -51,6 +52,8 @@ class ApplicationController < ActionController::Base
 
   def login(user, welcome)
     session[:user_id] = user.id
+    session[:teacher] = 'true' if user.class == Teacher
+    # byebug
     flash[:notice] = "#{welcome}, #{user.first_name}!"
     redirect_to user
   end
@@ -61,6 +64,18 @@ class ApplicationController < ActionController::Base
 
   def day_format
     "%A, %m/%d/%y "
+  end
+
+  def choose_form
+    if oauth?
+      render 'finish_profile'
+    else
+      render 'new'
+    end
+  end
+
+  def oauth?
+    session[:oauth] == 'true'
   end
 
 end
