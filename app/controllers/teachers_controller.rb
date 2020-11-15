@@ -2,7 +2,7 @@ class TeachersController < ApplicationController
 
   before_action :set_teacher, only:[:show, :edit, :update, :destroy]
   before_action :require_teacher, only:[:edit, :update, :show]
-  before_action :require_admin, only:[:index, :destroy]
+  before_action :require_admin, only:[:new, :create, :index, :destroy]
 
   def new
     @teacher = Teacher.new
@@ -10,11 +10,11 @@ class TeachersController < ApplicationController
 
   def create
     @teacher = Teacher.new(teacher_params)
-    @teacher.password = SecureRandom.hex if oauth?
     if @teacher.save
-      login(@teacher, 'Welcome to EduLink')
+      flash[:notice] = "#{@teacher.full_name} has been added to EduLink."
+      redirect_to teacher_path(current_user)
     else
-      choose_form
+      render 'new'
     end
   end
 

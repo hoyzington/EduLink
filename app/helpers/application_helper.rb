@@ -47,9 +47,11 @@ module ApplicationHelper
   # Admin Links
 
   def link_to_end_of_year_proceedure
-    if user_is_admin? && @teacher == current_user
-      link_to "End Of Year Proceedure", teacher_end_of_year_path(current_user)
-    end
+    link_to "End Of Year Proceedure", teacher_end_of_year_path(current_user)
+  end
+
+  def link_to_add_teacher
+    link_to 'Add New Teacher', new_teacher_path
   end
 
   def link_to_students
