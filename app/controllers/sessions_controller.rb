@@ -23,8 +23,7 @@ class SessionsController < ApplicationController
       if StudentStatus.find_by(first_name: @student.first_name, last_name: @student.last_name)
         render 'students/finish_profile'
       else
-        @teacher = Teacher.new(attributes_from_omniauth)
-        render 'teachers/finish_profile'
+        redirect_to home_path, alert: 'You are currently not enrolled in any William McKinley High School classes. If you have any questions, please contact the office at 000-000-0000.'
       end
     end
   end

@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+body { padding: 0px 15px; }
+a:link { text-decoration: none; }
+.alert { color: brown; }
+.notice { color: forestgreen; }
