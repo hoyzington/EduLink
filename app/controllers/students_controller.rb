@@ -48,8 +48,10 @@ class StudentsController < ApplicationController
   def destroy
     if user_is_teacher?
       if user_is_admin?
-        @student_status = StudentStatus.find_by(id_number: @student.id_number)
-        destroy_student_status_etc(@student_status)
+        @student_statuses = StudentStatus.where(id_number: @student.id_number)
+        @student_statuses.each do |ss|
+          destroy_student_status_etc(ss)
+        end
         @student.destroy
         flash[:notice] = 'Student was successfully deleted from EduLink'
         redirect_to students_path
