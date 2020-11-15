@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
       if !@current_user
         session.clear
         redirect_to root_path
+      else
+        @current_user
       end
     end
   end
