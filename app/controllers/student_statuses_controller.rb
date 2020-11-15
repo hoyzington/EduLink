@@ -51,9 +51,7 @@ class StudentStatusesController < ApplicationController
       flash[:alert] = "This default student profile must remain as long as your class exists."
       redirect_to current_user
     else
-      @student_status.delete_homework
-      @student_status.quiz_grades.clear
-      @student_status.destroy
+      destroy_student_status_etc(@student_status)
       flash[:notice] = "#{@student_status.full_name} has been removed from your class in EduLink."
       redirect_to current_user
     end

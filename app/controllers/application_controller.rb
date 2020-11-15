@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  helper_method :current_user, :logged_in?, :require_user, :user_is_teacher?, :user_is_admin?, :require_teacher, :require_admin, :require_student, :find_admin_or_first_student, :login, :unauthorized, :day_format, :choose_form, :oauth?
+  helper_method :current_user, :logged_in?, :require_user, :user_is_teacher?, :user_is_admin?, :require_teacher, :require_admin, :require_student, :find_admin_or_first_student, :login, :unauthorized, :day_format, :choose_form, :oauth?, :destroy_student_status_etc
 
   FIRST_ID = 1
 
@@ -76,4 +76,9 @@ class ApplicationController < ActionController::Base
     session[:oauth] == 'true'
   end
 
+  def destroy_student_status_etc(student_status)
+    student_status.delete_homework
+    student_status.quiz_grades.clear
+    student_status.destroy
+  end
 end

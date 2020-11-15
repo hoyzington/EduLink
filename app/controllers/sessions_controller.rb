@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
   end
 
   def omniauth
-    @user = params[:session] ? find_teacher_or_student(params[:session]) : nil
+    @user = find_teacher_or_student(auth[:info])
     if @user
       login(@user, 'Welcome back')
     else

@@ -22,8 +22,7 @@ class Klass < ApplicationRecord
   end
 
   def delete_homework(homework)
-    homeworks = self.homeworks.select {|h| h.date == homework.date}
-    homeworks.clear
+    self.homeworks.destroy_by(date: homework.date)
   end
 
 end
