@@ -4,5 +4,5 @@
   <h4>OTHER: <%= @homework.other %></h4>
   <h4>NOTES: <%= @homework.notes %></h4>
 <% else %>
-  <h4><em>No homework has been assigned for this day.</em></h4>
+  <h4><em>No homework has been assigned for <%= homework_when.downcase %>.</em></h4>
 <% end %>
