@@ -56,7 +56,7 @@ class KlassesController < ApplicationController
     QuizGrade.destroy_all
     Homework.destroy_all
     StudentStatus.all.each {|ss| ss.destroy unless ss.is_default}
-    flash[:notice] = 'The End Of Year Proceedure was performed.'
+    flash[:notice] = 'The End Of Year Procedure was performed.'
     redirect_to current_user
   end
 

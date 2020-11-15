@@ -3,5 +3,9 @@
 <h3>Student ID: <%= @student.id_number %></h3>
 <%= link_to_edit_profile(@student) unless user_is_teacher? %>
 <br><br>
-<h1>Homework For <%= homework_when %></h1>
-<%= render 'klasses/student_klasses' %>
+<% if @student.student_statuses.any? %>
+  <h1>Homework For <%= homework_when %></h1>
+  <%= render 'klasses/student_klasses' %>
+<% else %>
+  <h2><em>Nothing to see until school starts again!</em></h2>
+<% end %>
