@@ -1,6 +1,6 @@
 class KlassesController < ApplicationController
 
-  before_action :require_teacher, except:[:destroy, :year_end, :destroy_data]
+  before_action :require_teacher, except:[:index, :destroy, :year_end, :destroy_data]
   before_action :require_admin, only:[:destroy, :year_end, :destroy_data]
   before_action :set_klass, only: [:edit, :update, :show, :destroy]
   before_action :set_klasses_or_student_statuses, only: [:new, :create, :index]

@@ -2,7 +2,7 @@ class QuizGradesController < ApplicationController
 
   before_action :require_teacher
   before_action :set_quiz_grade, only: [:edit, :update]
-  before_action :set_klass
+  before_action :set_klass, except: [:update]
 
   def new
     @student_statuses = @klass.student_statuses.list
@@ -34,6 +34,7 @@ class QuizGradesController < ApplicationController
   end
 
   def update
+    @klass = @quiz_grade.student_status.klass
     if @quiz_grade.update(quiz_grade_params)
       flash[:notice] = "The quiz grade was successfully updated."
       redirect_to klass_student_status_path(@klass, @quiz_grade.student_status)
@@ -49,7 +50,7 @@ class QuizGradesController < ApplicationController
   end
 
   def set_klass
-    @klass = Klass.find(params[:klass_id]) || @quiz_grade.student_status.klass
+    @klass = Klass.find(params[:klass_id])
   end
 
   def quiz_grade_params

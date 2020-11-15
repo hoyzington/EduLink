@@ -23,7 +23,11 @@ class ApplicationRecord < ActiveRecord::Base
   # end
 
   def is_default
-    self.id_number == FIRST_ID
+    if self.class == Homework
+      self.student_id == FIRST_ID
+    else
+      self.id_number == FIRST_ID
+    end
   end
 
 end
