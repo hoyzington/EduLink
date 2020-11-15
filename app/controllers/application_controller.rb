@@ -7,9 +7,13 @@ class ApplicationController < ActionController::Base
   def current_user
     if session[:user_id]
       if session[:teacher]
-        @current_user ||= Teacher.find(session[:user_id])
+        @current_user ||= Teacher.find_by(id: session[:user_id])
       else
-        @current_user ||= Student.find(session[:user_id])
+        @current_user ||= Student.find_by(id: session[:user_id])
+      end
+      if !@current_user
+        session.clear
+        redirect_to root_path
       end
     end
   end
