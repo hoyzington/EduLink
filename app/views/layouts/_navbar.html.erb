@@ -12,5 +12,7 @@
         | <%= link_to_add_klass %>
       <% end %>
     <% end %>
+  <% elsif params[:action] == 'new' %>
+    <%= link_to_home %>
   <% end %>
 </nav>

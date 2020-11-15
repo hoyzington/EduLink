@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:session][:password])
       login(@user, 'Welcome back')
     else
-      flash[:alert] = "There was something wrong with your login details."
+      flash[:alert] = "No match for Email and/or Password in our database."
       redirect_to login_path
     end
   end
@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
       if StudentStatus.find_by(first_name: @student.first_name, last_name: @student.last_name)
         render 'students/finish_profile'
       else
-        redirect_to home_path, alert: 'You are currently not enrolled in any William McKinley High School classes. If you have any questions, please contact the office at 000-000-0000.'
+        redirect_to home_path, alert: 'There is no student enrolled in William McKinley High School with the first and last name you are using on Facebook. If you have any questions, please contact the office at 000-000-0000.'
       end
     end
   end
