@@ -27,7 +27,7 @@ class StudentStatus < ApplicationRecord
     student_klass_homeworks.each {|h| h.delete}
   end
 
-  def self.not_on_edulink
+  def self.non_edulink_students
     self.order(:last_name, :first_name).select {|ss| ss.is_default_or_nonlinked && !ss.is_default}
   end
 

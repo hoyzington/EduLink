@@ -36,8 +36,8 @@ class StudentStatusesController < ApplicationController
   def index
   end
 
-  def index_non_edulink
-    @student_statuses = @klass.student_statuses.not_on_edulink
+  def non_edulink_students
+    @student_statuses = @klass.student_statuses.non_edulink_students
   end
 
   def show

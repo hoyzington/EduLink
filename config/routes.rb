@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get 'classes/:klass_id/students/new', to: 'student_statuses#new', as: :klass_student_statuses_new
   get 'classes/:klass_id/students/:id/edit', to: 'student_statuses#edit', as: :klass_student_statuses_edit
   get 'classes/:klass_id/students', to: 'student_statuses#index', as: :klass_student_statuses
-  get 'classes/:klass_id/students_not_signed_up', to: 'student_statuses#index_non_edulink', as: :klass_non_edulink
+  get 'classes/:klass_id/non_edulink_students', to: 'student_statuses#non_edulink_students', as: :klass_non_edulink
   get 'classes/:klass_id/students/:id', to: 'student_statuses#show', as: :klass_student_status
 
   get '/student_statuses', to: 'student_statuses#new'
