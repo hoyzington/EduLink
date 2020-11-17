@@ -40,7 +40,7 @@ class KlassesController < ApplicationController
     @homework = @klass.homeworks.current(FIRST_ID)
     @student_statuses = @klass.student_statuses
     @late_students = students_with_late_homework
-    @nonlinked = @klass.student_statuses.not_on_edulink
+    @nonlinked = @klass.student_statuses.non_edulink_students
   end
 
   def destroy
