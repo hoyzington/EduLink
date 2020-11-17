@@ -82,14 +82,15 @@ end
 
 def h_data(students)
   array = []
-  chap_num = 1
   date = start_date(Time.now)
-  6.times do 
+  count = 0
+  until count == 6 do
+    chap_num = count
     students.each do |s|
-      done = (s.id_number == 0 ? true : false)
+      done = ((s.id_number == 1 || count != 5) ? true : false)
       array << {date: date, read: "Chapter #{chap_num}", exercises: "All from chapter #{chap_num}", other: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', notes: 'Dolore et perferendis, facilis quos odit quibusdam.', done: done, student_id: s.id}
     end
-    chap_num += 1
+    count += 1
     date = increment(date)
   end
   array
