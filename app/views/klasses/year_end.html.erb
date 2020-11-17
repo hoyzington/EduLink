@@ -4,4 +4,4 @@
 <p>This will delete the EduLink data for all students, including classes, homework, and quiz grades, but will not delete any student, teacher, or class profiles.</p>
 <p>Once performed, the procedure cannot be undone!</p>
 <br><br>
-<%= link_to 'Perform End Of Year Procedure', teacher_destroy_data_path(current_user), method: :post, data: { confirm: "Are you sure?" } %>
+<b><%= link_to 'Perform End Of Year Procedure', teacher_destroy_data_path(current_user), method: :post, data: { confirm: "Are you sure?" } %></b>
