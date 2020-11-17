@@ -87,7 +87,7 @@ def h_data(students)
   until count == 6 do
     chap_num = count
     students.each do |s|
-      done = ((s.id_number == 1 || count != 5) ? true : false)
+      done = ((s.id_number == 1 || count < 2) ? true : false)
       array << {date: date, read: "Chapter #{chap_num}", exercises: "All from chapter #{chap_num}", other: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', notes: 'Dolore et perferendis, facilis quos odit quibusdam.', done: done, student_id: s.id}
     end
     count += 1
