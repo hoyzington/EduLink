@@ -2,7 +2,7 @@ class StudentStatusesController < ApplicationController
 
   before_action :require_user, only:[:show]
   before_action :require_teacher, except:[:show]
-  before_action :set_student_status, except:[:new, :create, :index, :index_non_edulink]
+  before_action :set_student_status, except:[:new, :create, :index, :non_edulink_students]
   before_action :set_klass, except:[:edit, :show, :destroy]
   before_action :set_student_statuses, only:[:new, :create, :index]
 
