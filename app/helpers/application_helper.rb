@@ -25,7 +25,7 @@ module ApplicationHelper
   end
 
   def link_to_delete(obj)
-    unless (obj.class == Teacher) && (obj.is_default)
+    unless (obj.class == Teacher) && (obj.default?)
       if obj.class == Teacher
         title = 'Delete Teacher'
       elsif obj.class == Klass

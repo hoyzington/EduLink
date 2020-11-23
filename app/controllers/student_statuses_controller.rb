@@ -47,7 +47,7 @@ class StudentStatusesController < ApplicationController
   end
 
   def destroy
-    if @student_status.is_default
+    if @student_status.default?
       flash[:alert] = "This default student profile must remain as long as your class exists."
       redirect_to current_user
     else

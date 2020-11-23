@@ -7,7 +7,7 @@
 <% @student_statuses.each do |ss| %>
   <h3>
     <%= link_to ss.last_name_first, klass_student_status_path(@klass, ss) %>
-    <% if !ss.is_default_or_nonlinked %>
+    <% if !ss.default_or_nonlinked? %>
       <% qty = ss.late_homeworks(@klass).count %>
       <% if qty > 0 %>
         &nbsp;<b><%= qty %></b>

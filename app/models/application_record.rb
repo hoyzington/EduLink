@@ -14,7 +14,7 @@ class ApplicationRecord < ActiveRecord::Base
     "#{self.last_name}, #{self.first_name}"
   end
 
-  # def is_default
+  # def default?
   #   if self.class == StudentStatus
   #     self.id_number == FIRST_ID
   #   else
@@ -22,7 +22,7 @@ class ApplicationRecord < ActiveRecord::Base
   #   end
   # end
 
-  def is_default
+  def default?
     if self.class == Homework
       self.student_id == FIRST_ID
     else

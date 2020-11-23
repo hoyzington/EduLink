@@ -16,7 +16,7 @@ class Teacher < ApplicationRecord
   before_save {self.dept = self.dept.titlecase}
 
   def admin?
-    self.is_default
+    self.default?
   end
 
 end
