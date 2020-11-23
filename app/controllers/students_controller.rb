@@ -75,4 +75,16 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
   end
 
+  def choose_form
+    if oauth?
+      render 'finish_profile'
+    else
+      render 'new'
+    end
+  end
+
+  def oauth?
+    session[:oauth] == 'true'
+  end
+
 end

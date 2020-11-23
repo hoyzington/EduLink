@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  helper_method :current_user, :logged_in?, :require_user, :user_is_teacher?, :user_is_admin?, :require_teacher, :require_admin, :require_student, :find_admin_or_first_student, :login, :unauthorized, :day_format, :choose_form, :oauth?, :destroy_student_status_etc
+  helper_method :current_user, :logged_in?, :require_user, :user_is_teacher?, :user_is_admin?, :require_teacher, :require_admin, :require_student, :find_admin_or_first_student, :login, :unauthorized, :day_format, :destroy_student_status_etc
 
   FIRST_ID = 1
 
@@ -70,17 +70,7 @@ class ApplicationController < ActionController::Base
     "%A, %m/%d/%y "
   end
 
-  def choose_form
-    if oauth?
-      render 'finish_profile'
-    else
-      render 'new'
-    end
-  end
-
-  def oauth?
-    session[:oauth] == 'true'
-  end
+# StudentStatusesController & StudentsController
 
   def destroy_student_status_etc(student_status)
     student_status.delete_homework
