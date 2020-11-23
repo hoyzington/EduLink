@@ -1,4 +1,8 @@
 <h1>All EduLink Students</h1><br>
+<%= form_tag students_path, method: :get do %>
+  <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag "Search" %>
+<% end %><br>
 <% @students.each do |s| %>
   <h3><%= link_to s.last_name_first, student_path(s) %></h3>
 <% end %>

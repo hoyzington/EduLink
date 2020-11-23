@@ -14,4 +14,16 @@ class Student < ApplicationRecord
 
   before_save {self.email = self.email.downcase}
 
+  def self.visible
+    where('id > ?', '1')
+  end
+
+  def self.list
+    order(:last_name, :first_name)
+  end
+
+  def self.search(query)
+    where('first_name LIKE ? OR last_name LIKE ?', "%#{query}%", "%#{query}%")
+  end
+
 end
