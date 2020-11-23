@@ -4,6 +4,10 @@ module HomeworksHelper
 
 # Helper methods for displaying/formatting homework radio button text
 
+  def day_format
+    "%A, %m/%d/%y "
+  end
+
   def add_day
     60*60*24
   end

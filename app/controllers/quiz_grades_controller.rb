@@ -63,4 +63,8 @@ class QuizGradesController < ApplicationController
     last_quiz ? (last_quiz.number + 1) : 1
   end
 
+  def find_admin_or_first_student(array)
+    array.detect {|x| x.is_default}
+  end
+
 end

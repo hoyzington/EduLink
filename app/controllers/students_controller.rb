@@ -67,12 +67,16 @@ class StudentsController < ApplicationController
 
   private
 
-  def student_params
-    params.require(:student).permit(:id_number,:first_name, :last_name, :email, :password)
+  def require_student
+    unauthorized unless current_user.class == Student
   end
 
   def set_student
     @student = Student.find(params[:id])
+  end
+
+  def student_params
+    params.require(:student).permit(:id_number,:first_name, :last_name, :email, :password)
   end
 
   def choose_form

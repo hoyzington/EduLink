@@ -2,19 +2,19 @@ module ApplicationHelper
 
   FIRST_ID = 1
 
-  def day_format
-    "%A, %m/%d/%y "
-  end
+# Homework Display Helper
 
   def homework_when
     Time.now.on_weekend? ? "This Weekend" : "Today (#{Time.now.strftime("%A")})"
   end
 
+# Session Link
+
   def link_to_home
     link_to 'Back', home_path
   end
 
-  # Flexible Links
+# Flexible Links
 
   def link_to_edulink
     link_to "#{current_user.first_name}'s EduLink", home_path
@@ -44,7 +44,7 @@ module ApplicationHelper
     link_to 'Edit Profile', "/#{model}s/#{user.id}/edit"
   end
 
-  # Admin Links
+# Admin Links
 
   def link_to_end_of_year_proceedure
     link_to "End Of Year Proceedure", teacher_end_of_year_path(current_user)
@@ -102,7 +102,7 @@ module ApplicationHelper
     link_to "Students", klass_student_statuses_path(@klass) if @student_statuses.count > 1
   end
 
-  # QuizGrade Links
+# QuizGrade Links
 
   def link_to_add_quiz_grades
     unless user_is_admin?

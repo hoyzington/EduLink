@@ -1,8 +1,10 @@
 class ApplicationController < ActionController::Base
 
-  helper_method :current_user, :logged_in?, :require_user, :user_is_teacher?, :user_is_admin?, :require_teacher, :require_admin, :require_student, :find_admin_or_first_student, :login, :unauthorized, :day_format, :destroy_student_status_etc
+  helper_method :current_user, :user_is_teacher?, :user_is_admin?, :logged_in?, :require_user, :require_teacher, :require_admin, :login, :unauthorized, :destroy_student_status_etc
 
   FIRST_ID = 1
+
+# Uses:  Many controllers and views
 
   def current_user
     if session[:user_id]
@@ -20,17 +22,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def logged_in?
-    !!current_user
-  end
-
-  def require_user
-    if !logged_in?
-      flash[:alert] = "Please log in first."
-      redirect_to login_path
-    end
-  end
-
   def user_is_teacher?
     session[:teacher] == 'true'
   end
@@ -39,21 +30,34 @@ class ApplicationController < ActionController::Base
     user_is_teacher? && session[:user_id] == FIRST_ID
   end
 
+# Uses:  Here, PagesController, Navbar partial
+
+  def logged_in?
+    !!current_user
+  end
+
+# Uses:  Controllers:  StudentStatuses, Homeworks, Students
+
+  def require_user
+    if !logged_in?
+      flash[:alert] = "Please log in first."
+      redirect_to login_path
+    end
+  end
+
+# Uses:  Controllers:  All except Students
+
   def require_teacher
     unauthorized unless user_is_teacher?
   end
+
+# Uses:  Controllers:  Teachers, Klasses, Students
 
   def require_admin
     unauthorized unless user_is_admin?
   end
 
-  def require_student
-    unauthorized unless current_user.class == Student
-  end
-
-  def find_admin_or_first_student(array)
-    array.detect {|x| x.is_default}
-  end
+# Uses:  Controllers:  Sessions, Students
 
   def login(user, welcome)
     session[:user_id] = user.id
@@ -62,19 +66,18 @@ class ApplicationController < ActionController::Base
     redirect_to user
   end
 
+# Uses:  Controllers:  Teachers, Homeworks, QuizGrades
+
   def unauthorized
     redirect_to home_path, alert: "Unauthorized Action"
   end
 
-  def day_format
-    "%A, %m/%d/%y "
-  end
-
-# StudentStatusesController & StudentsController
+# Uses:  Controllers:  StudentStatuses, Students
 
   def destroy_student_status_etc(student_status)
     student_status.delete_homework
     student_status.quiz_grades.clear
     student_status.destroy
   end
+  
 end
