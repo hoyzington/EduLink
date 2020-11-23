@@ -66,6 +66,7 @@ class HomeworksController < ApplicationController
     if @klass.teacher == current_user
       date = @homework.formatted_date
       @klass.delete_homework(@homework)
+      @homework.destroy
       flash[:notice] = "The homework assignment for #{date} has been deleted."
       redirect_to klass_future_homeworks_path(@klass)
     else
