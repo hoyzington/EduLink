@@ -29,7 +29,12 @@ module HomeworksHelper
 
   def clickable_homework_to_edit
     title = "✔ #{@date.strftime(day_format)}"
-    link_to title, klass_homeworks_edit_path(@klass, Homework.find_by(date: @date))
+    link_to title, klass_homeworks_edit_path(@klass, homework_for(@date))
+  end
+
+  def homework_for(date)
+    homeworks = @klass.homeworks.select {|h| h.default?}
+    homeworks.detect {|h| h.date.strftime("%y%m%d") == date.strftime("%y%m%d")}
   end
 
   def next_day
