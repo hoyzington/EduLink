@@ -18,7 +18,7 @@ class StudentStatus < ApplicationRecord
   end
 
   def late_homeworks(klass)
-    self.student.homeworks.select {|h| h.klass_id == klass.id && h.not_done}
+    self.student.homeworks.select {|h| (h.klass_id == klass.id) && (h.past?) && (h.done == false)}
   end
 
   def delete_homework
